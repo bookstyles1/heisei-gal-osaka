@@ -300,6 +300,31 @@ footer .wrap{padding-block:26px;display:flex;justify-content:space-between;gap:1
 
 :lang(ja) .hero h1 .gal,:lang(zh) .hero h1 .gal{font-size:1.22em}
 @media (max-width:600px){:lang(ja) .hero h1 .gal,:lang(zh) .hero h1 .gal{font-size:min(1.22em,14vw)}}
+
+/* glitter v3 (pop): fine, dense micro-flecks in white + pastel, deeper pink base; double sticker outline for punch */
+.hero h1 .gal{
+  background:
+    radial-gradient(circle at 20% 30%,#fff 0 .55px,transparent .9px) 0 0/5px 5px,
+    radial-gradient(circle at 70% 65%,#fff 0 .45px,transparent .8px) 0 0/7px 7px,
+    radial-gradient(circle at 40% 80%,#bff3ff 0 .5px,transparent .85px) 0 0/9px 9px,
+    radial-gradient(circle at 85% 15%,#fff6a8 0 .5px,transparent .85px) 0 0/11px 11px,
+    radial-gradient(circle at 55% 45%,#fff 0 .9px,transparent 1.3px) 0 0/17px 17px,
+    linear-gradient(110deg,#ff1f8a 0%,#ff3f9a 32%,#ff9fd0 46%,#ffffff 50%,#ff9fd0 54%,#ff3f9a 68%,#ff1f8a 100%) 0 0/260% 100%;
+  -webkit-background-clip:text;background-clip:text;
+  filter:drop-shadow(4px 0 0 #fff) drop-shadow(-4px 0 0 #fff) drop-shadow(0 4px 0 #fff) drop-shadow(0 -4px 0 #fff)
+         drop-shadow(2px 0 0 var(--ink)) drop-shadow(-2px 0 0 var(--ink)) drop-shadow(0 2px 0 var(--ink)) drop-shadow(0 -2px 0 var(--ink))
+         drop-shadow(5px 5px 0 var(--ink));
+  animation:glitter3 3.6s linear infinite}
+@keyframes glitter3{to{background-position:5px 5px,-7px 7px,9px -9px,-11px 11px,17px 17px,-260% 0}}
+.hero h1 > .gal{font-size:1.14em}
+:lang(ja) .hero h1 .gal,:lang(zh) .hero h1 .gal{font-size:1.36em}
+:lang(ko) .hero h1 .gal{font-size:1.2em}
+@media (max-width:600px){
+  .hero h1 > .gal{font-size:min(1.14em,10vw)}
+  :lang(ja) .hero h1 .gal,:lang(zh) .hero h1 .gal{font-size:min(1.36em,15vw)}
+  :lang(ko) .hero h1 .gal{font-size:min(1.2em,11vw)}
+}
+@media (prefers-reduced-motion:reduce){.hero h1 .gal{animation:none}}
 </style>
 
 <nav class="nav" aria-label="Main">
