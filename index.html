@@ -242,6 +242,10 @@ section{padding-block:clamp(64px,9vw,110px)}
 @media (max-width:820px){.book .wrap{grid-template-columns:1fr}}
 footer{background:var(--ink);color:#d9c3cf;font-size:.9rem}
 footer .wrap{padding-block:28px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+
+/* headline: pink shadow on the normal words only; the gal words keep just the dark shadow */
+.hero h1{background:none;-webkit-background-clip:border-box;background-clip:border-box;color:#f6f0fb;-webkit-text-fill-color:currentColor;filter:none;text-shadow:4px 4px 0 var(--pink)}
+.hero h1 .gal{color:var(--pink);-webkit-text-fill-color:var(--pink);text-shadow:4px 4px 0 var(--ink)}
 </style>
 
 <nav class="nav" aria-label="Main">
