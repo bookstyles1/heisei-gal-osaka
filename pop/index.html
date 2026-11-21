@@ -104,6 +104,11 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 /* photo: bubble frame */
 .hero-img{position:relative;display:block;width:min(86%,420px);aspect-ratio:4/5;height:auto;object-fit:cover;object-position:50% 28%;
   margin:28px auto 0;border:6px solid #fff;outline:3px solid var(--ink);border-radius:46% 54% 42% 58% / 52% 40% 60% 48%;box-shadow:12px 12px 0 var(--pink);z-index:1}
+@media (max-width:899px){
+  .hero-img{width:min(64%,280px);margin-top:22px}
+  .hero .wrap{padding-block:20px 48px}
+  .cover-tag{font-size:.74rem;letter-spacing:.06em;padding:5px 12px;white-space:nowrap;max-width:100%}
+}
 @media (min-width:900px){
   .hero .wrap>*{max-width:min(56%,640px)}
   .hero-img{position:absolute;margin:0;right:max(40px,6vw);top:50%;transform:translateY(-50%) rotate(3deg);width:min(34vw,430px)}
