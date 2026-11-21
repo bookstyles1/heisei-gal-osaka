@@ -1,0 +1,692 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Book Your Gal Day</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&family=Mochiy+Pop+One&family=Manrope:wght@400;600;800&display=swap">
+<style>
+:root{
+  --ink:#16080f;--paper:#ffe6f2;--paper-2:#fff6fa;--pink:#ff2e93;--pink-deep:#c2006b;--gold:#ffd54a;--muted:#6e4a5e;--line:#f0a9cb;
+  --f-display:"Dela Gothic One","Black Han Sans","PingFang SC","PingFang TC","Microsoft YaHei","Hiragino Sans",Impact,sans-serif;
+  --f-body:"Manrope","Helvetica Neue",Arial,"Hiragino Sans","Yu Gothic","Apple SD Gothic Neo","Malgun Gothic","PingFang SC","PingFang TC","Microsoft YaHei",sans-serif;
+  --f-lcd:"VT323","Courier New",monospace;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.6}
+:lang(ko){word-break:keep-all}
+p,li,label,legend{text-wrap:pretty}
+:lang(ja) h1,:lang(ja) h2{word-break:auto-phrase}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.wrap{max-width:820px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.top{background:var(--ink);color:#fff}
+.top .wrap{display:flex;justify-content:space-between;align-items:center;gap:12px;padding-block:12px;max-width:1120px;flex-wrap:wrap}
+.logo{font-family:var(--f-display);text-decoration:none;font-size:1.15rem;white-space:nowrap}
+.logo b{color:var(--pink);font-weight:400}
+.top-right{display:flex;align-items:center;gap:14px}
+.back{font-weight:600;font-size:.95rem;text-decoration:none;opacity:.85;white-space:nowrap}
+@media (max-width:520px){.back{display:none}}
+.lang{appearance:none;-webkit-appearance:none;background:transparent;color:#fff;border:2px solid #fff;border-radius:999px;padding:.4em 1.9em .4em .9em;font:600 .85rem var(--f-body);cursor:pointer;
+  background-image:linear-gradient(45deg,transparent 50%,#fff 50%),linear-gradient(135deg,#fff 50%,transparent 50%);background-position:calc(100% - 14px) 52%,calc(100% - 9px) 52%;background-size:5px 5px;background-repeat:no-repeat}
+.lang option{color:var(--ink);background:#fff}
+h1,h2{font-family:var(--f-display);font-weight:400;line-height:1.15;margin:0;text-wrap:balance}
+h1{font-size:clamp(2.1rem,7vw,3.4rem)}
+h2{font-size:1.5rem}
+.head{padding-block:44px 24px;display:grid;gap:18px}
+.stepper{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:8px}
+.stepper li{font-family:var(--f-body);font-weight:800;font-size:.92rem;padding:7px 16px;border-radius:999px;border:2px solid var(--ink);background:#fff}
+.stepper li.on{background:var(--pink);color:#fff}
+.stepper li.done{background:var(--ink);color:var(--gold)}
+.card{background:#fff;border:3px solid var(--ink);border-radius:18px;padding:clamp(18px,4vw,28px);display:grid;gap:16px;margin-bottom:24px}
+.card .num{font-family:var(--f-lcd);font-size:1.3rem;color:var(--pink-deep)}
+.card.locked{opacity:.55}
+.muted{color:var(--muted);margin:0}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.5em;font-family:var(--f-display);font-size:1.05rem;text-decoration:none;padding:.85em 1.6em;border-radius:999px;border:3px solid var(--ink);background:var(--pink);color:#fff;box-shadow:4px 4px 0 var(--ink);cursor:pointer}
+.btn:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--ink)}
+.btn.small{font-size:.9rem;padding:.6em 1.2em;background:#fff;color:var(--ink);box-shadow:3px 3px 0 var(--ink)}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.grid .full{grid-column:1/-1}
+@media (max-width:560px){.grid{grid-template-columns:1fr}}
+label{display:grid;gap:6px;font-weight:600;font-size:.95rem;min-width:0;align-content:start}
+label small,legend small{font-weight:400;color:var(--muted)}
+input,select,textarea{font:inherit;font-weight:400;padding:.7em .8em;border:2px solid var(--ink);border-radius:10px;background:#fff;color:var(--ink);width:100%}
+textarea{min-height:64px;resize:vertical}
+input:focus,select:focus,textarea:focus{outline:3px solid var(--gold);outline-offset:1px}
+.bad{outline:3px solid var(--pink)!important;border-color:var(--pink)!important}
+fieldset{border:0;margin:0;padding:0;display:grid;gap:10px;min-width:0}
+legend{font-weight:600;font-size:.95rem;margin-bottom:6px;padding:0}
+.plans{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+@media (max-width:560px){.plans{grid-template-columns:1fr 1fr}}
+.plans label{position:relative;display:block}
+.plans input{position:absolute;opacity:0;width:1px;height:1px}
+.plans span{display:grid;gap:2px;padding:12px;border:2px solid var(--ink);border-radius:12px;background:#fff;cursor:pointer;text-align:center}
+.plans span b{font-family:var(--f-lcd);font-size:1.3rem;font-weight:400}
+.plans span em{font-style:normal;font-size:.9rem;color:var(--muted)}
+.plans span i{font-style:normal;font-family:var(--f-display);font-size:1.05rem;font-variant-numeric:tabular-nums}
+.plans span small{font-size:.75rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.plans input:checked+span small{color:#fff}
+.fx{display:block;font-size:.82rem;font-weight:600;opacity:.8;font-variant-numeric:tabular-nums;font-family:var(--f-body)}
+.fx:empty{display:none}
+.fx-row{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center;font-size:.8rem;color:var(--muted);margin:10px 0 0}
+.fx-pick label{display:inline-flex;align-items:center;gap:6px;font-weight:600;font-size:.8rem}
+.fx-pick select{width:auto;padding:.2em .5em;font-size:.8rem;border:2px solid var(--ink);border-radius:8px;background:#fff;color:var(--ink)}
+.fx-pick[hidden]{display:none}
+.opt-box{border:2px dashed var(--line);border-radius:12px;padding:10px 14px}
+.opt-box summary{cursor:pointer;font-weight:600;font-size:.95rem}
+.opt-box[open] summary{margin-bottom:12px}
+#f-country-other[hidden]{display:none}
+@media (max-width:560px){
+  .head{padding-block:24px 14px;gap:12px}
+  .card{padding:14px;gap:12px;border-radius:14px}
+  h2{font-size:1.25rem}
+  label{font-size:.86rem;gap:4px}
+  input,select,textarea{padding:.5em .6em;border-radius:8px;font-size:16px}
+  .grid{gap:10px}
+  .guest{padding:10px;gap:8px}
+  .guest .grid{grid-template-columns:1fr 1fr}
+  .plans{gap:8px}
+  .plans span{padding:8px 4px}
+  .plans span b{font-size:1.15rem}
+  .rule{font-size:.88rem;padding:10px 12px}
+  .rule::before{font-size:1.3rem}
+}
+.plans input:checked+span{background:var(--pink);color:#fff}
+.plans input:checked+span em{color:#fff}
+.plans input:focus-visible+span{outline:3px solid var(--gold)}
+.guest{border:2px solid var(--line);border-radius:14px;padding:16px;display:grid;gap:12px;background:var(--paper-2)}
+.guest h3{margin:0;font-family:var(--f-lcd);font-size:1.3rem;font-weight:400;color:var(--pink-deep)}
+.check{display:flex;gap:10px;align-items:flex-start;font-weight:400}
+.check input{width:auto;margin-top:.3em;flex:none}
+.submit{display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between}
+.err{color:var(--pink-deep);font-weight:600;margin:0}
+.card>*{min-width:0}
+#form-body[hidden]{display:none!important}
+.locked-msg{border:2px dashed var(--line);border-radius:14px;padding:28px;text-align:center;background:var(--paper-2);font-weight:600}
+/* original booking calendar: purikura-style frame */
+.cal{border:3px solid var(--ink);border-radius:16px;background:#fff;box-shadow:6px 6px 0 var(--pink);overflow:hidden}
+.cal-top{display:flex;align-items:center;justify-content:space-between;gap:8px;background:var(--pink);color:#fff;padding:8px 10px}
+.cal-top h3{margin:0;font-family:var(--f-display);font-weight:400;font-size:1.15rem}
+.cal-nav{width:38px;height:38px;border-radius:50%;border:2px solid #fff;background:transparent;color:#fff;font-size:1.1rem;cursor:pointer;display:grid;place-items:center}
+.cal-nav[disabled]{opacity:.35;cursor:default}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;padding:10px}
+.cal-wd{text-align:center;font-family:var(--f-body);font-weight:700;font-size:.78rem;letter-spacing:.04em;color:var(--muted);padding-bottom:4px}
+.cal-wd.sun{color:var(--pink-deep)}
+.day{aspect-ratio:1/1;max-width:100%;border:2px solid transparent;border-radius:10px;background:var(--paper-2);font:inherit;font-weight:800;font-size:1.02rem;font-variant-numeric:tabular-nums;cursor:pointer;display:grid;place-items:center;align-content:center;gap:2px;padding:0;color:var(--ink)}
+.day small{display:block;width:6px;height:6px;border-radius:50%;background:var(--pink)}
+.day.few small{background:var(--gold);box-shadow:0 0 0 1px var(--ink)}
+.day:hover:not([disabled]){border-color:var(--ink)}
+.day[disabled]{background:transparent;color:#c9b3bf;cursor:default;font-weight:400}
+.day.full{text-decoration:line-through}
+.day.sel{background:var(--ink);color:var(--gold);border-color:var(--ink)}
+.day.blank{visibility:hidden}
+.slots{border-top:2px dashed var(--line);padding:12px 10px 14px;display:grid;gap:10px}
+.slots h4{margin:0;font-family:var(--f-body);font-weight:800;font-size:1rem;color:var(--pink-deep)}
+.slot-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}
+.slot{border:2px solid var(--ink);border-radius:12px;background:#fff;padding:10px;font:inherit;font-weight:700;cursor:pointer;display:grid;gap:2px;text-align:center;color:var(--ink)}
+.slot span{font-family:var(--f-body);font-size:1.12rem;font-weight:800;line-height:1.2;font-variant-numeric:tabular-nums;letter-spacing:.01em;white-space:nowrap}
+@media (max-width:420px){.slot span{font-size:.95rem}.slot{padding:10px 6px}}
+.slot em{font-style:normal;font-size:.8rem;color:var(--muted);font-weight:600}
+.slot:hover:not([disabled]){background:var(--pink);color:#fff}
+.slot:hover:not([disabled]) em{color:#fff}
+.slot[disabled]{opacity:.45;cursor:default;text-decoration:line-through}
+.slot.sel{background:var(--ink);color:var(--gold)}
+.cal-msg{padding:0 10px 12px;font-weight:600;color:var(--pink-deep);margin:0}
+.cal-legend{display:flex;gap:14px;flex-wrap:wrap;font-size:.82rem;color:var(--muted);padding:0 12px 10px}
+.cal-legend i{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--pink);margin-right:5px;vertical-align:middle}
+.cal-legend i.few{background:var(--gold);box-shadow:0 0 0 1px var(--ink)}
+.picked{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;background:var(--paper-2);border:2px solid var(--ink);border-radius:12px;padding:10px 14px;font-weight:700}
+.picked b{font-family:var(--f-display);font-weight:400}
+.demo{font-size:.8rem;color:var(--muted);margin:0}
+@media (max-width:560px){.cal-grid{gap:3px;padding:8px}.day{border-radius:8px;font-size:.9rem}.slot-list{grid-template-columns:1fr 1fr}}
+.booked{background:var(--gold);border:3px solid var(--ink);border-radius:14px;padding:16px;font-family:var(--f-display);text-align:center}
+.rule{display:flex;gap:12px;align-items:flex-start;background:var(--gold);border:3px solid var(--ink);border-radius:14px;padding:14px 16px;font-size:.98rem;box-shadow:4px 4px 0 var(--ink)}
+.rule::before{content:"10:00";flex:none;font-family:var(--f-lcd);font-size:1.6rem;line-height:1;background:var(--ink);color:var(--gold);border-radius:8px;padding:4px 8px}
+.hold{position:sticky;top:env(safe-area-inset-top,0px);z-index:8;background:var(--ink);color:#fff;text-align:center;padding:10px 16px;font-weight:600}
+.hold b{font-family:var(--f-body);font-size:1.15rem;font-weight:800;color:var(--gold);font-variant-numeric:tabular-nums}
+.hold.over{background:var(--pink-deep)}
+.btn[disabled]{opacity:.45;cursor:not-allowed;transform:none;box-shadow:4px 4px 0 var(--ink)}
+footer{background:var(--ink);color:#d9c3cf;font-size:.9rem;margin-top:40px}
+footer .wrap{padding-block:24px}
+</style>
+<link rel="stylesheet" href="pop-pages.css">
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <a class="logo" href="index.html">HEISEI <b>GAL</b> OSAKA</a>
+    <div class="top-right">
+      <a class="back" href="index.html" data-i18n="back">← Back to the site</a>
+      <label for="lang" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Language</label>
+      <select id="lang" class="lang">
+        <option value="en">English</option>
+        <option value="ja">日本語</option>
+        <option value="ko">한국어</option>
+        <option value="zh-Hans">简体中文</option>
+        <option value="zh-Hant">繁體中文</option>
+        <option value="fr">Français</option>
+        <option value="de">Deutsch</option>
+        <option value="de-CH">Deutsch (Schweiz)</option>
+      </select>
+    </div>
+  </div>
+</header>
+
+<div class="hold" id="hold" hidden role="status"></div>
+<main class="wrap">
+  <div class="head">
+    <ol class="stepper" aria-label="Booking steps">
+      <li class="on" id="step1" data-i18n="s1">1 Date</li>
+      <li id="step2" data-i18n="s2">2 Your details</li>
+      <li id="step3" data-i18n="s3">3 Payment</li>
+    </ol>
+    <h1 data-i18n="h1">Book your gal day</h1>
+    <p class="muted" data-i18n="intro">Pick a slot, tell us about your group, then pay online within 10 minutes.</p>
+    <p class="rule" data-i18n="rule10"><span><b>Pay within 10 minutes.</b> After you pick a slot, you have 10 minutes to enter your details and pay. If payment isn't completed in time, your booking is not confirmed and the slot is released.</span></p>
+  </div>
+
+  <!-- STEP 1: booking calendar -->
+  <section class="card" id="date">
+    <span class="num">STEP 1</span>
+    <h2 data-i18n="st1h">Pick your date and time</h2>
+    <p class="muted" data-i18n="st1p">Pick an open day and start time (Japan time). We hold the slot for 10 minutes while you fill in your details and pay.</p>
+    <div class="cal" id="cal">
+      <div class="cal-top">
+        <button type="button" class="cal-nav" id="cal-prev" aria-label="Previous month">‹</button>
+        <h3 id="cal-title">&nbsp;</h3>
+        <button type="button" class="cal-nav" id="cal-next" aria-label="Next month">›</button>
+      </div>
+      <div class="cal-grid" id="cal-grid" role="grid"></div>
+      <div class="cal-legend"><span><i></i><span data-i18n="avail">Open</span></span><span><i class="few"></i><span data-i18n="few">Few left</span></span></div>
+      <p class="cal-msg" id="cal-msg" hidden></p>
+      <div class="slots" id="slots" hidden>
+        <h4 id="slots-title"></h4>
+        <div class="slot-list" id="slot-list"></div>
+      </div>
+    </div>
+    <div class="picked" id="picked" hidden>
+      <span><span data-i18n="your_slot">Your slot</span>: <b id="picked-text"></b></span>
+      <button type="button" class="btn small" id="change" data-i18n="change">Change</button>
+    </div>
+    <div class="booked" id="booked" hidden data-i18n="booked">Slot held! Fill in your details below and pay within 10 minutes.</div>
+    <p class="demo" id="demo" hidden data-i18n="demo">Demo mode: bookings are not saved yet.</p>
+  </section>
+
+  <!-- STEP 2: details form, opens after a slot is picked -->
+  <form class="card locked" id="details" novalidate>
+    <span class="num">STEP 2</span>
+    <h2 data-i18n="st2h">Tell us about your group</h2>
+    <div class="locked-msg" id="locked" data-i18n="locked">Pick a slot above first. Then fill in your details here.</div>
+    <div id="form-body" hidden style="display:grid;gap:16px">
+    <fieldset>
+      <legend data-i18n="legend_plan">Plan</legend>
+      <div class="plans">
+        <label><input type="radio" name="plan" value="solo" id="plan-solo" checked><span><b>SOLO</b><em data-i18n="p1">1 person</em><i>¥90,000</i><span class="fx" data-yen="90000"></span></span></label>
+        <label><input type="radio" name="plan" value="duo" id="plan-duo"><span><b>DUO</b><em data-i18n="p2">2 people</em><i>¥140,000</i><span class="fx" data-yen="140000"></span><small>¥70,000 × 2</small></span></label>
+        <label><input type="radio" name="plan" value="trio" id="plan-trio"><span><b>TRIO</b><em data-i18n="p3">3 people</em><i>¥180,000</i><span class="fx" data-yen="180000"></span><small>¥60,000 × 3</small></span></label>
+        <label><input type="radio" name="plan" value="squad" id="plan-squad"><span><b>SQUAD</b><em data-i18n="p4">4 people</em><i>¥220,000</i><span class="fx" data-yen="220000"></span><small>¥55,000 × 4</small></span></label>
+      </div>
+      <p class="fx-row"><span class="fx-pick" hidden></span><span class="fx-note"></span></p>
+    </fieldset>
+
+    <div class="grid">
+      <label><span data-i18n="l_name">Full name</span><input type="text" name="name" id="f-name" autocomplete="name" required></label>
+      <label><span data-i18n="l_email">Email</span><input type="email" name="email" id="f-email" autocomplete="email" required></label>
+      <label><span><span data-i18n="l_wa">WhatsApp number</span> <small data-i18n="l_wa_s">with country code</small></span><input type="tel" name="whatsapp" id="f-wa" autocomplete="tel" placeholder="+1 555 123 4567" required></label>
+      <label><span data-i18n="l_country">Country</span>
+        <select name="country" id="f-country" required></select>
+        <input type="text" name="country_other" id="f-country-other" data-i18n-ph="c_other_ph" placeholder="Type your country" hidden>
+      </label>
+    </div>
+
+    <fieldset>
+      <legend><span data-i18n="legend_guest">Each guest</span> <small data-i18n="legend_guest_s">so your outfits are ready when you arrive</small></legend>
+      <div id="guests" style="display:grid;gap:12px"></div>
+    </fieldset>
+
+    <label><span><span data-i18n="l_allergy">Skin sensitivity or allergies</span> <small data-i18n="l_allergy_s">tell us anything we should know before makeup</small></span><textarea name="allergies" id="f-allergies" data-i18n-ph="ph_allergy" placeholder="e.g. sensitive to fragrance, none"></textarea></label>
+    <details class="opt-box">
+      <summary data-i18n="more">Optional: social media, hotel, requests</summary>
+      <div class="grid">
+        <label><span><span data-i18n="l_social">Instagram or TikTok</span> <small data-i18n="l_social_s">optional, so we can tag you</small></span><input type="text" name="social" id="f-social" placeholder="@yourname"></label>
+        <label><span data-i18n="l_hotel">Where are you staying?</span><input type="text" name="hotel" id="f-hotel" data-i18n-ph="ph_hotel" placeholder="Hotel name or area"></label>
+        <label class="full"><span><span data-i18n="l_notes">Anything else?</span> <small data-i18n="l_notes_s">outfit requests, special occasion, questions</small></span><textarea name="notes" id="f-notes"></textarea></label>
+      </div>
+    </details>
+
+    
+    <label class="check"><input type="checkbox" name="agree" id="f-agree" required><span data-i18n="agree">I understand that makeup is applied to my skin and that payment is non-refundable.</span></label>
+
+    <div class="submit">
+      <p class="err" id="err" role="alert" hidden data-i18n="err">Please fill in the highlighted fields.</p>
+      <button class="btn" type="submit" id="to-pay" data-i18n="submit">Continue to payment →</button>
+    </div>
+    </div>
+  </form>
+</main>
+
+<footer><div class="wrap">HEISEI GAL OSAKA · Shinsaibashi, Osaka, Japan</div></footer>
+
+<script>
+/* ===== 設定（ここだけ書き換える） ===== */
+// 予約システム（Google Apps Script）のWebアプリURL。空のままだとデモ表示（予約は保存されない）
+const GAS_URL = "https://script.google.com/macros/s/AKfycbzg6lCKw-3K2Nu4WYFioVUoEPYxGbzTt2XwlAz5QoZT3wxTtY4hMEhfO7FzFseBCYOu/exec";
+/* ===================================== */
+
+const EN_EXTRA = { pick_time:"Choose a start time", full:"Full", loading:"Loading availability…", err_net:"Couldn't reach the booking system. Please try again or message us on WhatsApp.", taken:"Sorry, that slot was just taken. Please pick another.", hold:"Slot held. Pay within <b>{t}</b> to confirm.", expired:"Time's up. Your booking is not confirmed. Please pick a slot again or message us on WhatsApp." };
+const EN_GUEST = { c_other:"Other", guest:"GUEST", g_name:"Name", g_height:"Height", g_size:"Clothing size", g_shoe:"Shoe size", g_shoe_s:"with unit, e.g. EU 38 / US 7", g_style:"Style", sty0:"Not sure yet", sty1:"Ganguro (tanned)", sty2:"Shiro-gal (fair)", choose:"Choose" };
+
+const I18N = {
+ja:{demo:"デモ表示：まだ予約は保存されません。",change:"変更",your_slot:"選んだ日時",taken:"その枠はちょうど埋まりました。別の枠を選んでください。",err_net:"予約システムにつながりませんでした。もう一度試すか、WhatsAppでご連絡ください。",loading:"空き状況を読み込み中…",few:"残りわずか",avail:"空きあり",full:"満席",pick_time:"開始時間を選ぶ",more:"任意：SNS・宿泊先・リクエスト",c_other_ph:"国名を入力",c_other:"その他",expired:"時間切れです。予約は確定していません。もう一度日時を選ぶか、WhatsAppでご連絡ください。",hold:"枠を確保中。<b>{t}</b> 以内のお支払いで予約確定です。",rule10:"<span><b>10分以内にお支払いください。</b>日時を選んでから10分以内に、情報の入力とお支払いを完了してください。時間内にお支払いが完了しない場合、予約は確定せず、枠は取り消されます。</span>",back:"← サイトに戻る",s1:"1 日時",s2:"2 情報入力",s3:"3 お支払い",h1:"ギャル体験を予約する",
+intro:"日時を選び、参加者の情報を入力して、10分以内にオンラインでお支払いください。",
+st1h:"日時を選ぶ",st1p:"空いている日と開始時間を選んでください（日本時間）。情報入力とお支払いのあいだ、枠を10分間確保します。",
+locked:"先に上のカレンダーで日時を選んでください。そのあと、ここで情報を入力します。",
+cal_p:"カレンダーが表示されない場合は、新しいタブで開いてください。",cal_btn:"カレンダーを開く",booked:"枠を確保しました。10分以内に、下の情報入力とお支払いを完了してください。",
+st2h:"参加者の情報",legend_plan:"プラン",p1:"1名",p2:"2名",p3:"3名",p4:"4名",
+choose:"選択してください",l_name:"お名前（フルネーム）",l_email:"メールアドレス",l_wa:"WhatsAppの番号",l_wa_s:"国番号から",l_country:"国",l_social:"InstagramまたはTikTok",l_social_s:"任意。投稿でタグ付けします",l_hotel:"宿泊先",opt:"任意",ph_hotel:"ホテル名やエリア",
+legend_guest:"参加者ごとの情報",legend_guest_s:"到着までに服を用意しておくためです",
+guest:"参加者",g_name:"お名前",g_height:"身長",g_size:"服のサイズ",g_shoe:"靴のサイズ",g_shoe_s:"単位も。例：24cm / EU 38",g_style:"スタイル",sty0:"まだ決めていない",sty1:"ガングロ（日焼け肌）",sty2:"白ギャル（色白）",
+l_allergy:"肌の弱さ・アレルギー",l_allergy_s:"メイクの前に知っておくべきことがあれば",ph_allergy:"例：香料に敏感、特になし",l_notes:"そのほか",l_notes_s:"服のリクエスト、記念日、質問など",
+agree:"肌にメイクをすること、お支払い後は返金できないことを理解しました。",err:"赤枠の項目を入力してください。",submit:"お支払いへ進む →"},
+ko:{demo:"데모 모드: 아직 예약이 저장되지 않습니다.",change:"변경",your_slot:"선택한 일시",taken:"방금 그 시간이 마감되었습니다. 다른 시간을 골라 주세요.",err_net:"예약 시스템에 연결할 수 없습니다. 다시 시도하거나 왓츠앱으로 연락해 주세요.",loading:"예약 현황을 불러오는 중…",few:"잔여 적음",avail:"예약 가능",full:"마감",pick_time:"시작 시간 선택",more:"선택: SNS, 숙소, 요청 사항",c_other_ph:"국가 이름 입력",c_other:"기타",expired:"시간이 초과되었습니다. 예약이 확정되지 않았습니다. 다시 날짜를 고르거나 왓츠앱으로 연락해 주세요.",hold:"시간 확보 중. <b>{t}</b> 안에 결제하면 예약이 확정됩니다.",rule10:"<span><b>10분 이내에 결제해 주세요.</b> 날짜를 고른 후 10분 이내에 정보 입력과 결제를 마쳐야 합니다. 시간 안에 결제가 완료되지 않으면 예약은 확정되지 않으며, 해당 시간은 취소됩니다.</span>",back:"← 사이트로 돌아가기",s1:"1 날짜",s2:"2 정보 입력",s3:"3 결제",h1:"갸루 체험 예약하기",
+intro:"날짜를 고르고 참가자 정보를 입력한 뒤, 10분 이내에 온라인으로 결제해 주세요.",
+st1h:"날짜와 시간 선택",st1p:"비어 있는 날짜와 시작 시간을 골라 주세요(일본 시간). 정보 입력과 결제를 하는 동안 10분간 시간을 확보해 둡니다.",
+locked:"먼저 위의 캘린더에서 날짜를 골라 주세요. 그다음 여기에서 정보를 입력합니다.",
+cal_p:"캘린더가 보이지 않으면 새 탭에서 열어 주세요.",cal_btn:"캘린더 열기",booked:"시간을 확보했습니다! 10분 이내에 아래 정보 입력과 결제를 마쳐 주세요.",
+st2h:"참가자 정보",legend_plan:"플랜",p1:"1명",p2:"2명",p3:"3명",p4:"4명",
+choose:"선택",l_name:"이름(전체)",l_email:"이메일",l_wa:"왓츠앱 번호",l_wa_s:"국가 번호 포함",l_country:"국가",l_social:"인스타그램 또는 틱톡",l_social_s:"선택 사항, 게시물에 태그해 드려요",l_hotel:"숙소",opt:"선택 사항",ph_hotel:"호텔 이름 또는 지역",
+legend_guest:"참가자별 정보",legend_guest_s:"도착 전에 옷을 준비해 두기 위해서입니다",
+guest:"참가자",g_name:"이름",g_height:"키",g_size:"옷 사이즈",g_shoe:"신발 사이즈",g_shoe_s:"단위 포함, 예: 240mm / EU 38",g_style:"스타일",sty0:"아직 모르겠어요",sty1:"강구로(태닝 피부)",sty2:"시로갸루(하얀 피부)",
+l_allergy:"피부 민감도 또는 알레르기",l_allergy_s:"메이크업 전에 알아야 할 점이 있다면",ph_allergy:"예: 향료에 민감함, 없음",l_notes:"기타",l_notes_s:"의상 요청, 기념일, 질문 등",
+agree:"피부에 메이크업을 한다는 점과 결제 후 환불이 되지 않는다는 점을 이해했습니다.",err:"표시된 항목을 입력해 주세요.",submit:"결제로 진행 →"},
+"zh-Hans":{demo:"演示模式：预约尚不会被保存。",change:"更改",your_slot:"已选时间",taken:"该时段刚刚被订走，请选择其他时段。",err_net:"无法连接预约系统。请重试，或通过WhatsApp联系我们。",loading:"正在加载空位…",few:"名额不多",avail:"可预约",full:"已满",pick_time:"选择开始时间",more:"选填：社交媒体、住宿、需求",c_other_ph:"请输入国家/地区",c_other:"其他",expired:"已超时，预约未确认。请重新选择时间，或通过WhatsApp联系我们。",hold:"时段保留中。请在 <b>{t}</b> 内付款以确认预约。",rule10:"<span><b>请在10分钟内付款。</b>选择时间后，请在10分钟内填写信息并完成付款。如果未能按时完成付款，预约将不会确认，时段也会被释放。</span>",back:"← 返回网站",s1:"1 日期",s2:"2 填写信息",s3:"3 付款",h1:"预约辣妹体验",
+intro:"选择时间，填写参加者信息，然后在10分钟内在线付款。",
+st1h:"选择日期和时间",st1p:"请选择有空位的日期和开始时间（日本时间）。在你填写信息和付款期间，我们会为你保留时段10分钟。",
+locked:"请先在上面的日历中选择时间，然后在这里填写信息。",
+cal_p:"日历没有显示？请在新标签页中打开。",cal_btn:"打开日历",booked:"已为你保留时段！请在10分钟内填写下面的信息并完成付款。",
+st2h:"参加者信息",legend_plan:"套餐",p1:"1人",p2:"2人",p3:"3人",p4:"4人",
+choose:"请选择",l_name:"姓名（全名）",l_email:"电子邮箱",l_wa:"WhatsApp号码",l_wa_s:"请包含国家代码",l_country:"国家/地区",l_social:"Instagram或TikTok",l_social_s:"选填，方便我们发布时标记你",l_hotel:"住宿地点",opt:"选填",ph_hotel:"酒店名称或区域",
+legend_guest:"每位参加者的信息",legend_guest_s:"以便在你到达前准备好服装",
+guest:"参加者",g_name:"姓名",g_height:"身高",g_size:"衣服尺码",g_shoe:"鞋码",g_shoe_s:"请注明单位，例如：EU 38 / 240mm",g_style:"风格",sty0:"还没决定",sty1:"黑辣妹（美黑肌）",sty2:"白辣妹（白皙肌）",
+l_allergy:"皮肤敏感或过敏",l_allergy_s:"化妆前需要我们知道的事项",ph_allergy:"例如：对香料敏感、无",l_notes:"其他",l_notes_s:"服装要求、纪念日、问题等",
+agree:"我了解会在我的皮肤上化妆，且付款后不予退款。",err:"请填写标出的项目。",submit:"前往付款 →"},
+"zh-Hant":{demo:"展示模式：預約還不會被儲存。",change:"變更",your_slot:"已選時間",taken:"這個時段剛被訂走，請選擇其他時段。",err_net:"無法連線到預約系統。請重試，或用WhatsApp聯絡我們。",loading:"正在載入空位…",few:"名額不多",avail:"可預約",full:"已滿",pick_time:"選擇開始時間",more:"選填：社群、住宿、需求",c_other_ph:"請輸入國家/地區",c_other:"其他",expired:"已超過時間，預約未成立。請重新選擇時間，或用WhatsApp聯絡我們。",hold:"時段保留中。請在 <b>{t}</b> 內付款以確認預約。",rule10:"<span><b>請在10分鐘內付款。</b>選擇時間後，請在10分鐘內填寫資料並完成付款。如果沒有在時間內完成付款，預約不會成立，時段也會被釋出。</span>",back:"← 返回網站",s1:"1 日期",s2:"2 填寫資料",s3:"3 付款",h1:"預約辣妹體驗",
+intro:"選擇時間、填寫參加者資料，再於10分鐘內線上付款。",
+st1h:"選擇日期和時間",st1p:"請選擇有空位的日期和開始時間（日本時間）。在你填寫資料和付款期間，我們會為你保留時段10分鐘。",
+locked:"請先在上面的日曆選擇時間，再到這裡填寫資料。",
+cal_p:"日曆沒有顯示？請在新分頁中開啟。",cal_btn:"打開日曆",booked:"已為你保留時段！請在10分鐘內填寫下面的資料並完成付款。",
+st2h:"參加者資料",legend_plan:"方案",p1:"1人",p2:"2人",p3:"3人",p4:"4人",
+choose:"請選擇",l_name:"姓名（全名）",l_email:"電子郵件",l_wa:"WhatsApp號碼",l_wa_s:"請包含國碼",l_country:"國家/地區",l_social:"Instagram或TikTok",l_social_s:"選填，方便我們發文時標註你",l_hotel:"住宿地點",opt:"選填",ph_hotel:"飯店名稱或區域",
+legend_guest:"每位參加者的資料",legend_guest_s:"方便在你到達前準備好服裝",
+guest:"參加者",g_name:"姓名",g_height:"身高",g_size:"衣服尺寸",g_shoe:"鞋子尺寸",g_shoe_s:"請註明單位，例如：EU 38 / 24cm",g_style:"風格",sty0:"還沒決定",sty1:"黑辣妹（日曬肌）",sty2:"白辣妹（白皙肌）",
+l_allergy:"皮膚敏感或過敏",l_allergy_s:"化妝前需要我們知道的事",ph_allergy:"例如：對香料敏感、無",l_notes:"其他",l_notes_s:"服裝需求、紀念日、問題等",
+agree:"我了解會在我的皮膚上化妝，且付款後不退款。",err:"請填寫標示的項目。",submit:"前往付款 →"},
+fr:{demo:"Mode démo : les réservations ne sont pas encore enregistrées.",change:"Modifier",your_slot:"Ton créneau",taken:"Ce créneau vient d'être pris. Choisis-en un autre.",err_net:"Impossible de joindre le système de réservation. Réessaie ou écris-nous sur WhatsApp.",loading:"Chargement des disponibilités…",few:"Presque complet",avail:"Disponible",full:"Complet",pick_time:"Choisis une heure de début",more:"Facultatif : réseaux sociaux, hôtel, demandes",c_other_ph:"Indique ton pays",c_other:"Autre",expired:"Temps écoulé. Ta réservation n'est pas confirmée. Choisis un nouveau créneau ou écris-nous sur WhatsApp.",hold:"Créneau bloqué. Paie dans <b>{t}</b> pour confirmer.",rule10:"<span><b>Paie dans les 10 minutes.</b> Après avoir choisi un créneau, tu as 10 minutes pour remplir tes infos et payer. Si le paiement n'est pas effectué à temps, ta réservation n'est pas confirmée et le créneau est libéré.</span>",back:"← Retour au site",s1:"1 Date",s2:"2 Tes infos",s3:"3 Paiement",h1:"Réserve ta journée gal",
+intro:"Choisis un créneau, parle-nous de ton groupe, puis paie en ligne dans les 10 minutes.",
+st1h:"Choisis ta date et ton horaire",st1p:"Choisis un jour libre et une heure de début (heure du Japon). On bloque le créneau 10 minutes pendant que tu remplis tes infos et paies.",
+locked:"Choisis d'abord un créneau ci-dessus. Ensuite, remplis tes infos ici.",
+cal_p:"Le calendrier ne s'affiche pas ? Ouvre-le dans un nouvel onglet.",cal_btn:"Ouvrir le calendrier",booked:"Créneau bloqué ! Remplis tes infos ci-dessous et paie dans les 10 minutes.",
+st2h:"Parle-nous de ton groupe",legend_plan:"Formule",p1:"1 personne",p2:"2 personnes",p3:"3 personnes",p4:"4 personnes",
+choose:"Choisir",l_name:"Nom complet",l_email:"E-mail",l_wa:"Numéro WhatsApp",l_wa_s:"avec l'indicatif du pays",l_country:"Pays",l_social:"Instagram ou TikTok",l_social_s:"facultatif, pour qu'on puisse t'identifier",l_hotel:"Où loges-tu ?",opt:"facultatif",ph_hotel:"Nom de l'hôtel ou quartier",
+legend_guest:"Chaque participant",legend_guest_s:"pour que les tenues soient prêtes à votre arrivée",
+guest:"PARTICIPANT",g_name:"Nom",g_height:"Taille",g_size:"Taille de vêtements",g_shoe:"Pointure",g_shoe_s:"avec l'unité, ex. EU 38 / US 7",g_style:"Style",sty0:"Je ne sais pas encore",sty1:"Ganguro (bronzée)",sty2:"Shiro-gal (teint clair)",
+l_allergy:"Peau sensible ou allergies",l_allergy_s:"tout ce qu'on doit savoir avant le maquillage",ph_allergy:"ex. sensible aux parfums, aucune",l_notes:"Autre chose ?",l_notes_s:"demandes de tenue, occasion spéciale, questions",
+agree:"Je comprends que du maquillage sera appliqué sur ma peau et que le paiement n'est pas remboursable.",err:"Merci de remplir les champs signalés.",submit:"Continuer vers le paiement →"},
+de:{demo:"Demo-Modus: Buchungen werden noch nicht gespeichert.",change:"Ändern",your_slot:"Dein Termin",taken:"Dieser Termin wurde gerade vergeben. Bitte wähle einen anderen.",err_net:"Das Buchungssystem ist nicht erreichbar. Versuch es erneut oder schreib uns auf WhatsApp.",loading:"Verfügbarkeit wird geladen…",few:"Fast ausgebucht",avail:"Frei",full:"Ausgebucht",pick_time:"Startzeit wählen",more:"Optional: Social Media, Hotel, Wünsche",c_other_ph:"Land eingeben",c_other:"Andere",expired:"Die Zeit ist abgelaufen. Deine Buchung ist nicht bestätigt. Wähle bitte erneut einen Termin oder schreib uns auf WhatsApp.",hold:"Termin reserviert. Bezahle innerhalb von <b>{t}</b>, um zu bestätigen.",rule10:"<span><b>Innerhalb von 10 Minuten bezahlen.</b> Nach der Terminwahl hast du 10 Minuten, um deine Angaben einzutragen und zu bezahlen. Ist die Zahlung nicht rechtzeitig abgeschlossen, ist deine Buchung nicht bestätigt und der Termin wird wieder freigegeben.</span>",back:"← Zurück zur Website",s1:"1 Datum",s2:"2 Deine Angaben",s3:"3 Zahlung",h1:"Buche deinen Gal-Tag",
+intro:"Wähle einen Termin, erzähl uns von deiner Gruppe und bezahle innerhalb von 10 Minuten online.",
+st1h:"Datum und Uhrzeit wählen",st1p:"Wähle einen freien Tag und eine Startzeit (japanische Zeit). Wir halten den Termin 10 Minuten für dich, während du deine Angaben einträgst und bezahlst.",
+locked:"Wähle zuerst oben einen Termin. Danach trägst du hier deine Angaben ein.",
+cal_p:"Kalender wird nicht angezeigt? Öffne ihn in einem neuen Tab.",cal_btn:"Kalender öffnen",booked:"Termin reserviert! Trag unten deine Angaben ein und bezahle innerhalb von 10 Minuten.",
+st2h:"Erzähl uns von deiner Gruppe",legend_plan:"Plan",p1:"1 Person",p2:"2 Personen",p3:"3 Personen",p4:"4 Personen",
+choose:"Auswählen",l_name:"Vollständiger Name",l_email:"E-Mail",l_wa:"WhatsApp-Nummer",l_wa_s:"mit Ländervorwahl",l_country:"Land",l_social:"Instagram oder TikTok",l_social_s:"optional, damit wir dich markieren können",l_hotel:"Wo übernachtest du?",opt:"optional",ph_hotel:"Hotelname oder Gegend",
+legend_guest:"Jeder Gast",legend_guest_s:"damit die Outfits bei eurer Ankunft bereitliegen",
+guest:"GAST",g_name:"Name",g_height:"Körpergröße",g_size:"Kleidergröße",g_shoe:"Schuhgröße",g_shoe_s:"mit Einheit, z. B. EU 38 / US 7",g_style:"Stil",sty0:"Noch unsicher",sty1:"Ganguro (gebräunt)",sty2:"Shiro-Gal (hell)",
+l_allergy:"Empfindliche Haut oder Allergien",l_allergy_s:"alles, was wir vor dem Make-up wissen sollten",ph_allergy:"z. B. empfindlich gegen Duftstoffe, keine",l_notes:"Sonst noch etwas?",l_notes_s:"Outfit-Wünsche, besonderer Anlass, Fragen",
+agree:"Ich verstehe, dass Make-up auf meine Haut aufgetragen wird und die Zahlung nicht erstattet wird.",err:"Bitte fülle die markierten Felder aus.",submit:"Weiter zur Zahlung →"}
+};
+I18N["de-CH"] = Object.fromEntries(Object.entries(I18N.de).map(([k, v]) => [k, v.replace(/ß/g, "ss")]));
+
+const LANGS = ["en","ja","ko","zh-Hans","zh-Hant","fr","de","de-CH"];
+let lang = LANGS.includes(location.hash.slice(1)) ? location.hash.slice(1) : "en";
+
+
+const textEls = document.querySelectorAll("[data-i18n]");
+const phEls = document.querySelectorAll("[data-i18n-ph]");
+const EN = { ...EN_GUEST, ...EN_EXTRA };
+textEls.forEach(el => { EN[el.dataset.i18n] = el.innerHTML; });
+phEls.forEach(el => { EN[el.dataset.i18nPh] = el.placeholder; });
+const T = k => (lang !== "en" && I18N[lang] && I18N[lang][k] != null) ? I18N[lang][k] : EN[k];
+
+const COUNT = { solo: 1, duo: 2, trio: 3, squad: 4 };
+const guestsBox = document.getElementById("guests");
+
+const HEIGHTS = ["–149 cm (–4'10\")","150–154 cm (4'11\"–5'0\")","155–159 cm (5'1\"–5'2\")","160–164 cm (5'3\"–5'4\")","165–169 cm (5'5\"–5'6\")","170–174 cm (5'7\"–5'8\")","175–179 cm (5'9\"–5'10\")","180–184 cm (5'11\"–6'0\")","185 cm+ (6'1\"+)"];
+const SHOES = ["22.0 cm · EU 35 · US W5","22.5 cm · EU 35.5 · US W5.5","23.0 cm · EU 36 · US W6","23.5 cm · EU 37 · US W6.5","24.0 cm · EU 38 · US W7","24.5 cm · EU 38.5 · US W7.5","25.0 cm · EU 39 · US W8 / M7","25.5 cm · EU 40 · US W8.5 / M7.5","26.0 cm · EU 41 · US W9 / M8","26.5 cm · EU 42 · US W9.5 / M8.5","27.0 cm · EU 42.5 · US M9","27.5 cm · EU 43 · US M9.5","28.0 cm · EU 44 · US M10","28.5 cm · EU 44.5 · US M10.5","29.0 cm+ · EU 45+ · US M11+"];
+const COUNTRIES = ["US","CA","GB","IE","AU","NZ","FR","DE","CH","AT","IT","ES","NL","BE","SE","NO","DK","FI","KR","TW","HK","CN","SG","TH","MY","PH","ID","VN","IN","BR","MX"];
+
+function renderCountries() {
+  const sel = document.getElementById("f-country");
+  const keep = sel.value;
+  let names;
+  try { names = new Intl.DisplayNames([lang, "en"], { type: "region" }); } catch (e) { names = { of: c => c }; }
+  const list = COUNTRIES.map(c => [c, names.of(c)]).sort((a, b) => a[1].localeCompare(b[1], lang));
+  sel.innerHTML = `<option value="">${T("choose")}</option>` + list.map(([c, n]) => `<option value="${c}">${n}</option>`).join("") + `<option value="other">${T("c_other")}</option>`;
+  sel.value = keep;
+}
+document.getElementById("f-country").addEventListener("change", e => {
+  const other = document.getElementById("f-country-other");
+  other.hidden = e.target.value !== "other";
+  other.required = e.target.value === "other";
+  if (!other.hidden) other.focus();
+});
+
+function guestBlock(i) {
+  return `<div class="guest">
+    <h3>${T("guest")} ${i}</h3>
+    <div class="grid">
+      ${i > 1 ? `<label class="full"><span>${T("g_name")}</span><input type="text" name="g${i}_name" id="g${i}-name" required></label>` : ""}
+      <label><span>${T("g_height")}</span><select name="g${i}_height" id="g${i}-height" required><option value="">${T("choose")}</option>${HEIGHTS.map(h => `<option>${h}</option>`).join("")}</select></label>
+      <label><span>${T("g_size")}</span>
+        <select name="g${i}_size" id="g${i}-size" required>
+          <option value="">${T("choose")}</option><option>XS</option><option>S</option><option>M</option><option>L</option><option>XL</option><option>2XL</option><option>3XL</option>
+        </select>
+      </label>
+      <label><span>${T("g_shoe")}</span><select name="g${i}_shoe" id="g${i}-shoe" required><option value="">${T("choose")}</option>${SHOES.map(h => `<option>${h}</option>`).join("")}</select></label>
+      <label><span>${T("g_style")}</span>
+        <select name="g${i}_style" id="g${i}-style">
+          <option value="not sure">${T("sty0")}</option><option value="ganguro">${T("sty1")}</option><option value="shiro-gal">${T("sty2")}</option>
+        </select>
+      </label>
+    </div>
+  </div>`;
+}
+
+function renderGuests() {
+  const plan = document.querySelector("input[name=plan]:checked").value;
+  const keep = {};
+  guestsBox.querySelectorAll("input,select").forEach(el => { keep[el.name] = el.value; });
+  let html = "";
+  for (let i = 1; i <= COUNT[plan]; i++) html += guestBlock(i);
+  guestsBox.innerHTML = html;
+  guestsBox.querySelectorAll("input,select").forEach(el => { if (keep[el.name] != null) el.value = keep[el.name]; });
+}
+
+function applyLang(l) {
+  lang = l;
+  textEls.forEach(el => { el.innerHTML = T(el.dataset.i18n); });
+  phEls.forEach(el => { el.placeholder = T(el.dataset.i18nPh); });
+  document.documentElement.lang = l;
+  document.getElementById("lang").value = l;
+  renderCountries();
+  renderGuests();
+}
+
+document.querySelectorAll("input[name=plan]").forEach(r => r.addEventListener("change", renderGuests));
+document.getElementById("lang").addEventListener("change", e => {
+  applyLang(e.target.value);
+  history.replaceState(null, "", e.target.value === "en" ? location.pathname : "#" + e.target.value);
+});
+applyLang(lang);
+
+/* ---------- API (Google Apps Script). Without GAS_URL it runs as a demo ---------- */
+const DEMO = !GAS_URL;
+function pad(n) { return String(n).padStart(2, "0"); }
+function ymdUTC(d) { return d.getUTCFullYear() + "-" + pad(d.getUTCMonth() + 1) + "-" + pad(d.getUTCDate()); }
+function todayJST() { return new Date(Date.now() + 9 * 3600000); }
+async function apiGet(params) {
+  if (DEMO) {
+    const t = todayJST();
+    return { ok: true, times: ["10:00", "13:00", "16:00"], duration: 180, capacity: 1, holdMinutes: 10,
+      minDate: ymdUTC(new Date(t.getTime() + 86400000)), maxDate: ymdUTC(new Date(t.getTime() + 90 * 86400000)),
+      closedWeekdays: [], closedDates: [], taken: {} };
+  }
+  const r = await fetch(GAS_URL + "?" + new URLSearchParams(params));
+  return r.json();
+}
+async function apiPost(body) {
+  if (DEMO) {
+    if (body.action === "hold") return { ok: true, id: "DEMO" + Date.now().toString(36).toUpperCase(), deadline: Date.now() + 10 * 60000 };
+    return { ok: true };
+  }
+  const r = await fetch(GAS_URL, { method: "POST", body: JSON.stringify(body) });
+  return r.json();
+}
+
+/* ---------- STEP 1: original calendar ---------- */
+let AV = null, view = null, selDate = "", selTime = "";
+let deadline = 0, holdId = "", timer = null;
+try {
+  const h = JSON.parse(sessionStorage.getItem("hgo-hold") || "null");
+  if (h && h.deadline > Date.now()) { deadline = h.deadline; holdId = h.id; selDate = h.date; selTime = h.time; }
+} catch (e) {}
+
+const calMsg = document.getElementById("cal-msg");
+function showMsg(key) { calMsg.hidden = !key; calMsg.textContent = key ? T(key) : ""; }
+
+function endOf(time, min) {
+  const [h, m] = time.split(":").map(Number);
+  const x = h * 60 + m + min;
+  return pad(Math.floor(x / 60) % 24) + ":" + pad(x % 60);
+}
+function startMs(date, t) { return Date.parse(date + "T" + t + ":00+09:00"); }
+function timesFor(date) { return AV.times.filter(t => !AV.minStart || startMs(date, t) >= AV.minStart); }
+function freeCount(date) {
+  return timesFor(date).filter(t => (AV.taken[date + "|" + t] || 0) < AV.capacity).length;
+}
+function dayState(date) {
+  if (date < AV.minDate || date > AV.maxDate) return "off";
+  const wd = new Date(date + "T00:00:00Z").getUTCDay();
+  if (AV.closedWeekdays.includes(wd) || AV.closedDates.includes(date)) return "off";
+  const free = freeCount(date);
+  if (!free) return "full";
+  return free < timesFor(date).length ? "few" : "open";
+}
+function fmtDate(date, opts) {
+  return new Intl.DateTimeFormat(lang === "en" ? "en-US" : lang, Object.assign({ timeZone: "UTC" }, opts)).format(new Date(date + "T00:00:00Z"));
+}
+
+function renderCal() {
+  if (!AV) return;
+  const y = view.getUTCFullYear(), m = view.getUTCMonth();
+  document.getElementById("cal-title").textContent = fmtDate(ymdUTC(view), { year: "numeric", month: "long" });
+  const minM = AV.minDate.slice(0, 7), maxM = AV.maxDate.slice(0, 7), curM = ymdUTC(view).slice(0, 7);
+  document.getElementById("cal-prev").disabled = curM <= minM;
+  document.getElementById("cal-next").disabled = curM >= maxM;
+  let html = "";
+  for (let i = 0; i < 7; i++) {
+    const d = new Date(Date.UTC(2023, 0, 1 + i)); // 2023-01-01 is a Sunday
+    html += `<div class="cal-wd${i === 0 ? " sun" : ""}">${fmtDate(ymdUTC(d), { weekday: "short" })}</div>`;
+  }
+  const first = new Date(Date.UTC(y, m, 1)).getUTCDay();
+  const days = new Date(Date.UTC(y, m + 1, 0)).getUTCDate();
+  for (let i = 0; i < first; i++) html += '<span class="day blank"></span>';
+  for (let d = 1; d <= days; d++) {
+    const date = y + "-" + pad(m + 1) + "-" + pad(d);
+    const st = dayState(date);
+    const dis = st === "off" || st === "full";
+    html += `<button type="button" class="day ${st}${date === selDate ? " sel" : ""}" data-date="${date}"${dis ? " disabled" : ""} aria-label="${fmtDate(date, { month: "long", day: "numeric", weekday: "long" })}">${d}${dis ? "" : "<small></small>"}</button>`;
+  }
+  const grid = document.getElementById("cal-grid");
+  grid.innerHTML = html;
+  grid.querySelectorAll(".day:not([disabled])").forEach(b => b.addEventListener("click", () => { selDate = b.dataset.date; renderCal(); renderSlots(true); }));
+}
+
+function renderSlots(scroll) {
+  const box = document.getElementById("slots");
+  if (!selDate || !AV) { box.hidden = true; return; }
+  box.hidden = false;
+  document.getElementById("slots-title").textContent = fmtDate(selDate, { month: "long", day: "numeric", weekday: "short" }) + " · " + T("pick_time");
+  document.getElementById("slot-list").innerHTML = timesFor(selDate).map(t => {
+    const full = (AV.taken[selDate + "|" + t] || 0) >= AV.capacity && !(holdId && selTime === t);
+    return `<button type="button" class="slot${holdId && selTime === t ? " sel" : ""}" data-time="${t}"${full ? " disabled" : ""}><span>${t} – ${endOf(t, AV.duration)}</span><em>${full ? T("full") : T("avail")}</em></button>`;
+  }).join("");
+  document.querySelectorAll(".slot:not([disabled])").forEach(b => b.addEventListener("click", () => pickSlot(b.dataset.time)));
+  if (scroll) box.scrollIntoView({ behavior: "smooth", block: "nearest" });
+}
+
+/* Instant first paint: last known availability (or the default rules), then refresh in the background */
+function defaultAV() {
+  const now = Date.now(), t = todayJST();
+  return { ok: true, times: ["10:00", "13:00", "16:00"], duration: 180, capacity: 1, holdMinutes: 10, minStart: now + 24 * 3600000,
+    minDate: ymdUTC(new Date(t.getTime() + 24 * 3600000)), maxDate: ymdUTC(new Date(t.getTime() + 90 * 86400000)),
+    closedWeekdays: [], closedDates: [], taken: {} };
+}
+function cachedAV() {
+  try {
+    const c = JSON.parse(localStorage.getItem("hgo-av") || "null");
+    if (c && c.av && Date.now() - c.at < 30 * 60000) {
+      c.av.minStart = Math.max(c.av.minStart || 0, Date.now() + 24 * 3600000);
+      return c.av;
+    }
+  } catch (e) {}
+  return null;
+}
+let firstPaint = true;
+async function loadAvailability() {
+  if (firstPaint && !DEMO) {
+    firstPaint = false;
+    AV = cachedAV() || defaultAV();
+    if (!view) { const st0 = selDate || AV.minDate; view = new Date(Date.UTC(+st0.slice(0, 4), +st0.slice(5, 7) - 1, 1)); }
+    renderCal(); renderSlots(false);
+  } else if (!AV) showMsg("loading");
+  try {
+    const fresh = await apiGet({ action: "availability" });
+    if (!fresh.ok) throw new Error("bad");
+    AV = fresh;
+    try { localStorage.setItem("hgo-av", JSON.stringify({ at: Date.now(), av: fresh })); } catch (e) {}
+    showMsg("");
+  } catch (e) { if (!AV) { showMsg("err_net"); return; } }
+  if (!view) {
+    const start = selDate || AV.minDate;
+    view = new Date(Date.UTC(+start.slice(0, 4), +start.slice(5, 7) - 1, 1));
+  }
+  renderCal();
+  renderSlots(false);
+}
+
+async function pickSlot(time) {
+  document.querySelectorAll(".slot").forEach(b => b.disabled = true);
+  showMsg("loading");
+  let res;
+  try { res = await apiPost({ action: "hold", date: selDate, time: time, lang: lang, previousId: holdId || "" }); }
+  catch (e) { showMsg("err_net"); renderSlots(false); return; }
+  if (!res.ok) {
+    showMsg(res.reason === "full" ? "taken" : "err_net");
+    await loadAvailability();
+    return;
+  }
+  showMsg("");
+  holdId = res.id; selTime = time; deadline = res.deadline;
+  try { sessionStorage.setItem("hgo-hold", JSON.stringify({ id: holdId, deadline, date: selDate, time })); } catch (e) {}
+  openDetails();
+}
+
+function showPicked() {
+  document.getElementById("picked").hidden = false;
+  document.getElementById("cal").hidden = true;
+  document.getElementById("picked-text").textContent =
+    fmtDate(selDate, { year: "numeric", month: "long", day: "numeric", weekday: "short" }) + " " + selTime + " – " + endOf(selTime, (AV && AV.duration) || 180);
+}
+document.getElementById("change").addEventListener("click", async () => {
+  document.getElementById("picked").hidden = true;
+  document.getElementById("booked").hidden = true;
+  document.getElementById("cal").hidden = false;
+  await loadAvailability();
+  document.getElementById("cal").scrollIntoView({ behavior: "smooth", block: "start" });
+});
+document.getElementById("cal-prev").addEventListener("click", () => { view = new Date(Date.UTC(view.getUTCFullYear(), view.getUTCMonth() - 1, 1)); renderCal(); });
+document.getElementById("cal-next").addEventListener("click", () => { view = new Date(Date.UTC(view.getUTCFullYear(), view.getUTCMonth() + 1, 1)); renderCal(); });
+
+/* ---------- after a slot is held: 10-minute timer ---------- */
+function openDetails() {
+  showPicked();
+  document.getElementById("booked").hidden = false;
+  document.getElementById("step1").className = "done";
+  document.getElementById("step2").className = "on";
+  const f = document.getElementById("details");
+  f.classList.remove("locked");
+  document.getElementById("locked").hidden = true;
+  document.getElementById("form-body").hidden = false;
+  document.getElementById("to-pay").disabled = false;
+  document.getElementById("hold").classList.remove("over");
+  startTimer();
+  f.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+function fmt(ms) {
+  const t = Math.max(0, Math.ceil(ms / 1000));
+  return pad(Math.floor(t / 60)) + ":" + pad(t % 60);
+}
+function tick() {
+  const bar = document.getElementById("hold");
+  const left = deadline - Date.now();
+  bar.hidden = false;
+  if (left <= 0) {
+    bar.classList.add("over");
+    bar.innerHTML = T("expired");
+    document.getElementById("to-pay").disabled = true;
+    clearInterval(timer);
+    holdId = "";
+    try { sessionStorage.removeItem("hgo-hold"); } catch (e) {}
+    return;
+  }
+  bar.innerHTML = T("hold").replace("{t}", fmt(left));
+}
+function startTimer() { clearInterval(timer); tick(); timer = setInterval(tick, 1000); }
+
+document.getElementById("demo").hidden = !DEMO;
+loadAvailability().then(() => { if (deadline && holdId) openDetails(); });
+document.getElementById("lang").addEventListener("change", () => {
+  renderCal(); renderSlots(false);
+  if (holdId && selDate) showPicked();
+  if (deadline) tick();
+});
+
+/* ---------- STEP 2 → save details → payment ---------- */
+function guestsText(data) {
+  const n = COUNT[data.get("plan")];
+  const out = [];
+  for (let i = 1; i <= n; i++) {
+    const who = i === 1 ? data.get("name") : data.get("g" + i + "_name");
+    out.push(`${i}. ${who}｜身長 ${data.get("g" + i + "_height")}｜服 ${data.get("g" + i + "_size")}｜靴 ${data.get("g" + i + "_shoe")}｜${data.get("g" + i + "_style")}`);
+  }
+  return out.join("\n");
+}
+const form = document.getElementById("details");
+const err = document.getElementById("err");
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  if (!deadline || deadline <= Date.now() || !holdId) return;
+  let ok = true;
+  form.querySelectorAll("[required]").forEach(el => {
+    const bad = el.type === "checkbox" ? !el.checked : (!el.checkValidity() || !String(el.value).trim());
+    el.classList.toggle("bad", bad);
+    if (bad) ok = false;
+  });
+  err.hidden = ok;
+  if (!ok) { form.querySelector(".bad")?.focus(); return; }
+  const data = new FormData(form);
+  if (data.get("country") === "other") data.set("country", data.get("country_other"));
+  const btn = document.getElementById("to-pay");
+  btn.disabled = true;
+  let res;
+  try {
+    res = await apiPost({
+      action: "details", id: holdId, lang: lang, plan: data.get("plan"),
+      name: data.get("name"), email: data.get("email"), whatsapp: data.get("whatsapp"), country: data.get("country"),
+      guests: guestsText(data), allergies: data.get("allergies"), social: data.get("social"), hotel: data.get("hotel"), notes: data.get("notes")
+    });
+  } catch (_) { res = { ok: false, reason: "net" }; }
+  if (!res.ok) {
+    btn.disabled = false;
+    err.hidden = false;
+    err.textContent = T(res.reason === "expired" ? "expired" : "err_net");
+    return;
+  }
+  location.href = "payment.html#" + data.get("plan") + "." + lang + "." + deadline + "." + holdId;
+});
+</script>
+<script src="../fx.js"></script>
+</body>
+</html>

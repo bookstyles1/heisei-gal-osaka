@@ -1,0 +1,373 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Change Your Gal Day</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&family=Mochiy+Pop+One&family=Manrope:wght@400;600;800&display=swap">
+<style>
+:root{
+  --ink:#16080f;--paper:#ffe6f2;--paper-2:#fff6fa;--pink:#ff2e93;--pink-deep:#c2006b;--gold:#ffd54a;--muted:#6e4a5e;--line:#f0a9cb;
+  --f-display:"Dela Gothic One","Black Han Sans","PingFang SC","PingFang TC","Microsoft YaHei","Hiragino Sans",Impact,sans-serif;
+  --f-body:"Manrope","Helvetica Neue",Arial,"Hiragino Sans","Yu Gothic","Apple SD Gothic Neo","Malgun Gothic","PingFang SC","PingFang TC","Microsoft YaHei",sans-serif;
+  --f-lcd:"VT323","Courier New",monospace;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.6}
+:lang(ko){word-break:keep-all}
+p,li,label,legend{text-wrap:pretty}
+:lang(ja) h1,:lang(ja) h2{word-break:auto-phrase}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.wrap{max-width:820px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.top{background:var(--ink);color:#fff}
+.top .wrap{display:flex;justify-content:space-between;align-items:center;gap:12px;padding-block:12px;max-width:1120px;flex-wrap:wrap}
+.logo{font-family:var(--f-display);text-decoration:none;font-size:1.15rem;white-space:nowrap}
+.logo b{color:var(--pink);font-weight:400}
+.top-right{display:flex;align-items:center;gap:14px}
+.back{font-weight:600;font-size:.95rem;text-decoration:none;opacity:.85;white-space:nowrap}
+@media (max-width:520px){.back{display:none}}
+.lang{appearance:none;-webkit-appearance:none;background:transparent;color:#fff;border:2px solid #fff;border-radius:999px;padding:.4em 1.9em .4em .9em;font:600 .85rem var(--f-body);cursor:pointer;
+  background-image:linear-gradient(45deg,transparent 50%,#fff 50%),linear-gradient(135deg,#fff 50%,transparent 50%);background-position:calc(100% - 14px) 52%,calc(100% - 9px) 52%;background-size:5px 5px;background-repeat:no-repeat}
+.lang option{color:var(--ink);background:#fff}
+h1,h2{font-family:var(--f-display);font-weight:400;line-height:1.15;margin:0;text-wrap:balance}
+h1{font-size:clamp(2.1rem,7vw,3.4rem)}
+h2{font-size:1.5rem}
+.head{padding-block:44px 24px;display:grid;gap:18px}
+.stepper{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:8px}
+.stepper li{font-family:var(--f-body);font-weight:800;font-size:.92rem;padding:7px 16px;border-radius:999px;border:2px solid var(--ink);background:#fff}
+.stepper li.on{background:var(--pink);color:#fff}
+.stepper li.done{background:var(--ink);color:var(--gold)}
+.card{background:#fff;border:3px solid var(--ink);border-radius:18px;padding:clamp(18px,4vw,28px);display:grid;gap:16px;margin-bottom:24px}
+.card .num{font-family:var(--f-lcd);font-size:1.3rem;color:var(--pink-deep)}
+.card.locked{opacity:.55}
+.muted{color:var(--muted);margin:0}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.5em;font-family:var(--f-display);font-size:1.05rem;text-decoration:none;padding:.85em 1.6em;border-radius:999px;border:3px solid var(--ink);background:var(--pink);color:#fff;box-shadow:4px 4px 0 var(--ink);cursor:pointer}
+.btn:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--ink)}
+.btn.small{font-size:.9rem;padding:.6em 1.2em;background:#fff;color:var(--ink);box-shadow:3px 3px 0 var(--ink)}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.grid .full{grid-column:1/-1}
+@media (max-width:560px){.grid{grid-template-columns:1fr}}
+label{display:grid;gap:6px;font-weight:600;font-size:.95rem;min-width:0;align-content:start}
+label small,legend small{font-weight:400;color:var(--muted)}
+input,select,textarea{font:inherit;font-weight:400;padding:.7em .8em;border:2px solid var(--ink);border-radius:10px;background:#fff;color:var(--ink);width:100%}
+textarea{min-height:64px;resize:vertical}
+input:focus,select:focus,textarea:focus{outline:3px solid var(--gold);outline-offset:1px}
+.bad{outline:3px solid var(--pink)!important;border-color:var(--pink)!important}
+fieldset{border:0;margin:0;padding:0;display:grid;gap:10px;min-width:0}
+legend{font-weight:600;font-size:.95rem;margin-bottom:6px;padding:0}
+.plans{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+@media (max-width:560px){.plans{grid-template-columns:1fr 1fr}}
+.plans label{position:relative;display:block}
+.plans input{position:absolute;opacity:0;width:1px;height:1px}
+.plans span{display:grid;gap:2px;padding:12px;border:2px solid var(--ink);border-radius:12px;background:#fff;cursor:pointer;text-align:center}
+.plans span b{font-family:var(--f-lcd);font-size:1.3rem;font-weight:400}
+.plans span em{font-style:normal;font-size:.9rem;color:var(--muted)}
+.plans span i{font-style:normal;font-family:var(--f-display);font-size:1.05rem;font-variant-numeric:tabular-nums}
+.plans span small{font-size:.75rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.plans input:checked+span small{color:#fff}
+.fx{display:block;font-size:.82rem;font-weight:600;opacity:.8;font-variant-numeric:tabular-nums;font-family:var(--f-body)}
+.fx:empty{display:none}
+.fx-row{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center;font-size:.8rem;color:var(--muted);margin:10px 0 0}
+.fx-pick label{display:inline-flex;align-items:center;gap:6px;font-weight:600;font-size:.8rem}
+.fx-pick select{width:auto;padding:.2em .5em;font-size:.8rem;border:2px solid var(--ink);border-radius:8px;background:#fff;color:var(--ink)}
+.fx-pick[hidden]{display:none}
+.opt-box{border:2px dashed var(--line);border-radius:12px;padding:10px 14px}
+.opt-box summary{cursor:pointer;font-weight:600;font-size:.95rem}
+.opt-box[open] summary{margin-bottom:12px}
+#f-country-other[hidden]{display:none}
+@media (max-width:560px){
+  .head{padding-block:24px 14px;gap:12px}
+  .card{padding:14px;gap:12px;border-radius:14px}
+  h2{font-size:1.25rem}
+  label{font-size:.86rem;gap:4px}
+  input,select,textarea{padding:.5em .6em;border-radius:8px;font-size:16px}
+  .grid{gap:10px}
+  .guest{padding:10px;gap:8px}
+  .guest .grid{grid-template-columns:1fr 1fr}
+  .plans{gap:8px}
+  .plans span{padding:8px 4px}
+  .plans span b{font-size:1.15rem}
+  .rule{font-size:.88rem;padding:10px 12px}
+  .rule::before{font-size:1.3rem}
+}
+.plans input:checked+span{background:var(--pink);color:#fff}
+.plans input:checked+span em{color:#fff}
+.plans input:focus-visible+span{outline:3px solid var(--gold)}
+.guest{border:2px solid var(--line);border-radius:14px;padding:16px;display:grid;gap:12px;background:var(--paper-2)}
+.guest h3{margin:0;font-family:var(--f-lcd);font-size:1.3rem;font-weight:400;color:var(--pink-deep)}
+.check{display:flex;gap:10px;align-items:flex-start;font-weight:400}
+.check input{width:auto;margin-top:.3em;flex:none}
+.submit{display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between}
+.err{color:var(--pink-deep);font-weight:600;margin:0}
+.card>*{min-width:0}
+#form-body[hidden]{display:none!important}
+.locked-msg{border:2px dashed var(--line);border-radius:14px;padding:28px;text-align:center;background:var(--paper-2);font-weight:600}
+/* original booking calendar: purikura-style frame */
+.cal{border:3px solid var(--ink);border-radius:16px;background:#fff;box-shadow:6px 6px 0 var(--pink);overflow:hidden}
+.cal-top{display:flex;align-items:center;justify-content:space-between;gap:8px;background:var(--pink);color:#fff;padding:8px 10px}
+.cal-top h3{margin:0;font-family:var(--f-display);font-weight:400;font-size:1.15rem}
+.cal-nav{width:38px;height:38px;border-radius:50%;border:2px solid #fff;background:transparent;color:#fff;font-size:1.1rem;cursor:pointer;display:grid;place-items:center}
+.cal-nav[disabled]{opacity:.35;cursor:default}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;padding:10px}
+.cal-wd{text-align:center;font-family:var(--f-body);font-weight:700;font-size:.78rem;letter-spacing:.04em;color:var(--muted);padding-bottom:4px}
+.cal-wd.sun{color:var(--pink-deep)}
+.day{aspect-ratio:1/1;max-width:100%;border:2px solid transparent;border-radius:10px;background:var(--paper-2);font:inherit;font-weight:800;font-size:1.02rem;font-variant-numeric:tabular-nums;cursor:pointer;display:grid;place-items:center;align-content:center;gap:2px;padding:0;color:var(--ink)}
+.day small{display:block;width:6px;height:6px;border-radius:50%;background:var(--pink)}
+.day.few small{background:var(--gold);box-shadow:0 0 0 1px var(--ink)}
+.day:hover:not([disabled]){border-color:var(--ink)}
+.day[disabled]{background:transparent;color:#c9b3bf;cursor:default;font-weight:400}
+.day.full{text-decoration:line-through}
+.day.sel{background:var(--ink);color:var(--gold);border-color:var(--ink)}
+.day.blank{visibility:hidden}
+.slots{border-top:2px dashed var(--line);padding:12px 10px 14px;display:grid;gap:10px}
+.slots h4{margin:0;font-family:var(--f-body);font-weight:800;font-size:1rem;color:var(--pink-deep)}
+.slot-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}
+.slot{border:2px solid var(--ink);border-radius:12px;background:#fff;padding:10px;font:inherit;font-weight:700;cursor:pointer;display:grid;gap:2px;text-align:center;color:var(--ink)}
+.slot span{font-family:var(--f-body);font-size:1.12rem;font-weight:800;line-height:1.2;font-variant-numeric:tabular-nums;letter-spacing:.01em;white-space:nowrap}
+@media (max-width:420px){.slot span{font-size:.95rem}.slot{padding:10px 6px}}
+.slot em{font-style:normal;font-size:.8rem;color:var(--muted);font-weight:600}
+.slot:hover:not([disabled]){background:var(--pink);color:#fff}
+.slot:hover:not([disabled]) em{color:#fff}
+.slot[disabled]{opacity:.45;cursor:default;text-decoration:line-through}
+.slot.sel{background:var(--ink);color:var(--gold)}
+.cal-msg{padding:0 10px 12px;font-weight:600;color:var(--pink-deep);margin:0}
+.cal-legend{display:flex;gap:14px;flex-wrap:wrap;font-size:.82rem;color:var(--muted);padding:0 12px 10px}
+.cal-legend i{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--pink);margin-right:5px;vertical-align:middle}
+.cal-legend i.few{background:var(--gold);box-shadow:0 0 0 1px var(--ink)}
+.picked{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;background:var(--paper-2);border:2px solid var(--ink);border-radius:12px;padding:10px 14px;font-weight:700}
+.picked b{font-family:var(--f-display);font-weight:400}
+.demo{font-size:.8rem;color:var(--muted);margin:0}
+@media (max-width:560px){.cal-grid{gap:3px;padding:8px}.day{border-radius:8px;font-size:.9rem}.slot-list{grid-template-columns:1fr 1fr}}
+.booked{background:var(--gold);border:3px solid var(--ink);border-radius:14px;padding:16px;font-family:var(--f-display);text-align:center}
+.rule{display:flex;gap:12px;align-items:flex-start;background:var(--gold);border:3px solid var(--ink);border-radius:14px;padding:14px 16px;font-size:.98rem;box-shadow:4px 4px 0 var(--ink)}
+.rule::before{content:"10:00";flex:none;font-family:var(--f-lcd);font-size:1.6rem;line-height:1;background:var(--ink);color:var(--gold);border-radius:8px;padding:4px 8px}
+.hold{position:sticky;top:env(safe-area-inset-top,0px);z-index:8;background:var(--ink);color:#fff;text-align:center;padding:10px 16px;font-weight:600}
+.hold b{font-family:var(--f-body);font-size:1.15rem;font-weight:800;color:var(--gold);font-variant-numeric:tabular-nums}
+.hold.over{background:var(--pink-deep)}
+.btn[disabled]{opacity:.45;cursor:not-allowed;transform:none;box-shadow:4px 4px 0 var(--ink)}
+footer{background:var(--ink);color:#d9c3cf;font-size:.9rem;margin-top:40px}
+footer .wrap{padding-block:24px}
+</style>
+<link rel="stylesheet" href="pop-pages.css">
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <a class="logo" href="index.html">HEISEI <b>GAL</b> OSAKA</a>
+    <div class="top-right">
+      <a class="back" href="index.html" data-i18n="back">← Back to the site</a>
+      <label for="lang" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Language</label>
+      <select id="lang" class="lang">
+        <option value="en">English</option>
+        <option value="ja">日本語</option>
+        <option value="ko">한국어</option>
+        <option value="zh-Hans">简体中文</option>
+        <option value="zh-Hant">繁體中文</option>
+        <option value="fr">Français</option>
+        <option value="de">Deutsch</option>
+        <option value="de-CH">Deutsch (Schweiz)</option>
+      </select>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="head">
+    <h1 data-i18n="h1">Change your date</h1>
+    <p class="muted" data-i18n="intro">Paid bookings can move to another open slot up to 7 days before the booking. Refunds are not available.</p>
+  </div>
+
+  <form class="card" id="find" novalidate>
+    <span class="num">STEP 1</span>
+    <h2 data-i18n="find_h">Find your booking</h2>
+    <div class="grid">
+      <label><span><span data-i18n="l_id">Booking ID</span> <small data-i18n="l_id_s">starts with HG</small></span><input type="text" id="b-id" autocomplete="off" placeholder="HG2612…" required></label>
+      <label><span data-i18n="l_email">Email used for booking</span><input type="email" id="b-email" autocomplete="email" required></label>
+    </div>
+    <p class="err" id="find-err" role="alert" hidden></p>
+    <div class="submit"><span></span><button class="btn" type="submit" id="find-btn" data-i18n="find_btn">Find my booking</button></div>
+  </form>
+
+  <section class="card locked" id="date">
+    <span class="num">STEP 2</span>
+    <h2 data-i18n="pick_h">Pick a new date and time</h2>
+    <div class="picked" id="current" hidden><span><span data-i18n="cur">Current booking</span>: <b id="current-text"></b></span></div>
+    <div class="locked-msg" id="locked" data-i18n="locked">Find your booking first.</div>
+    <div class="cal" id="cal" hidden>
+      <div class="cal-top">
+        <button type="button" class="cal-nav" id="cal-prev" aria-label="Previous month">‹</button>
+        <h3 id="cal-title">&nbsp;</h3>
+        <button type="button" class="cal-nav" id="cal-next" aria-label="Next month">›</button>
+      </div>
+      <div class="cal-grid" id="cal-grid"></div>
+      <p class="cal-msg" id="cal-msg" hidden></p>
+      <div class="slots" id="slots" hidden>
+        <h4 id="slots-title"></h4>
+        <div class="slot-list" id="slot-list"></div>
+      </div>
+    </div>
+    <div class="submit" id="confirm-row" hidden>
+      <span class="picked" style="flex:1"><span data-i18n="new_slot">New date</span>: <b id="new-text"></b></span>
+      <button class="btn" type="button" id="confirm-btn" data-i18n="confirm_btn">Change to this slot</button>
+    </div>
+    <div class="booked" id="done" hidden></div>
+  </section>
+</main>
+
+<footer><div class="wrap">HEISEI GAL OSAKA · Shinsaibashi, Osaka, Japan</div></footer>
+
+<script>
+const GAS_URL = "https://script.google.com/macros/s/AKfycbzg6lCKw-3K2Nu4WYFioVUoEPYxGbzTt2XwlAz5QoZT3wxTtY4hMEhfO7FzFseBCYOu/exec";
+
+const EN_EXTRA = { pick_time:"Choose a start time", full:"Full", avail:"Open", loading:"Loading…", err_net:"Couldn't reach the booking system. Please try again or message us on WhatsApp.",
+  taken:"Sorry, that slot was just taken. Please pick another.", not_found:"We couldn't find a paid booking with that ID and email.",
+  not_paid:"This booking isn't paid yet, so the date can't be changed here.", too_late:"Date changes close 7 days before your booking. Please message us on WhatsApp.",
+  done:"Your date has been changed to {slot}. See you in Osaka!" };
+const I18N = {
+ja:{back:"← サイトに戻る",h1:"日程を変更する",intro:"お支払い済みのご予約は、体験日の7日前まで、空いている別の日時に変更できます。返金はできません。",find_h:"ご予約を探す",l_id:"予約ID",l_id_s:"HGから始まる番号",l_email:"予約時のメールアドレス",find_btn:"予約を探す",pick_h:"新しい日時を選ぶ",cur:"今のご予約",locked:"先にご予約を探してください。",new_slot:"新しい日時",confirm_btn:"この日時に変更する",
+ pick_time:"開始時間を選ぶ",full:"満席",avail:"空きあり",loading:"読み込み中…",err_net:"予約システムにつながりませんでした。もう一度試すか、WhatsAppでご連絡ください。",taken:"その枠はちょうど埋まりました。別の枠を選んでください。",not_found:"その予約IDとメールアドレスで、お支払い済みのご予約が見つかりませんでした。",not_paid:"このご予約はまだお支払いが済んでいないため、ここでは変更できません。",too_late:"日程変更は体験日の7日前までです。WhatsAppでご連絡ください。",done:"日程を {slot} に変更しました。大阪でお会いしましょう！"},
+ko:{back:"← 사이트로 돌아가기",h1:"일정 변경",intro:"결제가 완료된 예약은 체험일 7일 전까지 비어 있는 다른 일시로 변경할 수 있습니다. 환불은 불가합니다.",find_h:"예약 찾기",l_id:"예약 ID",l_id_s:"HG로 시작하는 번호",l_email:"예약할 때 입력한 이메일",find_btn:"예약 찾기",pick_h:"새 날짜와 시간 선택",cur:"현재 예약",locked:"먼저 예약을 찾아 주세요.",new_slot:"새 일시",confirm_btn:"이 일시로 변경",
+ pick_time:"시작 시간 선택",full:"마감",avail:"예약 가능",loading:"불러오는 중…",err_net:"예약 시스템에 연결할 수 없습니다. 다시 시도하거나 왓츠앱으로 연락해 주세요.",taken:"방금 그 시간이 마감되었습니다. 다른 시간을 골라 주세요.",not_found:"해당 예약 ID와 이메일로 결제된 예약을 찾을 수 없습니다.",not_paid:"아직 결제되지 않은 예약이라 여기에서 변경할 수 없습니다.",too_late:"일정 변경은 체험일 7일 전까지 가능합니다. 왓츠앱으로 연락해 주세요.",done:"일정이 {slot}(으)로 변경되었습니다. 오사카에서 만나요!"},
+"zh-Hans":{back:"← 返回网站",h1:"更改日期",intro:"已付款的预约可在体验日7天前改到其他有空位的时段。不予退款。",find_h:"查找预约",l_id:"预约编号",l_id_s:"以HG开头",l_email:"预约时使用的邮箱",find_btn:"查找预约",pick_h:"选择新的日期和时间",cur:"当前预约",locked:"请先查找你的预约。",new_slot:"新时间",confirm_btn:"改到这个时段",
+ pick_time:"选择开始时间",full:"已满",avail:"可预约",loading:"加载中…",err_net:"无法连接预约系统。请重试，或通过WhatsApp联系我们。",taken:"该时段刚刚被订走，请选择其他时段。",not_found:"找不到与该编号和邮箱对应的已付款预约。",not_paid:"该预约尚未付款，无法在此更改。",too_late:"日期更改需在体验日7天前完成。请通过WhatsApp联系我们。",done:"日期已改为 {slot}。大阪见！"},
+"zh-Hant":{back:"← 返回網站",h1:"變更日期",intro:"已付款的預約可在體驗日7天前改到其他有空位的時段。恕不退款。",find_h:"查詢預約",l_id:"預約編號",l_id_s:"以HG開頭",l_email:"預約時使用的電子郵件",find_btn:"查詢預約",pick_h:"選擇新的日期和時間",cur:"目前的預約",locked:"請先查詢你的預約。",new_slot:"新的時間",confirm_btn:"改到這個時段",
+ pick_time:"選擇開始時間",full:"已滿",avail:"可預約",loading:"載入中…",err_net:"無法連線到預約系統。請重試，或用WhatsApp聯絡我們。",taken:"這個時段剛被訂走，請選擇其他時段。",not_found:"找不到與這個編號和電子郵件對應的已付款預約。",not_paid:"這筆預約尚未付款，無法在這裡變更。",too_late:"日期變更需在體驗日7天前完成。請用WhatsApp聯絡我們。",done:"日期已改為 {slot}。大阪見！"},
+fr:{back:"← Retour au site",h1:"Changer ta date",intro:"Une réservation payée peut être déplacée vers un autre créneau libre jusqu'à 7 jours avant la date. Aucun remboursement n'est possible.",find_h:"Retrouver ta réservation",l_id:"Numéro de réservation",l_id_s:"commence par HG",l_email:"E-mail utilisé pour réserver",find_btn:"Retrouver ma réservation",pick_h:"Choisis une nouvelle date et heure",cur:"Réservation actuelle",locked:"Retrouve d'abord ta réservation.",new_slot:"Nouvelle date",confirm_btn:"Passer à ce créneau",
+ pick_time:"Choisis une heure de début",full:"Complet",avail:"Disponible",loading:"Chargement…",err_net:"Impossible de joindre le système de réservation. Réessaie ou écris-nous sur WhatsApp.",taken:"Ce créneau vient d'être pris. Choisis-en un autre.",not_found:"Aucune réservation payée trouvée avec ce numéro et cet e-mail.",not_paid:"Cette réservation n'est pas encore payée, la date ne peut donc pas être changée ici.",too_late:"Les changements de date sont possibles jusqu'à 7 jours avant. Écris-nous sur WhatsApp.",done:"Ta date est maintenant le {slot}. À bientôt à Osaka !"},
+de:{back:"← Zurück zur Website",h1:"Termin ändern",intro:"Bezahlte Buchungen können bis 7 Tage vorher auf einen anderen freien Termin verschoben werden. Eine Erstattung ist nicht möglich.",find_h:"Buchung finden",l_id:"Buchungsnummer",l_id_s:"beginnt mit HG",l_email:"E-Mail der Buchung",find_btn:"Buchung finden",pick_h:"Neuen Tag und Uhrzeit wählen",cur:"Aktuelle Buchung",locked:"Finde zuerst deine Buchung.",new_slot:"Neuer Termin",confirm_btn:"Auf diesen Termin ändern",
+ pick_time:"Startzeit wählen",full:"Ausgebucht",avail:"Frei",loading:"Wird geladen…",err_net:"Das Buchungssystem ist nicht erreichbar. Versuch es erneut oder schreib uns auf WhatsApp.",taken:"Dieser Termin wurde gerade vergeben. Bitte wähle einen anderen.",not_found:"Keine bezahlte Buchung mit dieser Nummer und E-Mail gefunden.",not_paid:"Diese Buchung ist noch nicht bezahlt und kann hier nicht geändert werden.",too_late:"Terminänderungen sind bis 7 Tage vorher möglich. Schreib uns bitte auf WhatsApp.",done:"Dein Termin ist jetzt am {slot}. Bis bald in Osaka!"}
+};
+I18N["de-CH"] = Object.fromEntries(Object.entries(I18N.de).map(([k, v]) => [k, v.replace(/ß/g, "ss")]));
+const LANGS = ["en","ja","ko","zh-Hans","zh-Hant","fr","de","de-CH"];
+const HP = location.hash.slice(1).split(".");
+let lang = LANGS.includes(HP[0]) ? HP[0] : "en";
+const LINK_ID = /^HG[A-Z0-9]+$/.test(HP[1] || "") ? HP[1] : "", LINK_KEY = /^[A-Za-z0-9_-]{10,}$/.test(HP[2] || "") ? HP[2] : "";
+const textEls = document.querySelectorAll("[data-i18n]");
+const EN = { ...EN_EXTRA };
+textEls.forEach(el => { EN[el.dataset.i18n] = el.innerHTML; });
+const T = k => (lang !== "en" && I18N[lang] && I18N[lang][k] != null) ? I18N[lang][k] : EN[k];
+
+async function apiGet(params) { const r = await fetch(GAS_URL + "?" + new URLSearchParams(params)); return r.json(); }
+async function apiPost(body) { const r = await fetch(GAS_URL, { method: "POST", body: JSON.stringify(body) }); return r.json(); }
+function pad(n) { return String(n).padStart(2, "0"); }
+function ymdUTC(d) { return d.getUTCFullYear() + "-" + pad(d.getUTCMonth() + 1) + "-" + pad(d.getUTCDate()); }
+function fmtDate(date, opts) { return new Intl.DateTimeFormat(lang === "en" ? "en-US" : lang, Object.assign({ timeZone: "UTC" }, opts)).format(new Date(date + "T00:00:00Z")); }
+function endOf(time, min) { const [h, m] = time.split(":").map(Number); const x = h * 60 + m + min; return pad(Math.floor(x / 60) % 24) + ":" + pad(x % 60); }
+function slotText(date, time) { return fmtDate(date, { year: "numeric", month: "long", day: "numeric", weekday: "short" }) + " " + time + " – " + endOf(time, (AV && AV.duration) || 180); }
+
+let AV = null, view = null, selDate = "", selTime = "", booking = null;
+const calMsg = document.getElementById("cal-msg");
+function showMsg(key) { calMsg.hidden = !key; calMsg.textContent = key ? T(key) : ""; }
+function startMs(date, t) { return Date.parse(date + "T" + t + ":00+09:00"); }
+function timesFor(date) { return AV.times.filter(t => !AV.minStart || startMs(date, t) >= AV.minStart); }
+function isMine(date, t) { return booking && booking.date === date && booking.time === t; }
+function freeCount(date) { return timesFor(date).filter(t => !isMine(date, t) && (AV.taken[date + "|" + t] || 0) < AV.capacity).length; }
+function dayState(date) {
+  if (date < AV.minDate || date > AV.maxDate) return "off";
+  const wd = new Date(date + "T00:00:00Z").getUTCDay();
+  if (AV.closedWeekdays.includes(wd) || AV.closedDates.includes(date)) return "off";
+  return freeCount(date) ? "open" : "full";
+}
+function renderCal() {
+  if (!AV) return;
+  const y = view.getUTCFullYear(), m = view.getUTCMonth();
+  document.getElementById("cal-title").textContent = fmtDate(ymdUTC(view), { year: "numeric", month: "long" });
+  const curM = ymdUTC(view).slice(0, 7);
+  document.getElementById("cal-prev").disabled = curM <= AV.minDate.slice(0, 7);
+  document.getElementById("cal-next").disabled = curM >= AV.maxDate.slice(0, 7);
+  let html = "";
+  for (let i = 0; i < 7; i++) html += `<div class="cal-wd${i === 0 ? " sun" : ""}">${fmtDate(ymdUTC(new Date(Date.UTC(2023, 0, 1 + i))), { weekday: "short" })}</div>`;
+  const first = new Date(Date.UTC(y, m, 1)).getUTCDay(), days = new Date(Date.UTC(y, m + 1, 0)).getUTCDate();
+  for (let i = 0; i < first; i++) html += '<span class="day blank"></span>';
+  for (let d = 1; d <= days; d++) {
+    const date = y + "-" + pad(m + 1) + "-" + pad(d), st = dayState(date), dis = st !== "open";
+    html += `<button type="button" class="day ${st}${date === selDate ? " sel" : ""}" data-date="${date}"${dis ? " disabled" : ""}>${d}${dis ? "" : "<small></small>"}</button>`;
+  }
+  const grid = document.getElementById("cal-grid");
+  grid.innerHTML = html;
+  grid.querySelectorAll(".day:not([disabled])").forEach(b => b.addEventListener("click", () => { selDate = b.dataset.date; selTime = ""; renderCal(); renderSlots(); }));
+}
+function renderSlots() {
+  const box = document.getElementById("slots");
+  if (!selDate || !AV) { box.hidden = true; return; }
+  box.hidden = false;
+  document.getElementById("slots-title").textContent = fmtDate(selDate, { month: "long", day: "numeric", weekday: "short" }) + " · " + T("pick_time");
+  document.getElementById("slot-list").innerHTML = timesFor(selDate).map(t => {
+    const full = isMine(selDate, t) || (AV.taken[selDate + "|" + t] || 0) >= AV.capacity;
+    return `<button type="button" class="slot${selTime === t ? " sel" : ""}" data-time="${t}"${full ? " disabled" : ""}><span>${t} – ${endOf(t, AV.duration)}</span><em>${full ? T("full") : T("avail")}</em></button>`;
+  }).join("");
+  document.querySelectorAll(".slot:not([disabled])").forEach(b => b.addEventListener("click", () => {
+    selTime = b.dataset.time; renderSlots();
+    document.getElementById("confirm-row").hidden = false;
+    document.getElementById("new-text").textContent = slotText(selDate, selTime);
+    document.getElementById("confirm-row").scrollIntoView({ behavior: "smooth", block: "nearest" });
+  }));
+}
+async function loadAvailability() {
+  showMsg("loading");
+  try { AV = await apiGet({ action: "availability" }); if (!AV.ok) throw 0; showMsg(""); } catch (e) { showMsg("err_net"); return; }
+  if (!view) view = new Date(Date.UTC(+AV.minDate.slice(0, 4), +AV.minDate.slice(5, 7) - 1, 1));
+  renderCal(); renderSlots();
+}
+function applyLang(l) {
+  lang = l;
+  textEls.forEach(el => { el.innerHTML = T(el.dataset.i18n); });
+  document.documentElement.lang = l;
+  document.getElementById("lang").value = l;
+  if (booking) document.getElementById("current-text").textContent = slotText(booking.date, booking.time);
+  if (selDate && selTime) document.getElementById("new-text").textContent = slotText(selDate, selTime);
+  renderCal(); renderSlots();
+}
+document.getElementById("lang").addEventListener("change", e => { applyLang(e.target.value); history.replaceState(null, "", "#" + [e.target.value, LINK_ID, LINK_KEY].filter(Boolean).join(".")); });
+document.getElementById("cal-prev").addEventListener("click", () => { view = new Date(Date.UTC(view.getUTCFullYear(), view.getUTCMonth() - 1, 1)); renderCal(); });
+document.getElementById("cal-next").addEventListener("click", () => { view = new Date(Date.UTC(view.getUTCFullYear(), view.getUTCMonth() + 1, 1)); renderCal(); });
+
+const findErr = document.getElementById("find-err");
+async function findBooking(id, email, key) {
+  const btn = document.getElementById("find-btn"); btn.disabled = true;
+  let r; try { r = await apiPost({ action: "lookup", id, email, key }); } catch (_) { r = { ok: false, reason: "net" }; }
+  btn.disabled = false;
+  if (!r.ok) { findErr.hidden = false; findErr.textContent = T(r.reason === "not_paid" ? "not_paid" : r.reason === "net" ? "err_net" : "not_found"); return; }
+  if (!r.canChange) { findErr.hidden = false; findErr.textContent = T("too_late"); return; }
+  findErr.hidden = true;
+  booking = { id, email, key, date: r.date, time: r.time };
+  document.getElementById("find").hidden = true;
+  document.getElementById("date").classList.remove("locked");
+  document.getElementById("locked").hidden = true;
+  document.getElementById("current").hidden = false;
+  document.getElementById("cal").hidden = false;
+  await loadAvailability();
+  document.getElementById("current-text").textContent = slotText(r.date, r.time);
+  if (!key) document.getElementById("date").scrollIntoView({ behavior: "smooth", block: "start" });
+}
+document.getElementById("find").addEventListener("submit", e => {
+  e.preventDefault();
+  const id = document.getElementById("b-id").value.trim().toUpperCase(), email = document.getElementById("b-email").value.trim();
+  if (!id || !email) { findErr.hidden = false; findErr.textContent = T("not_found"); return; }
+  findBooking(id, email, "");
+});
+document.getElementById("confirm-btn").addEventListener("click", async () => {
+  if (!booking || !selDate || !selTime) return;
+  const btn = document.getElementById("confirm-btn"); btn.disabled = true;
+  let r; try { r = await apiPost({ action: "reschedule", id: booking.id, email: booking.email, key: booking.key, date: selDate, time: selTime }); } catch (_) { r = { ok: false, reason: "net" }; }
+  btn.disabled = false;
+  if (!r.ok) {
+    showMsg(r.reason === "full" ? "taken" : r.reason === "too_late" ? "too_late" : "err_net");
+    await loadAvailability();
+    return;
+  }
+  document.getElementById("cal").hidden = true;
+  document.getElementById("confirm-row").hidden = true;
+  document.getElementById("current").hidden = true;
+  const done = document.getElementById("done");
+  done.hidden = false;
+  done.textContent = T("done").replace("{slot}", slotText(r.date, r.time));
+});
+applyLang(lang);
+if (LINK_ID && LINK_KEY) { document.getElementById("b-id").value = LINK_ID; findBooking(LINK_ID, "", LINK_KEY); }
+</script>
+</body>
+</html>

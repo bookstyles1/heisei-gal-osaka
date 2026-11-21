@@ -1,0 +1,116 @@
+/* POP edition overrides for booking / payment / change pages.
+   Loaded after each page's own styles: same layout, candy-shop look. */
+:root{
+  --ink:#2b1a3d;
+  --paper:#fff7fb;
+  --paper-2:#f3fbff;
+  --pink:#ff5fa2;
+  --pink-deep:#e2307f;
+  --gold:#ffe14d;
+  --muted:#6b5a7a;
+  --line:#f4c6dc;
+  --blue:#4cc9ff;
+  --lime:#a6e86b;
+  --lilac:#b79cff;
+  --f-display:"Mochiy Pop One","Hiragino Maru Gothic ProN","Yu Gothic",sans-serif;
+  --f-body:"M PLUS Rounded 1c","Hiragino Maru Gothic ProN","Yu Gothic","Apple SD Gothic Neo","Malgun Gothic","PingFang SC","PingFang TC","Microsoft YaHei",sans-serif;
+  --f-lcd:"M PLUS Rounded 1c",sans-serif;
+}
+body{background:var(--paper);font-weight:500;
+  background-image:radial-gradient(rgba(255,95,162,.13) 2.5px,transparent 2.6px);background-size:26px 26px}
+body::before{background:#fff}
+
+/* header */
+.top{background:rgba(255,255,255,.94);color:var(--ink);border-bottom:3px solid var(--ink)}
+.logo b{color:var(--pink)}
+.back{opacity:1;font-weight:800}
+.lang{color:var(--ink);background-color:#fff;border-color:var(--ink);
+  background-image:linear-gradient(45deg,transparent 50%,var(--ink) 50%),linear-gradient(135deg,var(--ink) 50%,transparent 50%)}
+
+/* headings */
+h1,h2{color:var(--ink)}
+h1{text-shadow:3px 3px 0 #fff,6px 6px 0 var(--blue)}
+.stepper li{border-width:2.5px;border-radius:999px;background:#fff}
+.stepper li.on{background:var(--pink);color:#fff}
+.stepper li.done{background:var(--blue);color:var(--ink)}
+
+/* cards */
+.card{border-radius:28px;box-shadow:7px 7px 0 var(--lilac)}
+#date.card,.summary{box-shadow:7px 7px 0 var(--blue)}
+.card .num{display:inline-block;justify-self:start;font-family:var(--f-body);font-weight:800;font-size:.8rem;letter-spacing:.1em;
+  background:var(--gold);color:var(--ink);border:2.5px solid var(--ink);border-radius:999px;padding:3px 12px;transform:rotate(-2deg)}
+.muted{color:var(--muted)}
+
+/* buttons */
+.btn{border-radius:999px;box-shadow:0 6px 0 var(--ink);font-family:var(--f-display);font-weight:400}
+.btn:hover{transform:translateY(2px);box-shadow:0 4px 0 var(--ink)}
+.btn.small{box-shadow:0 4px 0 var(--ink)}
+
+/* the 10-minute rule + timer */
+.rule{background:var(--gold);border-radius:22px;box-shadow:5px 5px 0 var(--pink)}
+.rule::before{font-family:var(--f-display);font-size:1rem;background:var(--ink);color:#fff;border-radius:999px;padding:6px 10px}
+.hold{background:var(--pink);color:#fff;border-bottom:3px solid var(--ink)}
+.hold b{color:var(--ink);background:#fff;border-radius:999px;padding:0 8px}
+.hold.over{background:var(--ink)}
+
+/* calendar */
+.cal{border-radius:26px;box-shadow:6px 6px 0 var(--pink)}
+.cal-top{background:linear-gradient(90deg,var(--pink),#ff8fc2)}
+.cal-top h3{font-family:var(--f-display)}
+.cal-nav{border-color:#fff;background:rgba(255,255,255,.2)}
+.day{border-radius:50%;background:#fff3f9;font-weight:800}
+.day small{background:var(--pink)}
+.day.few small{background:var(--gold)}
+.day.sel{background:var(--ink);color:#fff;border-color:var(--ink)}
+.day:hover:not([disabled]){border-color:var(--pink)}
+.slots{border-top:3px dotted var(--line)}
+.slots h4{color:var(--pink-deep)}
+.slot{border-radius:20px;border-width:2.5px;box-shadow:0 4px 0 var(--ink)}
+.slot:hover:not([disabled]){background:var(--blue);color:var(--ink)}
+.slot:hover:not([disabled]) em{color:var(--ink)}
+.slot.sel{background:var(--ink);color:#fff}
+.cal-legend i{background:var(--pink)}
+.cal-legend i.few{background:var(--gold)}
+.picked{border-radius:20px;background:#eafaff}
+.booked{background:var(--gold);border-radius:20px;font-family:var(--f-display);font-weight:400}
+.locked-msg{border-radius:20px;border-style:dotted;border-width:3px;background:#fff}
+
+/* form */
+label{font-weight:800}
+input,select,textarea{border-radius:14px;border-width:2.5px}
+input:focus,select:focus,textarea:focus{outline-color:var(--blue)}
+.plans span{border-radius:22px;border-width:2.5px;box-shadow:0 4px 0 var(--ink)}
+.plans span b{font-family:var(--f-display);font-size:1rem;font-weight:400}
+.plans span i{font-family:var(--f-display)}
+.plans input:checked+span{background:var(--pink)}
+.guest{border-radius:22px;border:2.5px dashed var(--blue);background:#f3fbff}
+.guest h3{font-family:var(--f-display);font-size:1rem;color:var(--pink-deep)}
+.opt-box{border-radius:20px;border:2.5px dotted var(--lilac);background:#fff}
+.err{color:var(--pink-deep)}
+
+/* payment */
+.summary{background:linear-gradient(135deg,#ff7ab4,var(--pink));border-radius:30px}
+.summary .who{font-family:var(--f-body);font-weight:800;font-size:1rem;letter-spacing:.1em}
+.summary .amount{font-family:var(--f-display);text-shadow:3px 3px 0 var(--ink)}
+.summary .btn{background:var(--gold);color:var(--ink)}
+.nr{border-radius:20px}
+.nr h3{font-family:var(--f-display);color:var(--pink-deep)}
+.other a{border-radius:22px;border-width:2.5px;box-shadow:0 4px 0 var(--ink)}
+.other a b{font-family:var(--f-display);font-size:1rem;font-weight:400}
+.other a[aria-current="true"]{background:var(--pink);color:#fff}
+.other a[aria-current="true"] em{color:#fff}
+
+footer{background:var(--ink);color:#e9dcf5}
+
+/* ===== 3-color system: pink / ink / lemon ===== */
+:root{--blue:#ff5fa2;--lime:#ffe14d;--lilac:#ff5fa2}
+h1{text-shadow:3px 3px 0 #fff,6px 6px 0 var(--pink)}
+.stepper li.done{background:var(--gold);color:var(--ink)}
+#date.card,.card{box-shadow:7px 7px 0 var(--pink)}
+.summary{box-shadow:7px 7px 0 var(--ink)}
+.slot:hover:not([disabled]){background:var(--pink);color:#fff}
+.slot:hover:not([disabled]) em{color:#fff}
+.picked{background:#fff6c9}
+.guest{border-color:var(--pink);background:#fff}
+.opt-box{border-color:var(--pink)}
+input:focus,select:focus,textarea:focus{outline-color:var(--pink)}

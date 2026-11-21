@@ -284,7 +284,7 @@ document.getElementById("pay").addEventListener("click", async (e) => {
   }
   pay.classList.add("off");
   try {
-    const r = await fetch(GAS_URL, { method: "POST", body: JSON.stringify({ action: "checkout", id: bookingId, plan: plan, lang: lang }) });
+    const r = await fetch(GAS_URL, { method: "POST", body: JSON.stringify({ action: "checkout", id: bookingId, plan: plan, lang: lang, base: location.href.split("#")[0].replace(/[^/]*$/, "") }) });
     const j = await r.json();
     if (j.ok && j.url) { location.href = j.url; return; }
     alertBox(T(j.reason === "expired" ? "expired" : "pay_err"));

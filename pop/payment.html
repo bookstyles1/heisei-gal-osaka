@@ -1,0 +1,348 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Gal Day Payment</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&family=Mochiy+Pop+One&family=Manrope:wght@400;600;800&display=swap">
+<style>
+:root{
+  --ink:#16080f;--paper:#ffe6f2;--paper-2:#fff6fa;--pink:#ff2e93;--pink-deep:#c2006b;--gold:#ffd54a;--muted:#6e4a5e;--line:#f0a9cb;
+  --f-display:"Dela Gothic One","Black Han Sans","PingFang SC","PingFang TC","Microsoft YaHei","Hiragino Sans",Impact,sans-serif;
+  --f-body:"Manrope","Helvetica Neue",Arial,"Hiragino Sans","Yu Gothic","Apple SD Gothic Neo","Malgun Gothic","PingFang SC","PingFang TC","Microsoft YaHei",sans-serif;
+  --f-lcd:"VT323","Courier New",monospace;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.6}
+:lang(ko){word-break:keep-all}
+p,li,label,legend{text-wrap:pretty}
+:lang(ja) h1,:lang(ja) h2{word-break:auto-phrase}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.wrap{max-width:760px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.top{background:var(--ink);color:#fff}
+.top .wrap{display:flex;justify-content:space-between;align-items:center;gap:12px;padding-block:12px;max-width:1120px;flex-wrap:wrap}
+.logo{font-family:var(--f-display);text-decoration:none;font-size:1.15rem;white-space:nowrap}
+.logo b{color:var(--pink);font-weight:400}
+.top-right{display:flex;align-items:center;gap:14px}
+.back{font-weight:600;font-size:.95rem;text-decoration:none;opacity:.85;white-space:nowrap}
+@media (max-width:520px){.back{display:none}}
+.lang{appearance:none;-webkit-appearance:none;background:transparent;color:#fff;border:2px solid #fff;border-radius:999px;padding:.4em 1.9em .4em .9em;font:600 .85rem var(--f-body);cursor:pointer;
+  background-image:linear-gradient(45deg,transparent 50%,#fff 50%),linear-gradient(135deg,#fff 50%,transparent 50%);background-position:calc(100% - 14px) 52%,calc(100% - 9px) 52%;background-size:5px 5px;background-repeat:no-repeat}
+.lang option{color:var(--ink);background:#fff}
+h1,h2{font-family:var(--f-display);font-weight:400;line-height:1.15;margin:0;text-wrap:balance}
+h1{font-size:clamp(2.1rem,7vw,3.4rem)}
+h2{font-size:1.5rem}
+.head{padding-block:44px 24px;display:grid;gap:18px}
+.stepper{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:8px}
+.stepper li{font-family:var(--f-body);font-weight:800;font-size:.92rem;padding:7px 16px;border-radius:999px;border:2px solid var(--ink);background:#fff}
+.stepper li.on{background:var(--pink);color:#fff}
+.muted{color:var(--muted);margin:0}
+.summary{background:var(--pink);color:#fff;border:3px solid var(--ink);border-radius:18px;padding:clamp(20px,4vw,30px);display:grid;gap:10px;box-shadow:8px 8px 0 var(--ink);margin-bottom:28px}
+.summary .who{font-family:var(--f-lcd);font-size:1.5rem;letter-spacing:.05em}
+.summary .amount{font-family:var(--f-display);font-size:clamp(2.4rem,8vw,3.4rem);line-height:1;font-variant-numeric:tabular-nums}
+.summary .per{font-weight:600}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.5em;font-family:var(--f-display);font-size:1.1rem;text-decoration:none;padding:.9em 1.6em;border-radius:999px;border:3px solid var(--ink);background:var(--gold);color:var(--ink);box-shadow:4px 4px 0 var(--ink);margin-top:8px;justify-self:start}
+.btn:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--ink)}
+.card{background:#fff;border:3px solid var(--ink);border-radius:18px;padding:clamp(18px,4vw,26px);display:grid;gap:12px;margin-bottom:22px}
+.card ul{margin:0;padding-left:1.2em;display:grid;gap:6px}
+.other{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+@media (max-width:560px){.other{grid-template-columns:1fr 1fr}}
+.other a{display:grid;gap:2px;text-align:center;text-decoration:none;padding:12px;border:2px solid var(--ink);border-radius:12px;background:#fff}
+.other a b{font-family:var(--f-lcd);font-size:1.3rem;font-weight:400}
+.other a em{font-style:normal;font-size:.9rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.other a[aria-current="true"]{background:var(--ink);color:#fff}
+.other a[aria-current="true"] em{color:var(--gold)}
+.hold{position:sticky;top:env(safe-area-inset-top,0px);z-index:8;background:var(--ink);color:#fff;text-align:center;padding:10px 16px;font-weight:600}
+.hold b{font-family:var(--f-lcd);font-size:1.5rem;font-weight:400;color:var(--gold);letter-spacing:.05em}
+.hold.over{background:var(--pink-deep)}
+.btn.off,.btn.nr-off{opacity:.45;pointer-events:none}
+.fx{display:block;font-size:.82rem;font-weight:600;opacity:.8;font-variant-numeric:tabular-nums;font-family:var(--f-body)}
+.fx:empty{display:none}
+.fx-row{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center;font-size:.8rem;color:var(--muted);margin:10px 0 0}
+.fx-pick label{display:inline-flex;align-items:center;gap:6px;font-weight:600;font-size:.8rem}
+.fx-pick select{width:auto;padding:.2em .5em;font-size:.8rem;border:2px solid var(--ink);border-radius:8px;background:#fff;color:var(--ink)}
+.fx-pick[hidden]{display:none}
+.summary .fx{opacity:.95;font-size:1rem}
+.summary .fx-row{color:#fff}
+.summary .fx-pick select{border-color:#fff}
+.nr{background:#fff;color:var(--ink);border:3px solid var(--ink);border-radius:14px;padding:14px 16px;display:grid;gap:8px}
+.nr h3{margin:0;font-family:var(--f-display);font-weight:400;font-size:1.15rem;color:var(--pink-deep)}
+.nr p{margin:0;font-size:.95rem}
+.nr label{display:flex;gap:10px;align-items:flex-start;font-weight:700;cursor:pointer}
+.nr input{width:20px;height:20px;margin-top:.15em;flex:none;accent-color:var(--pink)}
+footer{background:var(--ink);color:#d9c3cf;font-size:.9rem;margin-top:40px}
+footer .wrap{padding-block:24px}
+</style>
+<link rel="stylesheet" href="pop-pages.css">
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <a class="logo" href="index.html">HEISEI <b>GAL</b> OSAKA</a>
+    <div class="top-right">
+      <a class="back" id="back" href="booking.html" data-i18n="back">← Back to booking</a>
+      <label for="lang" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Language</label>
+      <select id="lang" class="lang">
+        <option value="en">English</option>
+        <option value="ja">日本語</option>
+        <option value="ko">한국어</option>
+        <option value="zh-Hans">简体中文</option>
+        <option value="zh-Hant">繁體中文</option>
+        <option value="fr">Français</option>
+        <option value="de">Deutsch</option>
+        <option value="de-CH">Deutsch (Schweiz)</option>
+      </select>
+    </div>
+  </div>
+</header>
+
+<div class="hold" id="hold" hidden role="status"></div>
+<main class="wrap">
+  <section class="summary" id="paid" hidden aria-live="polite">
+    <span class="who">♥ HEISEI GAL OSAKA ♥</span>
+    <span class="amount" id="paid-h" style="font-size:clamp(1.8rem,6vw,2.6rem)"></span>
+    <span class="per" id="paid-p"></span>
+    <span class="per" id="paid-id"></span>
+  </section>
+  <div class="head">
+    <ol class="stepper" aria-label="Booking steps">
+      <li class="on" data-i18n="s1">1 Date</li>
+      <li class="on" data-i18n="s2">2 Your details</li>
+      <li class="on" data-i18n="s3">3 Payment</li>
+    </ol>
+    <h1 data-i18n="h1">Last step: payment</h1>
+    <p class="muted" data-i18n="intro">Pay within 10 minutes of picking your slot to confirm your booking. The studio is near Namba / Shinsaibashi Station. We'll send the exact address on WhatsApp by 1 hour before your start time.</p>
+  </div>
+
+  <section class="summary" aria-live="polite">
+    <span class="who" id="who">SOLO · 1 person</span>
+    <span class="amount" id="amount">¥90,000</span>
+    <span class="fx" id="fx-amount" data-yen="90000"></span>
+    <span class="per" id="per">Tax included</span>
+    <p class="fx-row"><span class="fx-pick" hidden></span><span class="fx-note"></span></p>
+    <div class="nr">
+      <h3 data-i18n="nr_title">No refunds</h3>
+      <p data-i18n="nr_body">Once payment is complete, we can't refund you for any reason, including cancellation, no-show, late arrival, weather or illness.</p>
+      <label><input type="checkbox" id="agree-nr"><span data-i18n="agree_nr">I understand that payment is non-refundable for any reason.</span></label>
+    </div>
+    <a class="btn nr-off" id="pay" href="#" aria-disabled="true">Pay ¥90,000 securely →</a>
+  </section>
+
+  <section class="card">
+    <h2 data-i18n="wrong_h">Wrong plan?</h2>
+    <p class="muted" data-i18n="wrong_p">Choose the plan that matches your group size.</p>
+    <nav class="other" aria-label="Plans">
+      <a href="#solo" data-plan="solo"><b>SOLO</b><em>¥90,000</em></a>
+      <a href="#duo" data-plan="duo"><b>DUO</b><em>¥140,000</em></a>
+      <a href="#trio" data-plan="trio"><b>TRIO</b><em>¥180,000</em></a>
+      <a href="#squad" data-plan="squad"><b>SQUAD</b><em>¥220,000</em></a>
+    </nav>
+  </section>
+
+  <section class="card">
+    <h2 data-i18n="know_h">Good to know</h2>
+    <ul>
+      <li data-i18n="k1">Card payment through a secure checkout. Prices are in Japanese yen; your card company converts the amount.</li>
+      <li data-i18n="k2">Your booking is confirmed only once payment is complete. If payment isn't completed within 10 minutes of picking your slot, the booking is not confirmed and the slot is released.</li>
+      <li data-i18n="k3">No refunds after payment, for any reason.</li>
+      <li data-i18n="k5">Date changes: possible up to 7 days before, from the link in your booking confirmation email.</li>
+      <li data-i18n="k4">Questions? Message us on WhatsApp: <b>+81 XX-XXXX-XXXX</b></li>
+    </ul>
+  </section>
+</main>
+
+<footer><div class="wrap">HEISEI GAL OSAKA · Shinsaibashi, Osaka, Japan</div></footer>
+
+<script>
+/* ===== 設定（ここだけ書き換える） ===== */
+// 予約システム（Google Apps Script）のWebアプリURL。予約ページと同じURLを入れる
+const GAS_URL = "https://script.google.com/macros/s/AKfycbzg6lCKw-3K2Nu4WYFioVUoEPYxGbzTt2XwlAz5QoZT3wxTtY4hMEhfO7FzFseBCYOu/exec";
+/* ===================================== */
+
+const EN_DYN = { paid_id:"Booking ID: {id} · {slot}. We've emailed your booking confirmation, including a link to change your date (up to 7 days before).", paid_h:"You're booked!", paid_p:"Payment received. The studio is near Namba / Shinsaibashi Station. We'll send the exact address on WhatsApp by 1 hour before your start time. See you in Osaka!", checking:"Confirming your payment…", pay_err:"Couldn't open the payment page. Please try again or message us on WhatsApp.", hold:"Slot held. Pay within <b>{t}</b> to confirm.", expired:"Time's up. Your booking is not confirmed. Please pick a slot again or message us on WhatsApp.", solo:"SOLO · 1 person", duo:"DUO · 2 people", trio:"TRIO · 3 people", squad:"SQUAD · 4 people", tax:"Tax included", per:"{p} per person · tax included", pay:"Pay {a} securely →" };
+
+const I18N = {
+ja:{k5:"日程変更：体験日の7日前まで、予約完了メールのリンクから変更できます。",paid_id:"予約ID：{id}・{slot}。予約完了メールをお送りしました。日程変更（7日前まで）のリンクもメールに入っています。",paid_change:"日程を変更する",paid_h:"予約が確定しました！",paid_p: "お支払いを確認しました。スタジオは難波駅・心斎橋駅の周辺です。詳しい住所は、開始時間の1時間前までにWhatsAppでお送りします。大阪でお会いしましょう！",checking:"お支払いを確認しています…",pay_err:"支払い画面を開けませんでした。もう一度試すか、WhatsAppでご連絡ください。",agree_nr:"お支払い後は、いかなる理由でも返金できないことに同意します。",nr_body:"お支払いが完了した後は、キャンセル、不参加、遅刻、天候、体調不良など、いかなる理由でも返金できません。",nr_title:"返金不可",expired:"時間切れです。予約は確定していません。もう一度日時を選ぶか、WhatsAppでご連絡ください。",hold:"枠を確保中。<b>{t}</b> 以内のお支払いで予約確定です。",back:"← 予約ページに戻る",s1:"1 日時",s2:"2 情報入力",s3:"3 お支払い",h1:"最後に、お支払い",
+intro: "日時を選んでから10分以内のお支払いで予約確定です。スタジオは難波駅・心斎橋駅の周辺です。詳しい住所は、開始時間の1時間前までにWhatsAppでお送りします。",
+solo:"SOLO · 1名",duo:"DUO · 2名",trio:"TRIO · 3名",squad:"SQUAD · 4名",tax:"税込",per:"1人あたり{p}・税込",pay:"{a}を支払う →",
+wrong_h:"プランが違う場合",wrong_p:"人数に合ったプランを選んでください。",know_h:"お支払いについて",
+k1:"カード決済の安全な画面でお支払いいただきます。料金は日本円で、カード会社が自動で換算します。",
+k2:"お支払いが完了して初めて予約確定です。日時を選んでから10分以内にお支払いが完了しない場合、予約は確定せず、枠は取り消されます。",
+k3:"お支払い後は、理由を問わず返金できません。",
+k4:"質問はWhatsAppへ：<b>+81 XX-XXXX-XXXX</b>"},
+ko:{k5:"일정 변경: 체험일 7일 전까지 예약 확정 메일의 링크에서 가능합니다.",paid_id:"예약 ID: {id} · {slot}. 예약 확정 메일을 보내 드렸습니다. 일정 변경(7일 전까지) 링크도 메일에 들어 있습니다.",paid_change:"일정 변경",paid_h:"예약이 확정되었습니다!",paid_p: "결제를 확인했습니다. 스튜디오는 난바역·신사이바시역 주변입니다. 정확한 주소는 시작 1시간 전까지 왓츠앱으로 보내 드립니다. 오사카에서 만나요!",checking:"결제를 확인하고 있습니다…",pay_err:"결제 페이지를 열 수 없습니다. 다시 시도하거나 왓츠앱으로 연락해 주세요.",agree_nr:"결제 후에는 어떤 이유로도 환불되지 않는다는 데 동의합니다.",nr_body:"결제가 완료된 후에는 취소, 노쇼, 지각, 날씨, 건강 문제 등 어떤 이유로도 환불해 드릴 수 없습니다.",nr_title:"환불 불가",expired:"시간이 초과되었습니다. 예약이 확정되지 않았습니다. 다시 날짜를 고르거나 왓츠앱으로 연락해 주세요.",hold:"시간 확보 중. <b>{t}</b> 안에 결제하면 예약이 확정됩니다.",back:"← 예약 페이지로 돌아가기",s1:"1 날짜",s2:"2 정보 입력",s3:"3 결제",h1:"마지막 단계: 결제",
+intro: "날짜를 고른 후 10분 이내에 결제하면 예약이 확정됩니다. 스튜디오는 난바역·신사이바시역 주변입니다. 정확한 주소는 시작 1시간 전까지 왓츠앱으로 보내 드립니다.",
+solo:"SOLO · 1명",duo:"DUO · 2명",trio:"TRIO · 3명",squad:"SQUAD · 4명",tax:"세금 포함",per:"1인 {p} · 세금 포함",pay:"{a} 안전하게 결제하기 →",
+wrong_h:"플랜이 다른가요?",wrong_p:"인원에 맞는 플랜을 선택해 주세요.",know_h:"알아 두세요",
+k1:"안전한 결제 화면에서 카드로 결제합니다. 요금은 일본 엔화이며, 카드사에서 자동으로 환산합니다.",
+k2:"결제가 완료되어야 예약이 확정됩니다. 날짜를 고른 후 10분 이내에 결제가 완료되지 않으면 예약은 확정되지 않으며, 해당 시간은 취소됩니다.",
+k3:"결제 후에는 어떤 이유로도 환불되지 않습니다.",
+k4:"문의는 왓츠앱으로: <b>+81 XX-XXXX-XXXX</b>"},
+"zh-Hans":{k5:"更改日期：可在体验日7天前，通过预约确认邮件中的链接办理。",paid_id:"预约编号：{id} · {slot}。我们已发送预约确认邮件，邮件中附有更改日期（7天前为止）的链接。",paid_change:"更改日期",paid_h:"预约成功！",paid_p: "已确认付款。工作室位于难波站・心斋桥站附近。具体地址会在开始前1小时之前通过WhatsApp发送给你。大阪见！",checking:"正在确认付款…",pay_err:"无法打开付款页面。请重试，或通过WhatsApp联系我们。",agree_nr:"我同意付款后无论任何原因均不予退款。",nr_body:"付款完成后，无论是取消、未到场、迟到、天气还是身体不适等任何原因，均不予退款。",nr_title:"不可退款",expired:"已超时，预约未确认。请重新选择时间，或通过WhatsApp联系我们。",hold:"时段保留中。请在 <b>{t}</b> 内付款以确认预约。",back:"← 返回预约页面",s1:"1 日期",s2:"2 填写信息",s3:"3 付款",h1:"最后一步：付款",
+intro: "选择时间后10分钟内付款即确认预约。工作室位于难波站・心斋桥站附近。具体地址会在开始前1小时之前通过WhatsApp发送给你。",
+solo:"SOLO · 1人",duo:"DUO · 2人",trio:"TRIO · 3人",squad:"SQUAD · 4人",tax:"含税",per:"每人{p} · 含税",pay:"安全支付{a} →",
+wrong_h:"选错套餐了？",wrong_p:"请选择与人数相符的套餐。",know_h:"付款须知",
+k1:"通过安全的结账页面以银行卡付款。价格以日元计，由发卡机构自动换算。",
+k2:"只有付款完成后预约才会确认。如果选择时间后10分钟内未完成付款，预约将不会确认，时段也会被释放。",
+k3:"付款后无论任何原因均不予退款。",
+k4:"有问题请通过WhatsApp联系：<b>+81 XX-XXXX-XXXX</b>"},
+"zh-Hant":{k5:"變更日期：可在體驗日7天前，透過預約確認信中的連結辦理。",paid_id:"預約編號：{id} · {slot}。我們已寄出預約確認信，信中附有變更日期（7天前為止）的連結。",paid_change:"變更日期",paid_h:"預約成功！",paid_p: "已確認付款。工作室位於難波站・心齋橋站附近。詳細地址會在開始前1小時之前用WhatsApp傳給你。大阪見！",checking:"正在確認付款…",pay_err:"無法開啟付款頁面。請重試，或用WhatsApp聯絡我們。",agree_nr:"我同意付款後無論任何原因皆不退款。",nr_body:"付款完成後，無論是取消、未到場、遲到、天候或身體不適等任何原因，皆不退款。",nr_title:"不可退款",expired:"已超過時間，預約未成立。請重新選擇時間，或用WhatsApp聯絡我們。",hold:"時段保留中。請在 <b>{t}</b> 內付款以確認預約。",back:"← 返回預約頁面",s1:"1 日期",s2:"2 填寫資料",s3:"3 付款",h1:"最後一步：付款",
+intro: "選擇時間後10分鐘內付款即確認預約。工作室位於難波站・心齋橋站附近。詳細地址會在開始前1小時之前用WhatsApp傳給你。",
+solo:"SOLO · 1人",duo:"DUO · 2人",trio:"TRIO · 3人",squad:"SQUAD · 4人",tax:"含稅",per:"每人{p} · 含稅",pay:"安全支付{a} →",
+wrong_h:"選錯方案了？",wrong_p:"請選擇與人數相符的方案。",know_h:"付款須知",
+k1:"透過安全的結帳頁面以信用卡付款。價格以日圓計算，由發卡銀行自動換算。",
+k2:"付款完成後預約才會成立。如果選擇時間後10分鐘內沒有完成付款，預約不會成立，時段也會被釋出。",
+k3:"付款後無論任何原因皆不退款。",
+k4:"有問題請用WhatsApp聯絡：<b>+81 XX-XXXX-XXXX</b>"},
+fr:{k5:"Changement de date : possible jusqu'à 7 jours avant, via le lien de ton e-mail de confirmation.",paid_id:"Numéro de réservation : {id} · {slot}. On t'a envoyé l'e-mail de confirmation, avec un lien pour changer ta date (jusqu'à 7 jours avant).",paid_change:"Changer la date",paid_h:"C'est réservé !",paid_p: "Paiement reçu. Le studio est près des gares de Namba / Shinsaibashi. On t'envoie l'adresse exacte sur WhatsApp au plus tard 1 heure avant le début. À bientôt à Osaka !",checking:"Vérification du paiement…",pay_err:"Impossible d'ouvrir la page de paiement. Réessaie ou écris-nous sur WhatsApp.",agree_nr:"Je comprends que le paiement n'est remboursable pour aucune raison.",nr_body:"Une fois le paiement effectué, nous ne pouvons te rembourser pour aucune raison : annulation, absence, retard, météo ou maladie.",nr_title:"Non remboursable",expired:"Temps écoulé. Ta réservation n'est pas confirmée. Choisis un nouveau créneau ou écris-nous sur WhatsApp.",hold:"Créneau bloqué. Paie dans <b>{t}</b> pour confirmer.",back:"← Retour à la réservation",s1:"1 Date",s2:"2 Tes infos",s3:"3 Paiement",h1:"Dernière étape : le paiement",
+intro: "Paie dans les 10 minutes après avoir choisi ton créneau pour confirmer ta réservation. Le studio est près des gares de Namba / Shinsaibashi. On t'envoie l'adresse exacte sur WhatsApp au plus tard 1 heure avant le début.",
+solo:"SOLO · 1 personne",duo:"DUO · 2 personnes",trio:"TRIO · 3 personnes",squad:"SQUAD · 4 personnes",tax:"Taxes comprises",per:"{p} par personne · taxes comprises",pay:"Payer {a} en toute sécurité →",
+wrong_h:"Mauvaise formule ?",wrong_p:"Choisis la formule qui correspond à la taille de ton groupe.",know_h:"Bon à savoir",
+k1:"Paiement par carte via une page sécurisée. Les prix sont en yens ; ta banque fait la conversion.",
+k2:"Ta réservation n'est confirmée qu'une fois le paiement effectué. Si le paiement n'est pas effectué dans les 10 minutes après le choix du créneau, la réservation n'est pas confirmée et le créneau est libéré.",
+k3:"Aucun remboursement après le paiement, quelle qu'en soit la raison.",
+k4:"Des questions ? Écris-nous sur WhatsApp : <b>+81 XX-XXXX-XXXX</b>"},
+de:{k5:"Terminänderung: bis 7 Tage vorher über den Link in deiner Bestätigungs-E-Mail.",paid_id:"Buchungsnummer: {id} · {slot}. Wir haben dir die Bestätigungs-E-Mail geschickt, inklusive Link zum Ändern des Termins (bis 7 Tage vorher).",paid_change:"Termin ändern",paid_h:"Du bist gebucht!",paid_p: "Zahlung erhalten. Das Studio liegt nahe den Bahnhöfen Namba / Shinsaibashi. Die genaue Adresse schicken wir dir spätestens 1 Stunde vor Beginn per WhatsApp. Bis bald in Osaka!",checking:"Zahlung wird geprüft…",pay_err:"Die Zahlungsseite konnte nicht geöffnet werden. Versuch es erneut oder schreib uns auf WhatsApp.",agree_nr:"Ich verstehe, dass die Zahlung aus keinem Grund erstattet wird.",nr_body:"Nach abgeschlossener Zahlung können wir aus keinem Grund erstatten, auch nicht bei Stornierung, Nichterscheinen, Verspätung, Wetter oder Krankheit.",nr_title:"Keine Erstattung",expired:"Die Zeit ist abgelaufen. Deine Buchung ist nicht bestätigt. Wähle bitte erneut einen Termin oder schreib uns auf WhatsApp.",hold:"Termin reserviert. Bezahle innerhalb von <b>{t}</b>, um zu bestätigen.",back:"← Zurück zur Buchung",s1:"1 Datum",s2:"2 Deine Angaben",s3:"3 Zahlung",h1:"Letzter Schritt: Zahlung",
+intro: "Bezahle innerhalb von 10 Minuten nach der Terminwahl, um deine Buchung zu bestätigen. Das Studio liegt nahe den Bahnhöfen Namba / Shinsaibashi. Die genaue Adresse schicken wir dir spätestens 1 Stunde vor Beginn per WhatsApp.",
+solo:"SOLO · 1 Person",duo:"DUO · 2 Personen",trio:"TRIO · 3 Personen",squad:"SQUAD · 4 Personen",tax:"Inkl. Steuern",per:"{p} pro Person · inkl. Steuern",pay:"{a} sicher bezahlen →",
+wrong_h:"Falscher Plan?",wrong_p:"Wähle den Plan, der zu deiner Gruppengröße passt.",know_h:"Gut zu wissen",
+k1:"Kartenzahlung über einen sicheren Checkout. Die Preise sind in Yen; deine Bank rechnet den Betrag um.",
+k2:"Deine Buchung ist erst nach abgeschlossener Zahlung bestätigt. Ist die Zahlung nicht innerhalb von 10 Minuten nach der Terminwahl abgeschlossen, ist die Buchung nicht bestätigt und der Termin wird freigegeben.",
+k3:"Nach der Zahlung keine Erstattung, egal aus welchem Grund.",
+k4:"Fragen? Schreib uns auf WhatsApp: <b>+81 XX-XXXX-XXXX</b>"}
+};
+I18N["de-CH"] = Object.fromEntries(Object.entries(I18N.de).map(([k, v]) => [k, v.replace(/ß/g, "ss")]));
+
+const LANGS = ["en","ja","ko","zh-Hans","zh-Hant","fr","de","de-CH"];
+const PLANS = { solo: { total: 90000, per: 0 }, duo: { total: 140000, per: 70000 }, trio: { total: 180000, per: 60000 }, squad: { total: 220000, per: 55000 } };
+const yen = n => "¥" + n.toLocaleString("en-US");
+
+const textEls = document.querySelectorAll("[data-i18n]");
+const EN = { ...EN_DYN };
+textEls.forEach(el => { EN[el.dataset.i18n] = el.innerHTML; });
+
+let plan = "solo", lang = "en", deadline = 0, bookingId = "", paidSession = "", timer = null;
+const T = k => (lang !== "en" && I18N[lang] && I18N[lang][k] != null) ? I18N[lang][k] : EN[k];
+
+function readHash() {
+  const [p, l, d, id] = location.hash.slice(1).split(".");
+  paidSession = d === "paid" && /^cs_[A-Za-z0-9_]+$/.test(id || "") ? id : "";
+  bookingId = /^[A-Z0-9]+$/.test(id || "") ? id : "";
+  plan = PLANS[p] ? p : "solo";
+  lang = LANGS.includes(l) ? l : "en";
+  deadline = paidSession ? 0 : (Number(d) || 0);
+}
+
+function render() {
+  textEls.forEach(el => { el.innerHTML = T(el.dataset.i18n); });
+  document.documentElement.lang = lang;
+  document.getElementById("lang").value = lang;
+  const p = PLANS[plan];
+  document.getElementById("who").textContent = T(plan);
+  document.getElementById("amount").textContent = yen(p.total);
+  document.getElementById("fx-amount").dataset.yen = p.total;
+  if (window.HGOfx) window.HGOfx.render();
+  document.getElementById("per").textContent = p.per ? T("per").replace("{p}", yen(p.per)) : T("tax");
+  const pay = document.getElementById("pay");
+  pay.textContent = T("pay").replace("{a}", yen(p.total));
+  const suffix = "." + lang + (deadline ? "." + deadline + (bookingId ? "." + bookingId : "") : "");
+  document.querySelectorAll(".other a").forEach(a => {
+    a.href = "#" + a.dataset.plan + suffix;
+    a.setAttribute("aria-current", a.dataset.plan === plan ? "true" : "false");
+  });
+  document.getElementById("back").href = "booking.html" + (lang === "en" ? "" : "#" + lang);
+  startTimer();
+  if (paidSession) showPaid();
+}
+async function showPaid() {
+  document.querySelectorAll("main > section").forEach(el => { el.hidden = el.id !== "paid"; });
+  document.getElementById("paid").hidden = false;
+  document.getElementById("paid-h").textContent = T("checking");
+  document.getElementById("paid-p").textContent = "";
+  try { sessionStorage.removeItem("hgo-hold"); } catch (e) {}
+  let ok = false;
+  try {
+    const r = await fetch(GAS_URL, { method: "POST", body: JSON.stringify({ action: "confirm", session: paidSession }) });
+    const j = await r.json(); ok = j.ok;
+    if (j.ok && j.id) {
+      const slot = j.date ? j.date + " " + j.time + "–" + j.end + " (JST)" : "";
+      document.getElementById("paid-id").textContent = T("paid_id").replace("{id}", j.id).replace("{slot}", slot);
+    }
+  } catch (e) {}
+  // Stripe only returns here after a successful payment, so show the thank-you either way
+  document.getElementById("paid-h").textContent = T("paid_h");
+  document.getElementById("paid-p").textContent = T("paid_p");
+}
+document.getElementById("pay").addEventListener("click", async (e) => {
+  e.preventDefault();
+  const pay = e.currentTarget;
+  if (pay.classList.contains("off") || pay.classList.contains("nr-off") || !bookingId || !GAS_URL) {
+    if (!GAS_URL) alertBox(T("pay_err"));
+    return;
+  }
+  pay.classList.add("off");
+  try {
+    const r = await fetch(GAS_URL, { method: "POST", body: JSON.stringify({ action: "checkout", id: bookingId, plan: plan, lang: lang, base: location.href.split("#")[0].replace(/[^/]*$/, "") }) });
+    const j = await r.json();
+    if (j.ok && j.url) { location.href = j.url; return; }
+    alertBox(T(j.reason === "expired" ? "expired" : "pay_err"));
+  } catch (err) { alertBox(T("pay_err")); }
+  pay.classList.remove("off");
+});
+function alertBox(msg) {
+  let b = document.getElementById("pay-msg");
+  if (!b) {
+    b = document.createElement("p");
+    b.id = "pay-msg";
+    b.setAttribute("role", "alert");
+    b.style.cssText = "margin:0;font-weight:700;background:#fff;color:var(--pink-deep);border-radius:10px;padding:10px 12px";
+    document.getElementById("pay").after(b);
+  }
+  b.textContent = msg;
+}
+function fmt(ms) {
+  const t = Math.max(0, Math.ceil(ms / 1000));
+  return String(Math.floor(t / 60)).padStart(2, "0") + ":" + String(t % 60).padStart(2, "0");
+}
+function tick() {
+  const bar = document.getElementById("hold");
+  if (!deadline) { bar.hidden = true; return; }
+  const left = deadline - Date.now();
+  bar.hidden = false;
+  const pay = document.getElementById("pay");
+  if (left <= 0) {
+    bar.classList.add("over");
+    bar.innerHTML = T("expired");
+    pay.classList.add("off");
+    pay.setAttribute("aria-disabled", "true");
+    clearInterval(timer);
+    return;
+  }
+  bar.classList.remove("over");
+  pay.classList.remove("off");
+  syncAgree();
+  bar.innerHTML = T("hold").replace("{t}", fmt(left));
+}
+function startTimer() { clearInterval(timer); tick(); timer = setInterval(tick, 1000); }
+
+const agreeNr = document.getElementById("agree-nr");
+function syncAgree() {
+  const pay = document.getElementById("pay");
+  pay.classList.toggle("nr-off", !agreeNr.checked);
+  if (agreeNr.checked && !pay.classList.contains("off")) pay.removeAttribute("aria-disabled");
+  else pay.setAttribute("aria-disabled", "true");
+}
+agreeNr.addEventListener("change", syncAgree);
+window.addEventListener("hashchange", () => { readHash(); render(); });
+document.getElementById("lang").addEventListener("change", e => {
+  location.hash = plan + "." + e.target.value + (deadline ? "." + deadline + (bookingId ? "." + bookingId : "") : "");
+});
+readHash();
+render();
+</script>
+<script src="../fx.js"></script>
+</body>
+</html>
