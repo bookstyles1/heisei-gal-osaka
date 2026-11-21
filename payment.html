@@ -64,7 +64,7 @@ footer .wrap{padding-block:24px}
   <div class="wrap">
     <a class="logo" href="index.html">HEISEI <b>GAL</b> OSAKA</a>
     <div class="top-right">
-      <a class="back" id="back" href="booking.html" data-i18n="back">← Back to your details</a>
+      <a class="back" id="back" href="booking.html" data-i18n="back">← Back to booking</a>
       <label for="lang" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Language</label>
       <select id="lang" class="lang">
         <option value="en">English</option>
@@ -83,8 +83,8 @@ footer .wrap{padding-block:24px}
 <main class="wrap">
   <div class="head">
     <ol class="stepper" aria-label="Booking steps">
-      <li class="on" data-i18n="s1">1 Date</li>
-      <li class="on" data-i18n="s2">2 Your details</li>
+      <li class="on" data-i18n="s1">1 Your details</li>
+      <li class="on" data-i18n="s2">2 Date</li>
       <li class="on" data-i18n="s3">3 Payment</li>
     </ol>
     <h1 data-i18n="h1">Last step: payment</h1>
@@ -113,7 +113,7 @@ footer .wrap{padding-block:24px}
     <h2 data-i18n="know_h">Good to know</h2>
     <ul>
       <li data-i18n="k1">Card payment through a secure checkout. Prices are in Japanese yen; your card company converts the amount.</li>
-      <li data-i18n="k2">Your slot is held once payment is complete. If the slot you picked is already taken, we refund you in full.</li>
+      <li data-i18n="k2">Your booking is confirmed once payment is complete. Bookings left unpaid for 24 hours may be cancelled.</li>
       <li data-i18n="k3">Free cancellation up to 48 hours before the start time. No refund within 48 hours or for no-shows.</li>
       <li data-i18n="k4">Questions? Message us on WhatsApp: <b>+81 XX-XXXX-XXXX</b></li>
     </ul>
@@ -136,52 +136,52 @@ const PAYMENT_LINKS = {
 const EN_DYN = { solo:"SOLO · 1 person", duo:"DUO · 2 people", trio:"TRIO · 3 people", squad:"SQUAD · 4 people", tax:"Tax included", per:"{p} per person · tax included", pay:"Pay {a} securely →" };
 
 const I18N = {
-ja:{back:"← 情報入力に戻る",s1:"1 日時",s2:"2 情報入力",s3:"3 お支払い",h1:"最後に、お支払い",
+ja:{back:"← 予約ページに戻る",s1:"1 情報入力",s2:"2 日時",s3:"3 お支払い",h1:"最後に、お支払い",
 intro:"オンラインでお支払いいただくと予約が確定します。24時間以内に、スタジオの住所をWhatsAppでお送りします。",
 solo:"SOLO · 1名",duo:"DUO · 2名",trio:"TRIO · 3名",squad:"SQUAD · 4名",tax:"税込",per:"1人あたり{p}・税込",pay:"{a}を支払う →",
 wrong_h:"プランが違う場合",wrong_p:"人数に合ったプランを選んでください。",know_h:"お支払いについて",
 k1:"カード決済の安全な画面でお支払いいただきます。料金は日本円で、カード会社が自動で換算します。",
-k2:"お支払いが完了した時点で枠を確保します。選んだ枠がすでに埋まっていた場合は全額返金します。",
+k2:"お支払いが完了した時点で予約確定です。24時間以内にお支払いがない場合、予約を取り消すことがあります。",
 k3:"開始時間の48時間前までは無料でキャンセルできます。48時間を切ってからのキャンセルや当日の不参加は返金できません。",
 k4:"質問はWhatsAppへ：<b>+81 XX-XXXX-XXXX</b>"},
-ko:{back:"← 정보 입력으로 돌아가기",s1:"1 날짜",s2:"2 정보 입력",s3:"3 결제",h1:"마지막 단계: 결제",
+ko:{back:"← 예약 페이지로 돌아가기",s1:"1 정보 입력",s2:"2 날짜",s3:"3 결제",h1:"마지막 단계: 결제",
 intro:"온라인으로 결제하면 예약이 확정됩니다. 24시간 이내에 스튜디오 주소를 왓츠앱으로 보내 드립니다.",
 solo:"SOLO · 1명",duo:"DUO · 2명",trio:"TRIO · 3명",squad:"SQUAD · 4명",tax:"세금 포함",per:"1인 {p} · 세금 포함",pay:"{a} 안전하게 결제하기 →",
 wrong_h:"플랜이 다른가요?",wrong_p:"인원에 맞는 플랜을 선택해 주세요.",know_h:"알아 두세요",
 k1:"안전한 결제 화면에서 카드로 결제합니다. 요금은 일본 엔화이며, 카드사에서 자동으로 환산합니다.",
-k2:"결제가 완료되면 예약 시간이 확보됩니다. 선택한 시간이 이미 마감된 경우 전액 환불해 드립니다.",
+k2:"결제가 완료되면 예약이 확정됩니다. 24시간 동안 결제가 없으면 예약이 취소될 수 있습니다.",
 k3:"시작 48시간 전까지 무료로 취소할 수 있습니다. 48시간 이내 취소나 노쇼는 환불되지 않습니다.",
 k4:"문의는 왓츠앱으로: <b>+81 XX-XXXX-XXXX</b>"},
-"zh-Hans":{back:"← 返回填写信息",s1:"1 日期",s2:"2 填写信息",s3:"3 付款",h1:"最后一步：付款",
+"zh-Hans":{back:"← 返回预约页面",s1:"1 填写信息",s2:"2 日期",s3:"3 付款",h1:"最后一步：付款",
 intro:"在线付款后即确认预约。我们会在24小时内通过WhatsApp发送工作室地址。",
 solo:"SOLO · 1人",duo:"DUO · 2人",trio:"TRIO · 3人",squad:"SQUAD · 4人",tax:"含税",per:"每人{p} · 含税",pay:"安全支付{a} →",
 wrong_h:"选错套餐了？",wrong_p:"请选择与人数相符的套餐。",know_h:"付款须知",
 k1:"通过安全的结账页面以银行卡付款。价格以日元计，由发卡机构自动换算。",
-k2:"付款完成后即为你保留时段。如果所选时段已满，我们将全额退款。",
+k2:"付款完成后预约即确认。24小时内未付款的预约可能会被取消。",
 k3:"开始时间前48小时可免费取消。48小时内取消或未到场恕不退款。",
 k4:"有问题请通过WhatsApp联系：<b>+81 XX-XXXX-XXXX</b>"},
-"zh-Hant":{back:"← 返回填寫資料",s1:"1 日期",s2:"2 填寫資料",s3:"3 付款",h1:"最後一步：付款",
+"zh-Hant":{back:"← 返回預約頁面",s1:"1 填寫資料",s2:"2 日期",s3:"3 付款",h1:"最後一步：付款",
 intro:"線上付款後即確認預約。我們會在24小時內用WhatsApp傳送工作室地址。",
 solo:"SOLO · 1人",duo:"DUO · 2人",trio:"TRIO · 3人",squad:"SQUAD · 4人",tax:"含稅",per:"每人{p} · 含稅",pay:"安全支付{a} →",
 wrong_h:"選錯方案了？",wrong_p:"請選擇與人數相符的方案。",know_h:"付款須知",
 k1:"透過安全的結帳頁面以信用卡付款。價格以日圓計算，由發卡銀行自動換算。",
-k2:"付款完成後即為你保留時段。如果所選時段已滿，我們會全額退款。",
+k2:"付款完成後預約即確認。24小時內未付款的預約可能會被取消。",
 k3:"開始時間前48小時可免費取消。48小時內取消或未到場恕不退款。",
 k4:"有問題請用WhatsApp聯絡：<b>+81 XX-XXXX-XXXX</b>"},
-fr:{back:"← Retour à tes infos",s1:"1 Date",s2:"2 Tes infos",s3:"3 Paiement",h1:"Dernière étape : le paiement",
+fr:{back:"← Retour à la réservation",s1:"1 Tes infos",s2:"2 Date",s3:"3 Paiement",h1:"Dernière étape : le paiement",
 intro:"Paie en ligne pour confirmer ton créneau. On t'écrit sur WhatsApp sous 24 heures avec l'adresse du studio.",
 solo:"SOLO · 1 personne",duo:"DUO · 2 personnes",trio:"TRIO · 3 personnes",squad:"SQUAD · 4 personnes",tax:"Taxes comprises",per:"{p} par personne · taxes comprises",pay:"Payer {a} en toute sécurité →",
 wrong_h:"Mauvaise formule ?",wrong_p:"Choisis la formule qui correspond à la taille de ton groupe.",know_h:"Bon à savoir",
 k1:"Paiement par carte via une page sécurisée. Les prix sont en yens ; ta banque fait la conversion.",
-k2:"Ton créneau est bloqué dès que le paiement est effectué. Si le créneau choisi est déjà pris, on te rembourse intégralement.",
+k2:"Ta réservation est confirmée une fois le paiement effectué. Une réservation non payée sous 24 heures peut être annulée.",
 k3:"Annulation gratuite jusqu'à 48 heures avant le début. Aucun remboursement dans les 48 heures ni en cas d'absence.",
 k4:"Des questions ? Écris-nous sur WhatsApp : <b>+81 XX-XXXX-XXXX</b>"},
-de:{back:"← Zurück zu deinen Angaben",s1:"1 Datum",s2:"2 Deine Angaben",s3:"3 Zahlung",h1:"Letzter Schritt: Zahlung",
+de:{back:"← Zurück zur Buchung",s1:"1 Deine Angaben",s2:"2 Datum",s3:"3 Zahlung",h1:"Letzter Schritt: Zahlung",
 intro:"Bezahle online, um deinen Termin zu bestätigen. Innerhalb von 24 Stunden schicken wir dir die Studioadresse per WhatsApp.",
 solo:"SOLO · 1 Person",duo:"DUO · 2 Personen",trio:"TRIO · 3 Personen",squad:"SQUAD · 4 Personen",tax:"Inkl. Steuern",per:"{p} pro Person · inkl. Steuern",pay:"{a} sicher bezahlen →",
 wrong_h:"Falscher Plan?",wrong_p:"Wähle den Plan, der zu deiner Gruppengröße passt.",know_h:"Gut zu wissen",
 k1:"Kartenzahlung über einen sicheren Checkout. Die Preise sind in Yen; deine Bank rechnet den Betrag um.",
-k2:"Dein Termin ist reserviert, sobald die Zahlung abgeschlossen ist. Ist der gewählte Termin schon vergeben, erstatten wir den vollen Betrag.",
+k2:"Deine Buchung ist bestätigt, sobald die Zahlung abgeschlossen ist. Unbezahlte Buchungen können nach 24 Stunden storniert werden.",
 k3:"Kostenlose Stornierung bis 48 Stunden vor Beginn. Keine Erstattung innerhalb von 48 Stunden oder bei Nichterscheinen.",
 k4:"Fragen? Schreib uns auf WhatsApp: <b>+81 XX-XXXX-XXXX</b>"}
 };
