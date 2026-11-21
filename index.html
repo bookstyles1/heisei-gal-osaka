@@ -246,6 +246,9 @@ footer .wrap{padding-block:28px;display:flex;justify-content:space-between;gap:1
 /* headline: pink shadow on the normal words only; the gal words keep just the dark shadow */
 .hero h1{background:none;-webkit-background-clip:border-box;background-clip:border-box;color:#f6f0fb;-webkit-text-fill-color:currentColor;filter:none;text-shadow:4px 4px 0 var(--pink)}
 .hero h1 .gal{color:var(--pink);-webkit-text-fill-color:var(--pink);text-shadow:4px 4px 0 var(--ink)}
+
+/* phones: keep the hero tag on one line */
+@media (max-width:600px){.cover-tag{font-size:clamp(.9rem,4.2vw,1.2rem);letter-spacing:.04em;white-space:nowrap}.cover-tag .jp-tag{font-size:.9em}}
 </style>
 
 <nav class="nav" aria-label="Main">
