@@ -126,7 +126,8 @@ legend{font-weight:600;font-size:.95rem;margin-bottom:6px;padding:0}
 .slots h4{margin:0;font-family:var(--f-body);font-weight:800;font-size:1rem;color:var(--pink-deep)}
 .slot-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}
 .slot{border:2px solid var(--ink);border-radius:12px;background:#fff;padding:10px;font:inherit;font-weight:700;cursor:pointer;display:grid;gap:2px;text-align:center;color:var(--ink)}
-.slot span{font-family:var(--f-body);font-size:1.12rem;font-weight:800;line-height:1.2;font-variant-numeric:tabular-nums;letter-spacing:.01em}
+.slot span{font-family:var(--f-body);font-size:1.12rem;font-weight:800;line-height:1.2;font-variant-numeric:tabular-nums;letter-spacing:.01em;white-space:nowrap}
+@media (max-width:420px){.slot span{font-size:.95rem}.slot{padding:10px 6px}}
 .slot em{font-style:normal;font-size:.8rem;color:var(--muted);font-weight:600}
 .slot:hover:not([disabled]){background:var(--pink);color:#fff}
 .slot:hover:not([disabled]) em{color:#fff}
