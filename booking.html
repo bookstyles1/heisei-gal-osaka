@@ -525,13 +525,38 @@ function renderSlots(scroll) {
   if (scroll) box.scrollIntoView({ behavior: "smooth", block: "nearest" });
 }
 
-async function loadAvailability() {
-  showMsg("loading");
+/* Instant first paint: last known availability (or the default rules), then refresh in the background */
+function defaultAV() {
+  const now = Date.now(), t = todayJST();
+  return { ok: true, times: ["10:00", "13:00", "16:00"], duration: 180, capacity: 1, holdMinutes: 10, minStart: now + 24 * 3600000,
+    minDate: ymdUTC(new Date(t.getTime() + 24 * 3600000)), maxDate: ymdUTC(new Date(t.getTime() + 90 * 86400000)),
+    closedWeekdays: [], closedDates: [], taken: {} };
+}
+function cachedAV() {
   try {
-    AV = await apiGet({ action: "availability" });
-    if (!AV.ok) throw new Error("bad");
+    const c = JSON.parse(localStorage.getItem("hgo-av") || "null");
+    if (c && c.av && Date.now() - c.at < 30 * 60000) {
+      c.av.minStart = Math.max(c.av.minStart || 0, Date.now() + 24 * 3600000);
+      return c.av;
+    }
+  } catch (e) {}
+  return null;
+}
+let firstPaint = true;
+async function loadAvailability() {
+  if (firstPaint && !DEMO) {
+    firstPaint = false;
+    AV = cachedAV() || defaultAV();
+    if (!view) { const st0 = selDate || AV.minDate; view = new Date(Date.UTC(+st0.slice(0, 4), +st0.slice(5, 7) - 1, 1)); }
+    renderCal(); renderSlots(false);
+  } else if (!AV) showMsg("loading");
+  try {
+    const fresh = await apiGet({ action: "availability" });
+    if (!fresh.ok) throw new Error("bad");
+    AV = fresh;
+    try { localStorage.setItem("hgo-av", JSON.stringify({ at: Date.now(), av: fresh })); } catch (e) {}
     showMsg("");
-  } catch (e) { showMsg("err_net"); return; }
+  } catch (e) { if (!AV) { showMsg("err_net"); return; } }
   if (!view) {
     const start = selDate || AV.minDate;
     view = new Date(Date.UTC(+start.slice(0, 4), +start.slice(5, 7) - 1, 1));

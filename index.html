@@ -471,6 +471,18 @@ footer .wrap{padding-block:28px;display:flex;justify-content:space-between;gap:1
   </div>
 </footer>
 <script src="fx.js"></script>
+<script>
+/* Fetch availability while the visitor reads the top page, so the booking calendar opens instantly */
+(function () {
+  const GAS = "https://script.google.com/macros/s/AKfycbzg6lCKw-3K2Nu4WYFioVUoEPYxGbzTt2XwlAz5QoZT3wxTtY4hMEhfO7FzFseBCYOu/exec";
+  const go = () => fetch(GAS + "?action=availability").then(r => r.json()).then(av => {
+    if (av && av.ok) { try { localStorage.setItem("hgo-av", JSON.stringify({ at: Date.now(), av })); } catch (e) {} }
+  }).catch(() => {});
+  ("requestIdleCallback" in window) ? requestIdleCallback(go, { timeout: 2500 }) : setTimeout(go, 1200);
+  // start loading the booking page itself as soon as someone heads for a Book button
+  const pre = document.createElement("link"); pre.rel = "prefetch"; pre.href = "booking.html"; document.head.appendChild(pre);
+})();
+</script>
 
 <script>
 const I18N = {
