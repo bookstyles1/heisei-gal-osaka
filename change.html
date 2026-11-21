@@ -241,7 +241,9 @@ de:{back:"← Zurück zur Website",h1:"Termin ändern",intro:"Bezahlte Buchungen
 };
 I18N["de-CH"] = Object.fromEntries(Object.entries(I18N.de).map(([k, v]) => [k, v.replace(/ß/g, "ss")]));
 const LANGS = ["en","ja","ko","zh-Hans","zh-Hant","fr","de","de-CH"];
-let lang = LANGS.includes(location.hash.slice(1)) ? location.hash.slice(1) : "en";
+const HP = location.hash.slice(1).split(".");
+let lang = LANGS.includes(HP[0]) ? HP[0] : "en";
+const LINK_ID = /^HG[A-Z0-9]+$/.test(HP[1] || "") ? HP[1] : "", LINK_KEY = /^[A-Za-z0-9_-]{10,}$/.test(HP[2] || "") ? HP[2] : "";
 const textEls = document.querySelectorAll("[data-i18n]");
 const EN = { ...EN_EXTRA };
 textEls.forEach(el => { EN[el.dataset.i18n] = el.innerHTML; });
@@ -318,34 +320,38 @@ function applyLang(l) {
   if (selDate && selTime) document.getElementById("new-text").textContent = slotText(selDate, selTime);
   renderCal(); renderSlots();
 }
-document.getElementById("lang").addEventListener("change", e => { applyLang(e.target.value); history.replaceState(null, "", e.target.value === "en" ? location.pathname : "#" + e.target.value); });
+document.getElementById("lang").addEventListener("change", e => { applyLang(e.target.value); history.replaceState(null, "", "#" + [e.target.value, LINK_ID, LINK_KEY].filter(Boolean).join(".")); });
 document.getElementById("cal-prev").addEventListener("click", () => { view = new Date(Date.UTC(view.getUTCFullYear(), view.getUTCMonth() - 1, 1)); renderCal(); });
 document.getElementById("cal-next").addEventListener("click", () => { view = new Date(Date.UTC(view.getUTCFullYear(), view.getUTCMonth() + 1, 1)); renderCal(); });
 
 const findErr = document.getElementById("find-err");
-document.getElementById("find").addEventListener("submit", async e => {
-  e.preventDefault();
-  const id = document.getElementById("b-id").value.trim().toUpperCase(), email = document.getElementById("b-email").value.trim();
-  if (!id || !email) { findErr.hidden = false; findErr.textContent = T("not_found"); return; }
+async function findBooking(id, email, key) {
   const btn = document.getElementById("find-btn"); btn.disabled = true;
-  let r; try { r = await apiPost({ action: "lookup", id, email }); } catch (_) { r = { ok: false, reason: "net" }; }
+  let r; try { r = await apiPost({ action: "lookup", id, email, key }); } catch (_) { r = { ok: false, reason: "net" }; }
   btn.disabled = false;
   if (!r.ok) { findErr.hidden = false; findErr.textContent = T(r.reason === "not_paid" ? "not_paid" : r.reason === "net" ? "err_net" : "not_found"); return; }
   if (!r.canChange) { findErr.hidden = false; findErr.textContent = T("too_late"); return; }
   findErr.hidden = true;
-  booking = { id, email, date: r.date, time: r.time };
+  booking = { id, email, key, date: r.date, time: r.time };
+  document.getElementById("find").hidden = true;
   document.getElementById("date").classList.remove("locked");
   document.getElementById("locked").hidden = true;
   document.getElementById("current").hidden = false;
   document.getElementById("cal").hidden = false;
   await loadAvailability();
   document.getElementById("current-text").textContent = slotText(r.date, r.time);
-  document.getElementById("date").scrollIntoView({ behavior: "smooth", block: "start" });
+  if (!key) document.getElementById("date").scrollIntoView({ behavior: "smooth", block: "start" });
+}
+document.getElementById("find").addEventListener("submit", e => {
+  e.preventDefault();
+  const id = document.getElementById("b-id").value.trim().toUpperCase(), email = document.getElementById("b-email").value.trim();
+  if (!id || !email) { findErr.hidden = false; findErr.textContent = T("not_found"); return; }
+  findBooking(id, email, "");
 });
 document.getElementById("confirm-btn").addEventListener("click", async () => {
   if (!booking || !selDate || !selTime) return;
   const btn = document.getElementById("confirm-btn"); btn.disabled = true;
-  let r; try { r = await apiPost({ action: "reschedule", id: booking.id, email: booking.email, date: selDate, time: selTime }); } catch (_) { r = { ok: false, reason: "net" }; }
+  let r; try { r = await apiPost({ action: "reschedule", id: booking.id, email: booking.email, key: booking.key, date: selDate, time: selTime }); } catch (_) { r = { ok: false, reason: "net" }; }
   btn.disabled = false;
   if (!r.ok) {
     showMsg(r.reason === "full" ? "taken" : r.reason === "too_late" ? "too_late" : "err_net");
@@ -360,6 +366,7 @@ document.getElementById("confirm-btn").addEventListener("click", async () => {
   done.textContent = T("done").replace("{slot}", slotText(r.date, r.time));
 });
 applyLang(lang);
+if (LINK_ID && LINK_KEY) { document.getElementById("b-id").value = LINK_ID; findBooking(LINK_ID, "", LINK_KEY); }
 </script>
 </body>
 </html>
