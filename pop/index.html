@@ -325,6 +325,9 @@ footer .wrap{padding-block:26px;display:flex;justify-content:space-between;gap:1
   :lang(ko) .hero h1 .gal{font-size:min(1.2em,11vw)}
 }
 @media (prefers-reduced-motion:reduce){.hero h1 .gal{animation:none}}
+
+.hero h1 .gal::before{content:none}
+.hero h1 .gal::after{font-size:.3em;right:-.5em;top:-.2em;-webkit-text-stroke:0}
 </style>
 
 <nav class="nav" aria-label="Main">
