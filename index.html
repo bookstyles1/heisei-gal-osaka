@@ -249,6 +249,21 @@ footer .wrap{padding-block:28px;display:flex;justify-content:space-between;gap:1
 
 /* phones: keep the hero tag on one line */
 @media (max-width:600px){.cover-tag{font-size:clamp(.9rem,4.2vw,1.2rem);letter-spacing:.04em;white-space:nowrap}.cover-tag .jp-tag{font-size:.9em}}
+
+/* hero: the gal words glow like neon and stand bigger than the rest */
+.hero h1 .gal{text-shadow:4px 4px 0 var(--ink),0 0 10px rgba(255,46,147,.95),0 0 26px rgba(255,46,147,.8),0 0 52px rgba(255,46,147,.55);animation:galGlow 2.6s ease-in-out infinite}
+@keyframes galGlow{50%{text-shadow:4px 4px 0 var(--ink),0 0 14px rgba(255,120,190,1),0 0 38px rgba(255,46,147,.95),0 0 76px rgba(255,46,147,.7)}}
+@media (prefers-reduced-motion:reduce){.hero h1 .gal{animation:none}}
+.hero h1 .sm{font-size:.48em}
+.hero h1 > .gal{font-size:1.08em}
+:lang(ja) .hero h1 .gal{font-size:1.3em}
+:lang(zh) .hero h1 .gal{font-size:1.25em}
+:lang(ko) .hero h1 .gal{font-size:1.15em}
+@media (max-width:600px){
+  .hero h1 > .gal{font-size:min(1.08em,9.4vw)}
+  :lang(ja) .hero h1 .gal{font-size:min(1.3em,15vw)}
+  :lang(ko) .hero h1 .gal{font-size:min(1.15em,11vw)}
+}
 </style>
 
 <nav class="nav" aria-label="Main">
