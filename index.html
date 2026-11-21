@@ -285,6 +285,27 @@ footer .wrap{padding-block:28px;display:flex;justify-content:space-between;gap:1
 .sparkles i:nth-child(8){top:84%;left:12%;font-size:14px;animation-delay:.2s}
 .sparkles i:nth-child(9){top:60%;left:92%;font-size:12px;animation-delay:1.8s}
 @media (prefers-reduced-motion:reduce){.hero h1 .gal::before,.hero h1 .gal::after,.sparkles i{animation:none;opacity:.85}}
+
+/* gal words: glitter-filled letters (pink base + white flecks + a moving shine), glow via filter */
+.hero h1 .gal{
+  background:
+    radial-gradient(circle at 20% 30%,#fff 0 1.1px,transparent 1.6px) 0 0/9px 9px,
+    radial-gradient(circle at 70% 60%,#ffe6f4 0 .9px,transparent 1.4px) 0 0/7px 7px,
+    radial-gradient(circle at 45% 85%,#fff 0 .7px,transparent 1.2px) 0 0/5px 5px,
+    linear-gradient(110deg,#ff2e93 0%,#ff5fae 30%,#ffd6ec 48%,#ffffff 50%,#ffd6ec 52%,#ff5fae 70%,#ff2e93 100%) 0 0/260% 100%;
+  -webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent;
+  text-shadow:none;
+  filter:drop-shadow(3px 3px 0 var(--ink)) drop-shadow(0 0 8px rgba(255,46,147,.9)) drop-shadow(0 0 22px rgba(255,46,147,.6));
+  animation:glitter 3.2s linear infinite}
+@keyframes glitter{to{background-position:9px 9px,-7px 7px,5px -5px,-260% 0}}
+.hero h1 .gal::before{font-size:.24em}
+.hero h1 .gal::after{font-size:.18em}
+/* background sparkles: smaller */
+.sparkles i{transform-origin:center}
+.sparkles i:nth-child(1){font-size:8px}.sparkles i:nth-child(2){font-size:11px}.sparkles i:nth-child(3){font-size:7px}
+.sparkles i:nth-child(4){font-size:6px}.sparkles i:nth-child(5){font-size:9px}.sparkles i:nth-child(6){font-size:7px}
+.sparkles i:nth-child(7){font-size:10px}.sparkles i:nth-child(8){font-size:8px}.sparkles i:nth-child(9){font-size:7px}
+@media (prefers-reduced-motion:reduce){.hero h1 .gal{animation:none}}
 </style>
 
 <nav class="nav" aria-label="Main">
