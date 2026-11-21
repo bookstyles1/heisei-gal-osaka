@@ -344,6 +344,13 @@ footer .wrap{padding-block:26px;display:flex;justify-content:space-between;gap:1
 .hero h1 .gal::before{left:-.38em;top:-.18em;font-size:.26em;animation-delay:.9s,0s}
 @keyframes goldshine{to{background-position:220% 220%}}
 @media (prefers-reduced-motion:reduce){.hero h1 .gal::before,.hero h1 .gal::after{animation:none}}
+
+/* gold stars v2: bigger, brighter gold, always visible */
+.hero h1 .gal::before,.hero h1 .gal::after{background:linear-gradient(135deg,#ffffff 0%,#fff3a6 18%,#ffd84a 38%,#ffc21a 52%,#fff7c8 66%,#ffd23f 82%,#ffffff 100%);background-size:220% 220%;animation:goldtw 1.8s ease-in-out infinite,goldshine 2.2s linear infinite}
+.hero h1 .gal::after{right:-.78em;top:-.36em;font-size:.64em}
+.hero h1 .gal::before{left:-.5em;top:-.26em;font-size:.38em;animation-delay:.9s,0s}
+@keyframes goldtw{0%,100%{opacity:.75;transform:scale(.78) rotate(0deg)}50%{opacity:1;transform:scale(1.12) rotate(18deg)}}
+@media (prefers-reduced-motion:reduce){.hero h1 .gal::before,.hero h1 .gal::after{animation:none}}
 </style>
 
 <nav class="nav" aria-label="Main">
