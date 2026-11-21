@@ -333,6 +333,17 @@ footer .wrap{padding-block:26px;display:flex;justify-content:space-between;gap:1
 
 .hero h1 .gal.inl{margin-right:.18em;margin-bottom:.12em}
 @media (max-width:600px){.hero h1 .gal.inl{display:block;width:max-content;margin-right:0}}
+
+/* v4: no white outline, crisp dark sticker edge; gold shining stars beside the words */
+.hero h1 .gal{filter:drop-shadow(2px 0 0 var(--ink)) drop-shadow(-2px 0 0 var(--ink)) drop-shadow(0 2px 0 var(--ink)) drop-shadow(0 -2px 0 var(--ink)) drop-shadow(4px 4px 0 var(--ink))}
+.hero h1 .gal::before,.hero h1 .gal::after{content:"✦";position:absolute;line-height:1;pointer-events:none;-webkit-text-stroke:0;
+  background:linear-gradient(135deg,#fffbe0 0%,#ffe066 22%,#f5b301 45%,#fff6c2 60%,#e3a000 80%,#fff3b0 100%);background-size:220% 220%;
+  -webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent;
+  animation:twinkle 1.8s ease-in-out infinite,goldshine 2.2s linear infinite}
+.hero h1 .gal::after{right:-.62em;top:-.28em;font-size:.46em}
+.hero h1 .gal::before{left:-.38em;top:-.18em;font-size:.26em;animation-delay:.9s,0s}
+@keyframes goldshine{to{background-position:220% 220%}}
+@media (prefers-reduced-motion:reduce){.hero h1 .gal::before,.hero h1 .gal::after{animation:none}}
 </style>
 
 <nav class="nav" aria-label="Main">
