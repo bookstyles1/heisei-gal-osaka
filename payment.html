@@ -210,11 +210,12 @@ const textEls = document.querySelectorAll("[data-i18n]");
 const EN = { ...EN_DYN };
 textEls.forEach(el => { EN[el.dataset.i18n] = el.innerHTML; });
 
-let plan = "solo", lang = "en", deadline = 0, timer = null;
+let plan = "solo", lang = "en", deadline = 0, bookingId = "", timer = null;
 const T = k => (lang !== "en" && I18N[lang] && I18N[lang][k] != null) ? I18N[lang][k] : EN[k];
 
 function readHash() {
-  const [p, l, d] = location.hash.slice(1).split(".");
+  const [p, l, d, id] = location.hash.slice(1).split(".");
+  bookingId = /^[A-Z0-9]+$/.test(id || "") ? id : "";
   plan = PLANS[p] ? p : "solo";
   lang = LANGS.includes(l) ? l : "en";
   deadline = Number(d) || 0;
@@ -230,8 +231,9 @@ function render() {
   document.getElementById("per").textContent = p.per ? T("per").replace("{p}", yen(p.per)) : T("tax");
   const pay = document.getElementById("pay");
   pay.textContent = T("pay").replace("{a}", yen(p.total));
-  pay.href = PAYMENT_LINKS[plan];
-  const suffix = "." + lang + (deadline ? "." + deadline : "");
+  const link = PAYMENT_LINKS[plan];
+  pay.href = bookingId ? link + (link.includes("?") ? "&" : "?") + "client_reference_id=" + bookingId : link;
+  const suffix = "." + lang + (deadline ? "." + deadline + (bookingId ? "." + bookingId : "") : "");
   document.querySelectorAll(".other a").forEach(a => {
     a.href = "#" + a.dataset.plan + suffix;
     a.setAttribute("aria-current", a.dataset.plan === plan ? "true" : "false");
@@ -274,7 +276,7 @@ function syncAgree() {
 agreeNr.addEventListener("change", syncAgree);
 window.addEventListener("hashchange", () => { readHash(); render(); });
 document.getElementById("lang").addEventListener("change", e => {
-  location.hash = plan + "." + e.target.value + (deadline ? "." + deadline : "");
+  location.hash = plan + "." + e.target.value + (deadline ? "." + deadline + (bookingId ? "." + bookingId : "") : "");
 });
 readHash();
 render();
