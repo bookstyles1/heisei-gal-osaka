@@ -1,0 +1,333 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Book Your Gal Day</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Dela+Gothic+One&family=Manrope:wght@400;600;800&family=VT323&display=swap">
+<style>
+:root{
+  --ink:#16080f;--paper:#ffe6f2;--paper-2:#fff6fa;--pink:#ff2e93;--pink-deep:#c2006b;--gold:#ffd54a;--muted:#6e4a5e;--line:#f0a9cb;
+  --f-display:"Dela Gothic One","Black Han Sans","PingFang SC","PingFang TC","Microsoft YaHei","Hiragino Sans",Impact,sans-serif;
+  --f-body:"Manrope","Helvetica Neue",Arial,"Hiragino Sans","Yu Gothic","Apple SD Gothic Neo","Malgun Gothic","PingFang SC","PingFang TC","Microsoft YaHei",sans-serif;
+  --f-lcd:"VT323","Courier New",monospace;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.6}
+:lang(ko){word-break:keep-all}
+p,li,label,legend{text-wrap:pretty}
+:lang(ja) h1,:lang(ja) h2{word-break:auto-phrase}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.wrap{max-width:760px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.top{background:var(--ink);color:#fff}
+.top .wrap{display:flex;justify-content:space-between;align-items:center;gap:12px;padding-block:12px;max-width:1120px;flex-wrap:wrap}
+.logo{font-family:var(--f-display);text-decoration:none;font-size:1.15rem;white-space:nowrap}
+.logo b{color:var(--pink);font-weight:400}
+.top-right{display:flex;align-items:center;gap:14px}
+.back{font-weight:600;font-size:.95rem;text-decoration:none;opacity:.85}
+@media (max-width:520px){.back{display:none}}
+.lang{appearance:none;-webkit-appearance:none;background:transparent;color:#fff;border:2px solid #fff;border-radius:999px;padding:.4em 1.9em .4em .9em;font:600 .85rem var(--f-body);cursor:pointer;
+  background-image:linear-gradient(45deg,transparent 50%,#fff 50%),linear-gradient(135deg,#fff 50%,transparent 50%);background-position:calc(100% - 14px) 52%,calc(100% - 9px) 52%;background-size:5px 5px;background-repeat:no-repeat}
+.lang option{color:var(--ink);background:#fff}
+h1,h2{font-family:var(--f-display);font-weight:400;line-height:1.15;margin:0;text-wrap:balance}
+h1{font-size:clamp(2.1rem,7vw,3.4rem)}
+h2{font-size:1.5rem}
+.head{padding-block:44px 24px;display:grid;gap:18px}
+.stepper{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:8px}
+.stepper li{font-family:var(--f-lcd);font-size:1.25rem;padding:4px 14px;border-radius:999px;border:2px solid var(--ink);background:#fff}
+.stepper li.on{background:var(--pink);color:#fff}
+.card{background:#fff;border:3px solid var(--ink);border-radius:18px;padding:clamp(18px,4vw,28px);display:grid;gap:16px;margin-bottom:24px}
+.card .num{font-family:var(--f-lcd);font-size:1.3rem;color:var(--pink-deep)}
+.muted{color:var(--muted);margin:0}
+.cal{border:2px dashed var(--line);border-radius:14px;min-height:220px;display:grid;place-items:center;text-align:center;padding:24px;background:var(--paper-2)}
+.cal p{margin:0 0 14px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.5em;font-family:var(--f-display);font-size:1.05rem;text-decoration:none;padding:.85em 1.6em;border-radius:999px;border:3px solid var(--ink);background:var(--pink);color:#fff;box-shadow:4px 4px 0 var(--ink);cursor:pointer}
+.btn:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--ink)}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.grid .full{grid-column:1/-1}
+@media (max-width:560px){.grid{grid-template-columns:1fr}}
+label{display:grid;gap:6px;font-weight:600;font-size:.95rem;min-width:0;align-content:start}
+label small,legend small{font-weight:400;color:var(--muted)}
+input,select,textarea{font:inherit;font-weight:400;padding:.7em .8em;border:2px solid var(--ink);border-radius:10px;background:#fff;color:var(--ink);width:100%}
+textarea{min-height:90px;resize:vertical}
+input:focus,select:focus,textarea:focus{outline:3px solid var(--gold);outline-offset:1px}
+.bad{outline:3px solid var(--pink)!important;border-color:var(--pink)!important}
+fieldset{border:0;margin:0;padding:0;display:grid;gap:10px;min-width:0}
+legend{font-weight:600;font-size:.95rem;margin-bottom:6px;padding:0}
+.plans{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+@media (max-width:560px){.plans{grid-template-columns:1fr 1fr}}
+.plans label{position:relative;display:block}
+.plans input{position:absolute;opacity:0;width:1px;height:1px}
+.plans span{display:grid;gap:2px;padding:12px;border:2px solid var(--ink);border-radius:12px;background:#fff;cursor:pointer;text-align:center}
+.plans span b{font-family:var(--f-lcd);font-size:1.3rem;font-weight:400}
+.plans span em{font-style:normal;font-size:.9rem;color:var(--muted)}
+.plans input:checked+span{background:var(--pink);color:#fff}
+.plans input:checked+span em{color:#fff}
+.plans input:focus-visible+span{outline:3px solid var(--gold)}
+.guest{border:2px solid var(--line);border-radius:14px;padding:16px;display:grid;gap:12px;background:var(--paper-2)}
+.guest h3{margin:0;font-family:var(--f-lcd);font-size:1.3rem;font-weight:400;color:var(--pink-deep)}
+.check{display:flex;gap:10px;align-items:flex-start;font-weight:400}
+.check input{width:auto;margin-top:.3em;flex:none}
+.submit{display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between}
+.err{color:var(--pink-deep);font-weight:600;margin:0}
+footer{background:var(--ink);color:#d9c3cf;font-size:.9rem;margin-top:40px}
+footer .wrap{padding-block:24px}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <a class="logo" href="index.html">HEISEI <b>GAL</b> OSAKA</a>
+    <div class="top-right">
+      <a class="back" href="index.html" data-i18n="back">← Back to the site</a>
+      <label for="lang" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Language</label>
+      <select id="lang" class="lang">
+        <option value="en">English</option>
+        <option value="ja">日本語</option>
+        <option value="ko">한국어</option>
+        <option value="zh-Hans">简体中文</option>
+        <option value="zh-Hant">繁體中文</option>
+        <option value="fr">Français</option>
+        <option value="de">Deutsch</option>
+        <option value="de-CH">Deutsch (Schweiz)</option>
+      </select>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="head">
+    <ol class="stepper" aria-label="Booking steps">
+      <li class="on" data-i18n="s1">1 Date</li>
+      <li class="on" data-i18n="s2">2 Your details</li>
+      <li data-i18n="s3">3 Payment</li>
+    </ol>
+    <h1 data-i18n="h1">Book your gal day</h1>
+    <p class="muted" data-i18n="intro">Pick a slot, tell us about your group, then pay online. Your booking is confirmed once payment is complete.</p>
+  </div>
+
+  <!-- STEP 1: TimeRex -->
+  <section class="card" id="date">
+    <span class="num">STEP 1</span>
+    <h2 data-i18n="st1h">Pick your date and time</h2>
+    <p class="muted" data-i18n="st1p">Open slots start at 10:00, 13:00 and 16:00 (Japan time). TimeRex sends you a confirmation email right away.</p>
+    <!--
+      ▼ TimeRexの埋め込みコードをこの div の中に貼る
+        （TimeRex管理画面 → 予約ページ → 「Webサイトに埋め込む」でコードを取得）
+        貼ったら、下の .cal の中身（文章とボタン）は消してOK
+    -->
+    <div class="cal" id="timerex">
+      <div>
+        <p data-i18n="cal_p">Choose an open slot on our booking calendar.</p>
+        <a class="btn" id="timerex-link" href="#" target="_blank" rel="noopener" data-i18n="cal_btn">Open the calendar</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- STEP 2: details form -->
+  <form class="card" id="details" novalidate>
+    <span class="num">STEP 2</span>
+    <h2 data-i18n="st2h">Tell us about your group</h2>
+
+    <fieldset>
+      <legend data-i18n="legend_plan">Plan</legend>
+      <div class="plans">
+        <label><input type="radio" name="plan" value="solo" id="plan-solo" checked><span><b>SOLO</b><em data-i18n="p1">1 person</em></span></label>
+        <label><input type="radio" name="plan" value="duo" id="plan-duo"><span><b>DUO</b><em data-i18n="p2">2 people</em></span></label>
+        <label><input type="radio" name="plan" value="trio" id="plan-trio"><span><b>TRIO</b><em data-i18n="p3">3 people</em></span></label>
+        <label><input type="radio" name="plan" value="squad" id="plan-squad"><span><b>SQUAD</b><em data-i18n="p4">4 people</em></span></label>
+      </div>
+    </fieldset>
+
+    <div class="grid">
+      <label><span data-i18n="l_date">Date you booked on the calendar</span><input type="date" name="date" id="f-date" required></label>
+      <label><span data-i18n="l_time">Start time</span>
+        <select name="time" id="f-time" required>
+          <option value="" data-i18n="choose">Choose</option>
+          <option>10:00</option><option>13:00</option><option>16:00</option>
+        </select>
+      </label>
+      <label><span data-i18n="l_name">Full name</span><input type="text" name="name" id="f-name" autocomplete="name" required></label>
+      <label><span data-i18n="l_email">Email</span><input type="email" name="email" id="f-email" autocomplete="email" required></label>
+      <label><span><span data-i18n="l_wa">WhatsApp number</span> <small data-i18n="l_wa_s">with country code</small></span><input type="tel" name="whatsapp" id="f-wa" autocomplete="tel" placeholder="+1 555 123 4567" required></label>
+      <label><span data-i18n="l_country">Country</span><input type="text" name="country" id="f-country" autocomplete="country-name" required></label>
+      <label><span><span data-i18n="l_social">Instagram or TikTok</span> <small data-i18n="l_social_s">optional, so we can tag you</small></span><input type="text" name="social" id="f-social" placeholder="@yourname"></label>
+      <label><span><span data-i18n="l_hotel">Where are you staying?</span> <small data-i18n="opt">optional</small></span><input type="text" name="hotel" id="f-hotel" data-i18n-ph="ph_hotel" placeholder="Hotel name or area"></label>
+    </div>
+
+    <fieldset>
+      <legend><span data-i18n="legend_guest">Each guest</span> <small data-i18n="legend_guest_s">so your outfits are ready when you arrive</small></legend>
+      <div id="guests" style="display:grid;gap:12px"></div>
+    </fieldset>
+
+    <label><span><span data-i18n="l_allergy">Skin sensitivity or allergies</span> <small data-i18n="l_allergy_s">tell us anything we should know before makeup</small></span><textarea name="allergies" id="f-allergies" data-i18n-ph="ph_allergy" placeholder="e.g. sensitive to fragrance, none"></textarea></label>
+    <label><span><span data-i18n="l_notes">Anything else?</span> <small data-i18n="l_notes_s">outfit requests, special occasion, questions</small></span><textarea name="notes" id="f-notes"></textarea></label>
+
+    <label class="check"><input type="checkbox" name="agree" id="f-agree" required><span data-i18n="agree">I agree to the cancellation policy (free cancellation up to 48 hours before the start time) and understand that makeup is applied to my skin.</span></label>
+
+    <div class="submit">
+      <p class="err" id="err" role="alert" hidden data-i18n="err">Please fill in the highlighted fields.</p>
+      <button class="btn" type="submit" data-i18n="submit">Continue to payment →</button>
+    </div>
+  </form>
+</main>
+
+<footer><div class="wrap">HEISEI GAL OSAKA · Shinsaibashi, Osaka, Japan</div></footer>
+
+<script>
+/* ===== 設定（ここだけ書き換える） ===== */
+// TimeRexの予約ページのURL
+const TIMEREX_URL = "https://timerex.net/s/XXXXXXXX";
+// フォームの送り先（Google Apps ScriptのWebアプリURLなど）。空のままなら送信せずに支払いページへ進む
+const FORM_ENDPOINT = "";
+/* ===================================== */
+
+const EN_GUEST = { guest:"GUEST", g_name:"Name", g_height:"Height (cm)", g_size:"Clothing size", g_shoe:"Shoe size", g_shoe_s:"with unit, e.g. EU 38 / US 7", g_style:"Style", sty0:"Not sure yet", sty1:"Ganguro (tanned)", sty2:"Shiro-gal (fair)" };
+
+const I18N = {
+ja:{back:"← サイトに戻る",s1:"1 日時",s2:"2 情報入力",s3:"3 お支払い",h1:"ギャル体験を予約する",
+intro:"日時を選んで、参加者の情報を入力し、オンラインでお支払いください。お支払いが完了した時点で予約確定です。",
+st1h:"日時を選ぶ",st1p:"開始時間は10:00・13:00・16:00（日本時間）です。予約するとTimeRexから確認メールがすぐに届きます。",cal_p:"予約カレンダーから空いている枠を選んでください。",cal_btn:"カレンダーを開く",
+st2h:"参加者の情報",legend_plan:"プラン",p1:"1名",p2:"2名",p3:"3名",p4:"4名",
+l_date:"カレンダーで予約した日付",l_time:"開始時間",choose:"選択してください",l_name:"お名前（フルネーム）",l_email:"メールアドレス",l_wa:"WhatsAppの番号",l_wa_s:"国番号から",l_country:"国",l_social:"InstagramまたはTikTok",l_social_s:"任意。投稿でタグ付けします",l_hotel:"宿泊先",opt:"任意",ph_hotel:"ホテル名やエリア",
+legend_guest:"参加者ごとの情報",legend_guest_s:"到着までに服を用意しておくためです",
+guest:"参加者",g_name:"お名前",g_height:"身長（cm）",g_size:"服のサイズ",g_shoe:"靴のサイズ",g_shoe_s:"単位も。例：24cm / EU 38",g_style:"スタイル",sty0:"まだ決めていない",sty1:"ガングロ（日焼け肌）",sty2:"白ギャル（色白）",
+l_allergy:"肌の弱さ・アレルギー",l_allergy_s:"メイクの前に知っておくべきことがあれば",ph_allergy:"例：香料に敏感、特になし",l_notes:"そのほか",l_notes_s:"服のリクエスト、記念日、質問など",
+agree:"キャンセル規定（開始時間の48時間前までは無料）に同意し、肌にメイクをすることを理解しました。",err:"赤枠の項目を入力してください。",submit:"お支払いへ進む →"},
+ko:{back:"← 사이트로 돌아가기",s1:"1 날짜",s2:"2 정보 입력",s3:"3 결제",h1:"갸루 체험 예약하기",
+intro:"날짜를 고르고, 참가자 정보를 입력한 뒤 온라인으로 결제해 주세요. 결제가 완료되면 예약이 확정됩니다.",
+st1h:"날짜와 시간 선택",st1p:"시작 시간은 10:00, 13:00, 16:00(일본 시간)입니다. 예약하면 TimeRex에서 확인 메일이 바로 발송됩니다.",cal_p:"예약 캘린더에서 비어 있는 시간을 골라 주세요.",cal_btn:"캘린더 열기",
+st2h:"참가자 정보",legend_plan:"플랜",p1:"1명",p2:"2명",p3:"3명",p4:"4명",
+l_date:"캘린더에서 예약한 날짜",l_time:"시작 시간",choose:"선택",l_name:"이름(전체)",l_email:"이메일",l_wa:"왓츠앱 번호",l_wa_s:"국가 번호 포함",l_country:"국가",l_social:"인스타그램 또는 틱톡",l_social_s:"선택 사항, 게시물에 태그해 드려요",l_hotel:"숙소",opt:"선택 사항",ph_hotel:"호텔 이름 또는 지역",
+legend_guest:"참가자별 정보",legend_guest_s:"도착 전에 옷을 준비해 두기 위해서입니다",
+guest:"참가자",g_name:"이름",g_height:"키(cm)",g_size:"옷 사이즈",g_shoe:"신발 사이즈",g_shoe_s:"단위 포함, 예: 240mm / EU 38",g_style:"스타일",sty0:"아직 모르겠어요",sty1:"강구로(태닝 피부)",sty2:"시로갸루(하얀 피부)",
+l_allergy:"피부 민감도 또는 알레르기",l_allergy_s:"메이크업 전에 알아야 할 점이 있다면",ph_allergy:"예: 향료에 민감함, 없음",l_notes:"기타",l_notes_s:"의상 요청, 기념일, 질문 등",
+agree:"취소 규정(시작 48시간 전까지 무료 취소)에 동의하며, 피부에 메이크업을 한다는 점을 이해했습니다.",err:"표시된 항목을 입력해 주세요.",submit:"결제로 진행 →"},
+"zh-Hans":{back:"← 返回网站",s1:"1 日期",s2:"2 填写信息",s3:"3 付款",h1:"预约辣妹体验",
+intro:"选择时间，填写参加者信息，然后在线付款。付款完成后预约即确认。",
+st1h:"选择日期和时间",st1p:"开始时间为10:00、13:00、16:00（日本时间）。预约后TimeRex会立即发送确认邮件。",cal_p:"请在预约日历上选择空闲时段。",cal_btn:"打开日历",
+st2h:"参加者信息",legend_plan:"套餐",p1:"1人",p2:"2人",p3:"3人",p4:"4人",
+l_date:"在日历上预约的日期",l_time:"开始时间",choose:"请选择",l_name:"姓名（全名）",l_email:"电子邮箱",l_wa:"WhatsApp号码",l_wa_s:"请包含国家代码",l_country:"国家/地区",l_social:"Instagram或TikTok",l_social_s:"选填，方便我们发布时标记你",l_hotel:"住宿地点",opt:"选填",ph_hotel:"酒店名称或区域",
+legend_guest:"每位参加者的信息",legend_guest_s:"以便在你到达前准备好服装",
+guest:"参加者",g_name:"姓名",g_height:"身高（cm）",g_size:"衣服尺码",g_shoe:"鞋码",g_shoe_s:"请注明单位，例如：EU 38 / 240mm",g_style:"风格",sty0:"还没决定",sty1:"黑辣妹（美黑肌）",sty2:"白辣妹（白皙肌）",
+l_allergy:"皮肤敏感或过敏",l_allergy_s:"化妆前需要我们知道的事项",ph_allergy:"例如：对香料敏感、无",l_notes:"其他",l_notes_s:"服装要求、纪念日、问题等",
+agree:"我同意取消政策（开始时间前48小时可免费取消），并了解会在我的皮肤上化妆。",err:"请填写标出的项目。",submit:"前往付款 →"},
+"zh-Hant":{back:"← 返回網站",s1:"1 日期",s2:"2 填寫資料",s3:"3 付款",h1:"預約辣妹體驗",
+intro:"選擇時間、填寫參加者資料，再線上付款。付款完成後預約即確認。",
+st1h:"選擇日期和時間",st1p:"開始時間為10:00、13:00、16:00（日本時間）。預約後TimeRex會立即寄出確認信。",cal_p:"請在預約日曆上選擇空檔。",cal_btn:"打開日曆",
+st2h:"參加者資料",legend_plan:"方案",p1:"1人",p2:"2人",p3:"3人",p4:"4人",
+l_date:"在日曆上預約的日期",l_time:"開始時間",choose:"請選擇",l_name:"姓名（全名）",l_email:"電子郵件",l_wa:"WhatsApp號碼",l_wa_s:"請包含國碼",l_country:"國家/地區",l_social:"Instagram或TikTok",l_social_s:"選填，方便我們發文時標註你",l_hotel:"住宿地點",opt:"選填",ph_hotel:"飯店名稱或區域",
+legend_guest:"每位參加者的資料",legend_guest_s:"方便在你到達前準備好服裝",
+guest:"參加者",g_name:"姓名",g_height:"身高（cm）",g_size:"衣服尺寸",g_shoe:"鞋子尺寸",g_shoe_s:"請註明單位，例如：EU 38 / 24cm",g_style:"風格",sty0:"還沒決定",sty1:"黑辣妹（日曬肌）",sty2:"白辣妹（白皙肌）",
+l_allergy:"皮膚敏感或過敏",l_allergy_s:"化妝前需要我們知道的事",ph_allergy:"例如：對香料敏感、無",l_notes:"其他",l_notes_s:"服裝需求、紀念日、問題等",
+agree:"我同意取消政策（開始時間前48小時可免費取消），並了解會在我的皮膚上化妝。",err:"請填寫標示的項目。",submit:"前往付款 →"},
+fr:{back:"← Retour au site",s1:"1 Date",s2:"2 Tes infos",s3:"3 Paiement",h1:"Réserve ta journée gal",
+intro:"Choisis un créneau, parle-nous de ton groupe, puis paie en ligne. Ta réservation est confirmée une fois le paiement effectué.",
+st1h:"Choisis ta date et ton horaire",st1p:"Départs à 10 h, 13 h et 16 h (heure du Japon). TimeRex t'envoie un e-mail de confirmation tout de suite.",cal_p:"Choisis un créneau libre dans notre calendrier de réservation.",cal_btn:"Ouvrir le calendrier",
+st2h:"Parle-nous de ton groupe",legend_plan:"Formule",p1:"1 personne",p2:"2 personnes",p3:"3 personnes",p4:"4 personnes",
+l_date:"Date réservée dans le calendrier",l_time:"Heure de début",choose:"Choisir",l_name:"Nom complet",l_email:"E-mail",l_wa:"Numéro WhatsApp",l_wa_s:"avec l'indicatif du pays",l_country:"Pays",l_social:"Instagram ou TikTok",l_social_s:"facultatif, pour qu'on puisse t'identifier",l_hotel:"Où loges-tu ?",opt:"facultatif",ph_hotel:"Nom de l'hôtel ou quartier",
+legend_guest:"Chaque participant",legend_guest_s:"pour que les tenues soient prêtes à votre arrivée",
+guest:"PARTICIPANT",g_name:"Nom",g_height:"Taille (cm)",g_size:"Taille de vêtements",g_shoe:"Pointure",g_shoe_s:"avec l'unité, ex. EU 38 / US 7",g_style:"Style",sty0:"Je ne sais pas encore",sty1:"Ganguro (bronzée)",sty2:"Shiro-gal (teint clair)",
+l_allergy:"Peau sensible ou allergies",l_allergy_s:"tout ce qu'on doit savoir avant le maquillage",ph_allergy:"ex. sensible aux parfums, aucune",l_notes:"Autre chose ?",l_notes_s:"demandes de tenue, occasion spéciale, questions",
+agree:"J'accepte la politique d'annulation (gratuite jusqu'à 48 heures avant le début) et je comprends que du maquillage sera appliqué sur ma peau.",err:"Merci de remplir les champs signalés.",submit:"Continuer vers le paiement →"},
+de:{back:"← Zurück zur Website",s1:"1 Datum",s2:"2 Deine Angaben",s3:"3 Zahlung",h1:"Buche deinen Gal-Tag",
+intro:"Wähle einen Termin, erzähl uns von deiner Gruppe und bezahle online. Deine Buchung ist bestätigt, sobald die Zahlung abgeschlossen ist.",
+st1h:"Datum und Uhrzeit wählen",st1p:"Start um 10:00, 13:00 oder 16:00 Uhr (japanische Zeit). TimeRex schickt dir sofort eine Bestätigungs-E-Mail.",cal_p:"Wähle einen freien Termin in unserem Buchungskalender.",cal_btn:"Kalender öffnen",
+st2h:"Erzähl uns von deiner Gruppe",legend_plan:"Plan",p1:"1 Person",p2:"2 Personen",p3:"3 Personen",p4:"4 Personen",
+l_date:"Im Kalender gebuchtes Datum",l_time:"Startzeit",choose:"Auswählen",l_name:"Vollständiger Name",l_email:"E-Mail",l_wa:"WhatsApp-Nummer",l_wa_s:"mit Ländervorwahl",l_country:"Land",l_social:"Instagram oder TikTok",l_social_s:"optional, damit wir dich markieren können",l_hotel:"Wo übernachtest du?",opt:"optional",ph_hotel:"Hotelname oder Gegend",
+legend_guest:"Jeder Gast",legend_guest_s:"damit die Outfits bei eurer Ankunft bereitliegen",
+guest:"GAST",g_name:"Name",g_height:"Körpergröße (cm)",g_size:"Kleidergröße",g_shoe:"Schuhgröße",g_shoe_s:"mit Einheit, z. B. EU 38 / US 7",g_style:"Stil",sty0:"Noch unsicher",sty1:"Ganguro (gebräunt)",sty2:"Shiro-Gal (hell)",
+l_allergy:"Empfindliche Haut oder Allergien",l_allergy_s:"alles, was wir vor dem Make-up wissen sollten",ph_allergy:"z. B. empfindlich gegen Duftstoffe, keine",l_notes:"Sonst noch etwas?",l_notes_s:"Outfit-Wünsche, besonderer Anlass, Fragen",
+agree:"Ich akzeptiere die Stornobedingungen (kostenlos bis 48 Stunden vor Beginn) und verstehe, dass Make-up auf meine Haut aufgetragen wird.",err:"Bitte fülle die markierten Felder aus.",submit:"Weiter zur Zahlung →"}
+};
+I18N["de-CH"] = Object.fromEntries(Object.entries(I18N.de).map(([k, v]) => [k, v.replace(/ß/g, "ss")]));
+
+const LANGS = ["en","ja","ko","zh-Hans","zh-Hant","fr","de","de-CH"];
+let lang = LANGS.includes(location.hash.slice(1)) ? location.hash.slice(1) : "en";
+
+document.getElementById("timerex-link").href = TIMEREX_URL;
+
+const textEls = document.querySelectorAll("[data-i18n]");
+const phEls = document.querySelectorAll("[data-i18n-ph]");
+const EN = { ...EN_GUEST };
+textEls.forEach(el => { EN[el.dataset.i18n] = el.innerHTML; });
+phEls.forEach(el => { EN[el.dataset.i18nPh] = el.placeholder; });
+const T = k => (lang !== "en" && I18N[lang] && I18N[lang][k] != null) ? I18N[lang][k] : EN[k];
+
+const COUNT = { solo: 1, duo: 2, trio: 3, squad: 4 };
+const guestsBox = document.getElementById("guests");
+
+function guestBlock(i) {
+  return `<div class="guest">
+    <h3>${T("guest")} ${i}</h3>
+    <div class="grid">
+      ${i > 1 ? `<label class="full"><span>${T("g_name")}</span><input type="text" name="g${i}_name" id="g${i}-name" required></label>` : ""}
+      <label><span>${T("g_height")}</span><input type="number" name="g${i}_height" id="g${i}-height" min="120" max="220" required></label>
+      <label><span>${T("g_size")}</span>
+        <select name="g${i}_size" id="g${i}-size" required>
+          <option value="">${T("choose")}</option><option>XS</option><option>S</option><option>M</option><option>L</option><option>XL</option><option>2XL</option><option>3XL</option>
+        </select>
+      </label>
+      <label><span>${T("g_shoe")} <small>${T("g_shoe_s")}</small></span><input type="text" name="g${i}_shoe" id="g${i}-shoe" required></label>
+      <label><span>${T("g_style")}</span>
+        <select name="g${i}_style" id="g${i}-style">
+          <option value="not sure">${T("sty0")}</option><option value="ganguro">${T("sty1")}</option><option value="shiro-gal">${T("sty2")}</option>
+        </select>
+      </label>
+    </div>
+  </div>`;
+}
+
+function renderGuests() {
+  const plan = document.querySelector("input[name=plan]:checked").value;
+  const keep = {};
+  guestsBox.querySelectorAll("input,select").forEach(el => { keep[el.name] = el.value; });
+  let html = "";
+  for (let i = 1; i <= COUNT[plan]; i++) html += guestBlock(i);
+  guestsBox.innerHTML = html;
+  guestsBox.querySelectorAll("input,select").forEach(el => { if (keep[el.name] != null) el.value = keep[el.name]; });
+}
+
+function applyLang(l) {
+  lang = l;
+  textEls.forEach(el => { el.innerHTML = T(el.dataset.i18n); });
+  phEls.forEach(el => { el.placeholder = T(el.dataset.i18nPh); });
+  document.documentElement.lang = l;
+  document.getElementById("lang").value = l;
+  renderGuests();
+}
+
+document.querySelectorAll("input[name=plan]").forEach(r => r.addEventListener("change", renderGuests));
+document.getElementById("lang").addEventListener("change", e => {
+  applyLang(e.target.value);
+  history.replaceState(null, "", e.target.value === "en" ? location.pathname : "#" + e.target.value);
+});
+applyLang(lang);
+
+const form = document.getElementById("details");
+const err = document.getElementById("err");
+
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  let ok = true;
+  form.querySelectorAll("[required]").forEach(el => {
+    const bad = el.type === "checkbox" ? !el.checked : (!el.checkValidity() || !String(el.value).trim());
+    el.classList.toggle("bad", bad);
+    if (bad) ok = false;
+  });
+  err.hidden = ok;
+  if (!ok) { form.querySelector(".bad")?.focus(); return; }
+
+  const data = new FormData(form);
+  data.append("language", lang);
+  if (FORM_ENDPOINT) {
+    try { await fetch(FORM_ENDPOINT, { method: "POST", mode: "no-cors", body: data }); } catch (_) {}
+  }
+  location.href = "payment.html#" + data.get("plan") + (lang === "en" ? "" : "." + lang);
+});
+</script>
+</body>
+</html>

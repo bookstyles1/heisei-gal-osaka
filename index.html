@@ -1,0 +1,813 @@
+<title>Heisei Gal Osaka</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Become a 2000s Japanese gyaru for a day in Osaka. Gyaru makeup, outfit, street photoshoot at Dotonbori and Osaka Castle, same-day photos, and the look until 8PM.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Dela+Gothic+One&family=Manrope:wght@400;600;800&family=VT323&display=swap">
+<style>
+/* Layout: a gal-magazine cover hero over Dotonbori at night, then pink "paper" pages with purikura-strip photos, leopard bands and sticker labels. Single committed look. */
+:root{
+  --ink:#16080f;
+  --paper:#ffe6f2;
+  --paper-2:#fff6fa;
+  --pink:#ff2e93;
+  --pink-deep:#c2006b;
+  --tan:#c9874f;
+  --gold:#ffd54a;
+  --chrome:#e9e4ee;
+  --night:#1c0b2b;
+  --muted:#6e4a5e;
+  --f-display:"Dela Gothic One","Black Han Sans","PingFang SC","PingFang TC","Microsoft YaHei","Hiragino Sans","Yu Gothic",Impact,sans-serif;
+  --f-body:"Manrope","Helvetica Neue",Arial,"Hiragino Sans","Yu Gothic","Apple SD Gothic Neo","Malgun Gothic","PingFang SC","PingFang TC","Microsoft YaHei",sans-serif;
+  --f-lcd:"VT323","Courier New",monospace;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.65}
+img{max-width:100%;display:block}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+.wrap{max-width:1120px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--f-display);font-weight:400;line-height:1.12;text-wrap:balance;margin:0}
+h2{font-size:clamp(2rem,5vw,3.4rem);letter-spacing:-.01em}
+h3{font-size:1.25rem}
+p{margin:0}
+.eyebrow{font-family:var(--f-lcd);font-size:1.35rem;letter-spacing:.08em;color:var(--pink-deep);text-transform:uppercase}
+.btn{display:inline-flex;align-items:center;gap:.5em;font-family:var(--f-display);font-size:1.05rem;text-decoration:none;padding:.85em 1.4em;border-radius:999px;border:3px solid var(--ink);background:var(--pink);color:#fff;box-shadow:4px 4px 0 var(--ink);transition:transform .15s,box-shadow .15s}
+.btn:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--ink)}
+.btn.ghost{background:#fff;color:var(--ink)}
+
+/* nav */
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--ink)}
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;background:var(--ink);color:#fff}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:14px;padding-block:10px}
+.logo{font-family:var(--f-display);font-size:1.2rem;text-decoration:none;letter-spacing:.02em;white-space:nowrap}
+.logo b{color:var(--pink);font-weight:400}
+.nav ul{display:flex;gap:22px;list-style:none;margin:0;padding:0;font-weight:600;font-size:.95rem}
+.nav ul a{text-decoration:none;opacity:.85}
+.nav ul a:hover{opacity:1;color:var(--pink)}
+.nav-right{display:flex;align-items:center;gap:10px}
+.nav .btn{padding:.5em 1.1em;font-size:.9rem;box-shadow:3px 3px 0 var(--pink-deep);border-color:#fff;white-space:nowrap}
+.lang{appearance:none;-webkit-appearance:none;background:transparent;color:#fff;border:2px solid #fff;border-radius:999px;padding:.4em 1.9em .4em .9em;font:600 .85rem var(--f-body);cursor:pointer;
+  background-image:linear-gradient(45deg,transparent 50%,#fff 50%),linear-gradient(135deg,#fff 50%,transparent 50%);background-position:calc(100% - 14px) 52%,calc(100% - 9px) 52%;background-size:5px 5px;background-repeat:no-repeat}
+.lang option{color:var(--ink);background:#fff}
+@media (max-width:980px){.nav ul{display:none}}
+@media (max-width:420px){.logo{font-size:1rem}.nav .btn{display:none}.lang{padding:.35em 1.7em .35em .7em;font-size:.8rem}}
+.nav .wrap{flex-wrap:wrap;row-gap:8px}
+
+/* hero */
+.hero{position:relative;color:#fff;background:var(--night);overflow:hidden;isolation:isolate}
+.hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2}
+.hero::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(28,11,43,.15) 0%,rgba(28,11,43,.25) 45%,rgba(22,8,15,.92) 100%)}
+.hero.no-photo{background:
+  radial-gradient(60% 50% at 78% 30%,rgba(255,46,147,.55),transparent 70%),
+  radial-gradient(40% 40% at 20% 20%,rgba(255,213,74,.35),transparent 70%),
+  radial-gradient(50% 60% at 55% 85%,rgba(0,200,255,.25),transparent 70%),
+  repeating-linear-gradient(90deg,rgba(255,255,255,.04) 0 2px,transparent 2px 70px),
+  var(--night)}
+.hero.no-photo .hero-img{display:none}
+.photo-note{display:none;position:absolute;right:max(16px,env(safe-area-inset-right,0px));top:16px;font-family:var(--f-lcd);font-size:1.1rem;background:rgba(0,0,0,.55);padding:4px 10px;border:1px dashed #fff}
+.hero.no-photo .photo-note{display:block}
+.hero .wrap{padding-block:clamp(72px,12vw,150px) 56px;display:grid;gap:22px}
+.cover-tag{font-family:var(--f-lcd);font-size:1.4rem;letter-spacing:.12em;color:var(--gold)}
+.hero h1{font-size:clamp(2.2rem,9vw,6.8rem);line-height:.98;text-transform:uppercase;
+  background:linear-gradient(180deg,#fff 0%,var(--chrome) 48%,#b9a9c6 52%,#fff 100%);-webkit-background-clip:text;background-clip:text;color:transparent;
+  filter:drop-shadow(4px 4px 0 var(--pink))}
+.hero h1 .gal{display:block;color:var(--pink);-webkit-text-fill-color:var(--pink);filter:none;text-shadow:4px 4px 0 var(--ink)}
+.hero .lead{max-width:34em;font-size:clamp(1.05rem,2.2vw,1.3rem);font-weight:600}
+.hero .lead .hl{display:block;margin-top:.35em;color:var(--gold)}
+.nb{display:inline-block;max-width:100%}
+p,li,dd,.sub{text-wrap:pretty}
+.hero h1 .gal{white-space:nowrap}
+.hero h1 .sm{font-size:.58em}
+.hero h1 > .sm{display:inline-block}
+.hero h1 .gal.inl{display:inline-block}
+:lang(ja) h1,:lang(ja) h2,:lang(ja) h3{word-break:auto-phrase}
+:lang(ko){word-break:keep-all}
+:lang(ja) .hero h1,:lang(zh) .hero h1{font-size:clamp(2.2rem,8vw,5.6rem);line-height:1.12}
+.hero .ctas{display:flex;flex-wrap:wrap;gap:14px;margin-top:6px}
+.stickers{display:flex;flex-wrap:wrap;gap:12px;margin-top:18px}
+.sticker{font-family:var(--f-display);font-size:.95rem;padding:.55em 1em;border-radius:14px;background:var(--gold);color:var(--ink);border:2px solid var(--ink);transform:rotate(-3deg);box-shadow:3px 3px 0 var(--ink)}
+.sticker:nth-child(2){background:#fff;transform:rotate(2deg)}
+.sticker:nth-child(3){background:var(--pink);color:#fff;transform:rotate(-1.5deg)}
+.lcd-date{position:absolute;right:max(20px,env(safe-area-inset-right,0px));bottom:18px;font-family:var(--f-lcd);font-size:1.6rem;color:#ff9a3c;text-shadow:0 0 6px rgba(255,154,60,.8)}
+
+/* leopard band */
+.leopard{height:44px;border-block:3px solid var(--ink);background-color:var(--tan);
+  background-image:
+   radial-gradient(ellipse 9px 6px at 14px 12px,var(--ink) 60%,transparent 62%),
+   radial-gradient(ellipse 6px 8px at 44px 30px,var(--ink) 60%,transparent 62%),
+   radial-gradient(ellipse 8px 5px at 70px 10px,var(--ink) 60%,transparent 62%),
+   radial-gradient(ellipse 13px 9px at 14px 12px,#7a4a22 60%,transparent 62%),
+   radial-gradient(ellipse 10px 12px at 44px 30px,#7a4a22 60%,transparent 62%),
+   radial-gradient(ellipse 12px 9px at 70px 10px,#7a4a22 60%,transparent 62%);
+  background-size:88px 44px}
+.marquee{overflow:hidden;background:var(--pink);color:#fff;border-bottom:3px solid var(--ink)}
+.marquee-track{display:flex;gap:40px;white-space:nowrap;padding:10px 0;font-family:var(--f-display);font-size:1.1rem;animation:scroll 28s linear infinite;width:max-content}
+@keyframes scroll{to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion:reduce){.marquee-track{animation:none}.btn{transition:none}}
+
+section{padding-block:clamp(64px,9vw,110px)}
+.sec-head{display:grid;gap:12px;margin-bottom:40px;max-width:760px}
+.sec-head p.sub{color:var(--muted);font-size:1.08rem}
+
+/* culture */
+.culture{background:var(--paper-2)}
+.culture-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:48px;align-items:start}
+.culture-copy{display:grid;gap:18px;font-size:1.08rem;max-width:62ch}
+.glossary{display:grid;gap:12px;margin:0}
+.term{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;padding:14px 16px;background:#fff;border:2px solid var(--ink);border-radius:12px}
+.term dt{font-family:var(--f-display);font-size:1.05rem;color:var(--pink-deep)}
+.term dt small{display:block;font-family:var(--f-body);font-size:.75rem;color:var(--muted);letter-spacing:.06em}
+.term dd{margin:0;font-size:.95rem;min-width:0}
+@media (max-width:860px){.culture-grid{grid-template-columns:1fr}}
+
+/* day timeline */
+.day{background:var(--ink);color:#fff}
+.day .eyebrow{color:var(--gold)}
+.day .sec-head p.sub{color:#d9c3cf}
+.timeline{list-style:none;margin:0;padding:0;display:grid;border-left:3px dashed var(--pink);margin-left:8px}
+.timeline li{position:relative;padding:0 0 34px 34px;display:grid;grid-template-columns:110px 1fr;gap:6px 20px}
+.timeline li::before{content:"";position:absolute;left:-11px;top:6px;width:18px;height:18px;border-radius:50%;background:var(--pink);border:3px solid #fff}
+.timeline .t{font-family:var(--f-lcd);font-size:1.7rem;color:var(--gold);line-height:1}
+.timeline h3{color:#fff}
+.timeline p{grid-column:2;color:#e7d6df;max-width:60ch}
+.timeline li.after::before{background:var(--gold)}
+@media (max-width:600px){.timeline li{grid-template-columns:1fr}.timeline p{grid-column:1}}
+
+/* included */
+.why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.why{background:#fff;border:3px solid var(--ink);border-radius:18px;padding:24px;display:grid;gap:10px;align-content:start;box-shadow:6px 6px 0 var(--pink)}
+.why .tag{font-family:var(--f-lcd);font-size:1.2rem;color:var(--pink-deep);letter-spacing:.05em}
+.why p{color:var(--muted)}
+@media (max-width:900px){.why-grid{grid-template-columns:1fr 1fr}}
+@media (max-width:600px){.why-grid{grid-template-columns:1fr}}
+.compare-box{margin-top:44px;overflow-x:auto;background:#fff;border:3px solid var(--ink);border-radius:18px}
+.compare{width:100%;border-collapse:collapse;min-width:520px}
+.compare th,.compare td{padding:14px 18px;text-align:left;border-bottom:1px solid #f3c7dc;font-size:.98rem}
+.compare thead th{font-family:var(--f-display);font-weight:400;background:var(--ink);color:#fff}
+.compare thead th.us{background:var(--pink)}
+.compare td.us{font-weight:800}
+.compare tr:last-child td{border-bottom:0}
+
+/* gallery: purikura strip */
+.gallery{background:var(--paper-2)}
+.strip{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.shot{margin:0;background:#fff;padding:10px 10px 0;border-radius:6px;box-shadow:0 10px 24px rgba(194,0,107,.18);transform:rotate(var(--r,0deg))}
+.shot:nth-child(1){--r:-2deg}.shot:nth-child(2){--r:1.5deg}.shot:nth-child(3){--r:-1deg}
+.shot:nth-child(4){--r:2deg}.shot:nth-child(5){--r:-1.5deg}.shot:nth-child(6){--r:1deg}
+.frame{position:relative;aspect-ratio:4/5;border-radius:4px;overflow:hidden;background:linear-gradient(160deg,var(--pink),var(--gold));max-width:100%}
+.frame img{width:100%;height:100%;object-fit:cover}
+.frame.no-photo img{display:none}
+.frame.no-photo::after{content:"PHOTO";position:absolute;inset:0;display:grid;place-items:center;font-family:var(--f-display);font-size:1.6rem;color:rgba(255,255,255,.8)}
+.frame .stamp{position:absolute;right:8px;bottom:6px;font-family:var(--f-lcd);font-size:1.2rem;color:#ff9a3c;text-shadow:0 0 4px rgba(0,0,0,.6);z-index:1}
+.shot figcaption{font-family:var(--f-display);font-size:.95rem;padding:10px 4px 12px;display:flex;justify-content:space-between;gap:8px}
+.shot figcaption .h{color:var(--pink)}
+@media (max-width:760px){.strip{grid-template-columns:1fr 1fr;gap:14px}}
+
+/* plans */
+.plans-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.plan{background:#fff;border:3px solid var(--ink);border-radius:18px;padding:22px;display:grid;gap:8px;align-content:start}
+.plan.hot{background:var(--pink);color:#fff;box-shadow:6px 6px 0 var(--ink)}
+.plan .who{font-family:var(--f-lcd);font-size:1.3rem;letter-spacing:.05em}
+.plan .price{font-family:var(--f-display);font-size:2rem;line-height:1;font-variant-numeric:tabular-nums}
+.plan .price small{font-family:var(--f-body);font-size:.85rem;font-weight:600}
+.plan .total{font-size:.9rem;opacity:.8}
+.plan-note{margin-top:22px;color:var(--muted);max-width:70ch}
+@media (max-width:900px){.plans-grid{grid-template-columns:1fr 1fr}}
+@media (max-width:480px){.plans-grid{grid-template-columns:1fr}}
+.inc{margin-top:36px;display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.inc div{background:var(--paper-2);border:2px solid var(--ink);border-radius:14px;padding:20px}
+.inc h3{margin-bottom:10px}
+.inc ul{margin:0;padding-left:1.2em;display:grid;gap:4px}
+@media (max-width:700px){.inc{grid-template-columns:1fr}}
+
+/* know + faq */
+.know-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-bottom:44px}
+.know{border-top:3px solid var(--ink);padding-top:14px;display:grid;gap:6px}
+.know p{color:var(--muted)}
+@media (max-width:700px){.know-grid{grid-template-columns:1fr}}
+.faq{display:grid;gap:12px;max-width:820px}
+.faq details{background:#fff;border:2px solid var(--ink);border-radius:14px;padding:16px 20px}
+.faq summary{cursor:pointer;font-family:var(--f-display);font-size:1.05rem;list-style:none;display:flex;justify-content:space-between;gap:12px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";color:var(--pink)}
+.faq details[open] summary::after{content:"−"}
+.faq details p{margin-top:10px;color:var(--muted)}
+
+/* book */
+.book{background:var(--pink);color:#fff;border-top:3px solid var(--ink)}
+.book .wrap{display:grid;grid-template-columns:1.2fr 1fr;gap:40px;align-items:center}
+.book h2{font-size:clamp(2.2rem,6vw,4.2rem);text-shadow:4px 4px 0 var(--ink)}
+.book p{font-size:1.1rem;font-weight:600;max-width:36em;margin-top:16px}
+.steps{list-style:none;counter-reset:s;margin:22px 0 0;padding:0;display:grid;gap:10px}
+.steps li{counter-increment:s;display:flex;align-items:center;gap:12px;font-family:var(--f-display);font-size:1.05rem}
+.steps li::before{content:counter(s);flex:none;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:var(--ink);color:var(--gold);font-family:var(--f-lcd);font-size:1.4rem}
+.book-card{background:#fff;color:var(--ink);border:3px solid var(--ink);border-radius:18px;padding:24px;display:grid;gap:14px;box-shadow:8px 8px 0 var(--ink)}
+.book-card .btn{justify-content:center}
+.contact-line{font-size:.95rem;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;border-top:1px dashed #f0a9cb;padding-top:10px}
+.contact-line b{font-family:var(--f-lcd);font-size:1.2rem;font-weight:400}
+@media (max-width:820px){.book .wrap{grid-template-columns:1fr}}
+footer{background:var(--ink);color:#d9c3cf;font-size:.9rem}
+footer .wrap{padding-block:28px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+</style>
+
+<nav class="nav" aria-label="Main">
+  <div class="wrap">
+    <a class="logo" href="#top">HEISEI <b>GAL</b> OSAKA</a>
+    <ul>
+      <li><a href="#gyaru" data-i18n="nav_gyaru">What's gyaru?</a></li>
+      <li><a href="#day" data-i18n="nav_day">Your day</a></li>
+      <li><a href="#plans" data-i18n="nav_plans">Plans</a></li>
+      <li><a href="#faq" data-i18n="nav_faq">FAQ</a></li>
+    </ul>
+    <div class="nav-right">
+      <label for="lang" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Language</label>
+      <select id="lang" class="lang">
+        <option value="en">English</option>
+        <option value="ja">日本語</option>
+        <option value="ko">한국어</option>
+        <option value="zh-Hans">简体中文</option>
+        <option value="zh-Hant">繁體中文</option>
+        <option value="fr">Français</option>
+        <option value="de">Deutsch</option>
+        <option value="de-CH">Deutsch (Schweiz)</option>
+      </select>
+      <a class="btn" href="#book" data-i18n="nav_book">Book</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <img class="hero-img" src="images/hero.jpg" alt="A guest in full Heisei gyaru makeup posing in front of the Dotonbori neon signs at night" onerror="this.closest('.hero').classList.add('no-photo')">
+  <span class="photo-note">hero.jpg : gyaru × Dotonbori neon</span>
+  <div class="wrap">
+    <span class="cover-tag">★ OSAKA ★ VOL.01 ★ 平成ギャル体験</span>
+    <h1 data-i18n="hero_h1"><span class="sm">Become a</span><span class="gal">Heisei Gal</span><span class="sm">for a day.</span></h1>
+    <p class="lead" data-i18n="hero_lead">Get the full 2000s Japanese gyaru look, then spend the day out in Osaka in it. <span class="hl">Real Japanese street culture, a memory for life.</span></p>
+    <div class="ctas">
+      <a class="btn" href="#book" data-i18n="hero_cta1">Book your gal day</a>
+      <a class="btn ghost" href="#day" data-i18n="hero_cta2">See the day</a>
+    </div>
+    <div class="stickers">
+      <span class="sticker" data-i18n="st1">Photos the SAME DAY</span>
+      <span class="sticker" data-i18n="st2">Keep the look till 8PM</span>
+      <span class="sticker" data-i18n="st3">Dotonbori + Osaka Castle</span>
+    </div>
+  </div>
+  <span class="lcd-date" aria-hidden="true">'03 8 14</span>
+</header>
+
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track">
+    <span>GYARU MAKEUP ♥ LOOSE SOCKS ♥ PURIKURA POSES ♥ FISHEYE SHOTS ♥ AMEMURA ♥ DOTONBORI ♥ OSAKA CASTLE ♥ 平成ギャル ♥</span>
+    <span>GYARU MAKEUP ♥ LOOSE SOCKS ♥ PURIKURA POSES ♥ FISHEYE SHOTS ♥ AMEMURA ♥ DOTONBORI ♥ OSAKA CASTLE ♥ 平成ギャル ♥</span>
+  </div>
+</div>
+
+<section class="culture" id="gyaru">
+  <div class="wrap culture-grid">
+    <div>
+      <div class="sec-head">
+        <span class="eyebrow" data-i18n="cul_eyebrow">What's gyaru? / ギャルとは</span>
+        <h2 data-i18n="cul_h2">The loudest girls of the Heisei era</h2>
+      </div>
+      <div class="culture-copy">
+        <p data-i18n="cul_p1">Gyaru (from the English "gal") was a street fashion that took over Japan in the late '90s and 2000s, part of the Heisei era (1989–2019). It started on the streets of Shibuya and spread across the country through gal magazines and the shops of Shibuya 109.</p>
+        <p data-i18n="cul_p2">Gyaru broke every rule of "proper" Japanese beauty: tanned skin, bleached hair, huge lashes, glitter, and attitude to match. It was about having fun with your friends and looking exactly how you wanted.</p>
+        <p data-i18n="cul_p3">Osaka had its own scene too, centered on Amemura (America-mura), the city's youth and vintage-clothing district. That's where your day starts.</p>
+      </div>
+    </div>
+    <dl class="glossary">
+      <div class="term"><dt>Ganguro<small>ガングロ</small></dt><dd data-i18n="t1">Deep tan, white eye and lip makeup, bleached hair. The boldest look of the late '90s.</dd></div>
+      <div class="term"><dt>Shiro-gal<small>白ギャル</small></dt><dd data-i18n="t2">The fair-skinned 2000s style with big eyes, pink cheeks and long curled hair.</dd></div>
+      <div class="term"><dt>Loose socks<small>ルーズソックス</small></dt><dd data-i18n="t3">Extra-long white socks scrunched down to the ankles. The school-girl gyaru signature.</dd></div>
+      <div class="term"><dt>Purikura<small>プリクラ</small></dt><dd data-i18n="t4">Photo-sticker booths with decorated frames. Every gyaru pose comes from here.</dd></div>
+      <div class="term"><dt>Deco<small>デコ</small></dt><dd data-i18n="t5">Rhinestones and stickers on everything: flip phones, nails, mirrors.</dd></div>
+    </dl>
+  </div>
+</section>
+
+<div class="leopard" aria-hidden="true"></div>
+
+<section class="day" id="day">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow" data-i18n="day_eyebrow">Your gal day / 180 min</span>
+      <h2 data-i18n="day_h2">Not just a photoshoot. A whole day out as a gyaru.</h2>
+      <p class="sub" data-i18n="day_sub">The guided part takes 3 hours. After that, the outfit stays on and Osaka is yours until 8PM.</p>
+    </div>
+    <ol class="timeline">
+      <li><span class="t">0:00</span><h3 data-i18n="tl1h">Check in and pick your look</h3><p data-i18n="tl1p">Meet us at our studio in Shinsaibashi. Choose ganguro or shiro-gal, then your outfit, wig and accessories. Sizes for all bodies, including larger sizes.</p></li>
+      <li><span class="t">0:15</span><h3 data-i18n="tl2h">Gyaru makeup and hair</h3><p data-i18n="tl2p">Lashes, liner, glitter, the works. Your makeup artist builds the full Heisei look from scratch with fresh, single-use tools.</p></li>
+      <li><span class="t">1:15</span><h3 data-i18n="tl3h">Hit the streets of Minami</h3><p data-i18n="tl3p">Shoot around Amemura and Dotonbori with a local photographer. Fisheye street shots, the classic gyaru poses, and the neon of Dotonbori behind you.</p></li>
+      <li><span class="t">2:00</span><h3 data-i18n="tl4h">Osaka Castle</h3><p data-i18n="tl4p">Take the gal look somewhere it never went in the 2000s. Bleached hair and loose socks in front of a 16th-century castle.</p></li>
+      <li><span class="t">2:45</span><h3 data-i18n="tl5h">First photos on your phone</h3><p data-i18n="tl5p">We send a handful of favorites to your phone on the spot, so you can post while you're still in Osaka. You also get our local map.</p></li>
+      <li class="after"><span class="t">→ 8PM</span><h3 data-i18n="tl6h">Stay a gal. Go explore.</h3><p data-i18n="tl6p">Keep the outfit and makeup on, follow our map to food spots and hidden corners, and drop the outfit off by 8PM. Makeup remover is included. The full photo set and your reel arrive that night.</p></li>
+    </ol>
+  </div>
+</section>
+
+<section id="included">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow" data-i18n="why_eyebrow">Why us</span>
+      <h2 data-i18n="why_h2">What makes this day different</h2>
+    </div>
+    <div class="why-grid">
+      <div class="why"><span class="tag">SAME DAY</span><h3 data-i18n="w1h">Photos tonight, not in two weeks</h3><p data-i18n="w1p">A few favorites go to your phone on the spot. The full edited set arrives the same night.</p></div>
+      <div class="why"><span class="tag">REEL</span><h3 data-i18n="w2h">A vertical video, ready to post</h3><p data-i18n="w2p">A 15–30 second reel cut for TikTok and Instagram, included with every booking.</p></div>
+      <div class="why"><span class="tag">UNTIL 8PM</span><h3 data-i18n="w3h">Keep the look all evening</h3><p data-i18n="w3p">The shoot ends, the gal day doesn't. Eat, shop and wander in full gyaru until 8PM.</p></div>
+      <div class="why"><span class="tag">CASTLE + NEON</span><h3 data-i18n="w4h">Two sides of Osaka</h3><p data-i18n="w4p">Street shots in Amemura and Dotonbori, plus Osaka Castle, in one day.</p></div>
+      <div class="why"><span class="tag">LOCAL MAP</span><h3 data-i18n="w5h">Where locals actually go</h3><p data-i18n="w5p">Our own sightseeing and food map, from the famous spots to the tiny places tourists never find.</p></div>
+      <div class="why"><span class="tag">REAL GYARU</span><h3 data-i18n="w6h">Made by people who lived it</h3><p data-i18n="w6p">Your makeup and styling come from people who grew up in the Heisei gal scene, not from a costume shop.</p></div>
+    </div>
+    <div class="compare-box">
+      <table class="compare">
+        <thead><tr><th scope="col"></th><th scope="col" data-i18n="cmp_typical">A typical makeover</th><th scope="col" class="us">Heisei Gal Osaka</th></tr></thead>
+        <tbody>
+          <tr><td data-i18n="r1l">Photos delivered</td><td data-i18n="r1a">10–14 days later</td><td class="us" data-i18n="r1b">Same day</td></tr>
+          <tr><td data-i18n="r2l">Video</td><td data-i18n="r2a">Not included</td><td class="us" data-i18n="r2b">Vertical reel included</td></tr>
+          <tr><td data-i18n="r3l">Wear the outfit</td><td data-i18n="r3a">Up to 4 hours</td><td class="us" data-i18n="r3b">Until 8PM</td></tr>
+          <tr><td data-i18n="r4l">Locations</td><td data-i18n="r4a">Minami only</td><td class="us" data-i18n="r4b">Minami + Osaka Castle</td></tr>
+          <tr><td data-i18n="r5l">After the shoot</td><td data-i18n="r5a">Goodbye</td><td class="us" data-i18n="r5b">Local food and sightseeing map</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="gallery" id="gallery">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow" data-i18n="gal_eyebrow">Gallery / ギャラリー</span>
+      <h2 data-i18n="gal_h2">Shot on the streets of Osaka</h2>
+    </div>
+    <div class="strip">
+      <figure class="shot"><div class="frame"><img src="images/g1.jpg" alt="Gyaru pose in Amemura" onerror="this.parentNode.classList.add('no-photo')"><span class="stamp">'03 8 14</span></div><figcaption><span data-i18n="cap1">Amemura</span><span class="h">♥</span></figcaption></figure>
+      <figure class="shot"><div class="frame"><img src="images/g2.jpg" alt="Fisheye shot on the Dotonbori bridge" onerror="this.parentNode.classList.add('no-photo')"><span class="stamp">'03 8 14</span></div><figcaption><span data-i18n="cap2">Dotonbori</span><span class="h">♥</span></figcaption></figure>
+      <figure class="shot"><div class="frame"><img src="images/g3.jpg" alt="Gyaru in front of Osaka Castle" onerror="this.parentNode.classList.add('no-photo')"><span class="stamp">'03 8 14</span></div><figcaption><span data-i18n="cap3">Osaka Castle</span><span class="h">♥</span></figcaption></figure>
+      <figure class="shot"><div class="frame"><img src="images/g4.jpg" alt="Friends posing together in loose socks" onerror="this.parentNode.classList.add('no-photo')"><span class="stamp">'03 8 14</span></div><figcaption><span data-i18n="cap4">Squad shot</span><span class="h">♥</span></figcaption></figure>
+      <figure class="shot"><div class="frame"><img src="images/g5.jpg" alt="Close-up of gyaru eye makeup and lashes" onerror="this.parentNode.classList.add('no-photo')"><span class="stamp">'03 8 14</span></div><figcaption><span data-i18n="cap5">The makeup</span><span class="h">♥</span></figcaption></figure>
+      <figure class="shot"><div class="frame"><img src="images/g6.jpg" alt="Eating street food in full gyaru" onerror="this.parentNode.classList.add('no-photo')"><span class="stamp">'03 8 14</span></div><figcaption><span data-i18n="cap6">After the shoot</span><span class="h">♥</span></figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<div class="leopard" aria-hidden="true"></div>
+
+<section id="plans">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow" data-i18n="plans_eyebrow">Plans / 料金</span>
+      <h2 data-i18n="plans_h2">Come solo or bring your squad</h2>
+      <p class="sub" data-i18n="plans_sub">Every plan is the same 180-minute gal day. Prices are per person, tax included.</p>
+    </div>
+    <div class="plans-grid">
+      <div class="plan hot"><span class="who">SOLO</span><span class="price">¥90,000</span><span class="total" data-i18n="tot1">1 person</span></div>
+      <div class="plan"><span class="who">DUO</span><span class="price">¥70,000<small data-i18n="per"> /person</small></span><span class="total" data-i18n="tot2">¥140,000 for 2</span></div>
+      <div class="plan"><span class="who">TRIO</span><span class="price">¥60,000<small data-i18n="per"> /person</small></span><span class="total" data-i18n="tot3">¥180,000 for 3</span></div>
+      <div class="plan"><span class="who">SQUAD</span><span class="price">¥55,000<small data-i18n="per"> /person</small></span><span class="total" data-i18n="tot4">¥220,000 for 4</span></div>
+    </div>
+    <p class="plan-note" data-i18n="plans_note">Start times: 10:00, 13:00 and 16:00. One group per slot, so the studio and your photographer are only yours.</p>
+    <div class="inc">
+      <div>
+        <h3 data-i18n="inc_h">Included</h3>
+        <ul>
+          <li data-i18n="inc1">Full gyaru makeup and hair by a professional artist</li>
+          <li data-i18n="inc2">Outfit, wig, loose socks and accessories</li>
+          <li data-i18n="inc3">Street photoshoot in Minami and at Osaka Castle</li>
+          <li data-i18n="inc4">Same-day edited photos and a vertical reel</li>
+          <li data-i18n="inc5">Outfit rental until 8PM and a makeup remover kit</li>
+          <li data-i18n="inc6">Our local sightseeing and food map</li>
+        </ul>
+      </div>
+      <div>
+        <h3 data-i18n="exc_h">Not included</h3>
+        <ul>
+          <li data-i18n="exc1">Train fares during the tour (around ¥500)</li>
+          <li data-i18n="exc2">Food and drinks</li>
+          <li data-i18n="exc3">Colored contact lenses (bring your own if you want them)</li>
+          <li data-i18n="exc4">Hotel pick-up</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="culture" id="faq">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow" data-i18n="faq_eyebrow">Good to know / FAQ</span>
+      <h2 data-i18n="faq_h2">Before you book</h2>
+    </div>
+    <div class="know-grid">
+      <div class="know"><h3 data-i18n="k1h">Sensitive skin?</h3><p data-i18n="k1p">We use single-use applicators and tell you what goes on your face. Let us know about allergies when you book.</p></div>
+      <div class="know"><h3 data-i18n="k2h">Rainy day?</h3><p data-i18n="k2p">We move the shoot to covered shopping streets and indoor spots. Your gal day still happens.</p></div>
+      <div class="know"><h3 data-i18n="k3h">Your size</h3><p data-i18n="k3p">Send your height, clothing size and shoe size after booking so your outfit is ready when you arrive.</p></div>
+      <div class="know"><h3 data-i18n="k4h">Running late?</h3><p data-i18n="k4p">Message us on WhatsApp. We keep a buffer, but very late arrivals may get a shorter shoot.</p></div>
+    </div>
+    <div class="faq">
+      <details><summary data-i18n="q1">Do I need to speak Japanese?</summary><p data-i18n="a1">No. The whole day runs in English.</p></details>
+      <details><summary data-i18n="q2">Can guys or non-binary guests join?</summary><p data-i18n="a2">Yes. Gyaru-o (the male version of gyaru) is part of the culture too. Everyone is welcome.</p></details>
+      <details><summary data-i18n="q3">Can I bring my own camera or phone?</summary><p data-i18n="a3">Of course. Your friends can film behind the scenes while our photographer shoots.</p></details>
+      <details><summary data-i18n="q4">Where do I return the outfit?</summary><p data-i18n="a4">At the drop-off point we give you on the day, by 8PM. It's in the Minami area, close to the station.</p></details>
+      <details><summary data-i18n="q5">What's the cancellation policy?</summary><p data-i18n="a5">Free cancellation up to 48 hours before your start time.</p></details>
+    </div>
+  </div>
+</section>
+
+<section class="book" id="book">
+  <div class="wrap">
+    <div>
+      <h2 data-i18n="book_h2">Your gal day starts here.</h2>
+      <p data-i18n="book_p">Book directly with us in three steps. Questions first? Message us on WhatsApp. Only three groups a day.</p>
+      <ol class="steps">
+        <li data-i18n="bs1">Pick a date and time</li>
+        <li data-i18n="bs2">Tell us about your group</li>
+        <li data-i18n="bs3">Pay securely online</li>
+      </ol>
+    </div>
+    <div class="book-card">
+      <a class="btn" href="booking.html" data-i18n="book_klook">Book now</a>
+      <a class="btn ghost" href="#book" data-i18n="book_wa">Ask on WhatsApp</a>
+      <div class="contact-line"><span>WhatsApp</span><b>+81 XX-XXXX-XXXX</b></div>
+      <div class="contact-line"><span>Instagram</span><b>@heiseigal.osaka</b></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span data-i18n="foot1">HEISEI GAL OSAKA · Shinsaibashi, Osaka, Japan</span>
+    <span data-i18n="foot2">Made by locals who love the Heisei era.</span>
+  </div>
+</footer>
+
+<script>
+const I18N = {
+ja: {
+nav_gyaru:"ギャルとは", nav_day:"1日の流れ", nav_plans:"料金", nav_faq:"よくある質問", nav_book:"予約",
+hero_h1:"<span class='gal inl nb'>平成ギャル</span><span class='nb sm'>になって、</span><br><span class='nb'>大阪<span class='sm'>で</span>1日遊ぶ。</span>",
+hero_lead:"<span class='nb'>2000年代の本格ギャルメイクと服で、</span><span class='nb'>そのまま大阪の街へ。</span><span class='hl'><span class='nb'>日本のストリートカルチャーを体験する、</span><span class='nb'>一生の思い出に。</span></span>",
+hero_cta1:"ギャル体験を予約する", hero_cta2:"1日の流れを見る",
+st1:"写真はその日のうちに", st2:"20時までギャルのまま", st3:"道頓堀＋大阪城",
+cul_eyebrow:"What's gyaru? / ギャルとは", cul_h2:"<span class='nb'>平成でいちばん</span><span class='nb'>派手だった</span><span class='nb'>女の子たち</span>",
+cul_p1:"ギャル（英語の「gal」から）は、90年代後半から2000年代にかけて日本中を席巻したストリートファッションです。平成（1989〜2019年）の文化の一つで、渋谷の街から始まり、ギャル雑誌やSHIBUYA109のショップを通して全国に広がりました。",
+cul_p2:"日焼けした肌、ブリーチした髪、盛ったまつげ、ラメ、そして強気な態度。ギャルは「日本らしい美しさ」のルールを全部壊しました。友達と楽しむこと、なりたい自分になることがすべてでした。",
+cul_p3:"大阪にも独自のギャル文化がありました。中心は若者と古着の街、アメ村（アメリカ村）。あなたの1日もここから始まります。",
+t1:"濃い日焼け肌に、白いアイメイクとリップ、ブリーチした髪。90年代後半でいちばん大胆なスタイル。",
+t2:"2000年代の色白スタイル。大きな目、ピンクのチーク、長い巻き髪。",
+t3:"足首までたるませて履く、長い白ソックス。制服ギャルの象徴。",
+t4:"デコフレームつきのシール写真機。ギャルのポーズはすべてここから生まれました。",
+t5:"ガラケーにも、ネイルにも、鏡にも。なんでもラインストーンとシールで飾ります。",
+day_eyebrow:"Your gal day / 180分", day_h2:"<span class='nb'>ただの撮影じゃない。</span><span class='nb'>ギャルのまま過ごす1日。</span>",
+day_sub:"ガイドつきの時間は3時間。そのあとも服は着たまま、20時まで大阪を楽しめます。",
+tl1h:"チェックインして、スタイルを選ぶ", tl1p:"心斎橋のスタジオに集合。ガングロか白ギャルかを選んで、服・ウィッグ・小物を決めます。大きいサイズも用意しています。",
+tl2h:"ギャルメイクとヘア", tl2p:"まつげ、アイライン、ラメまでフルセット。メイクさんが使い捨ての道具で、一から平成ギャルに仕上げます。",
+tl3h:"ミナミの街へ", tl3p:"地元のカメラマンと、アメ村と道頓堀で撮影。魚眼レンズのストリート写真、定番のギャルポーズ、背景には道頓堀のネオン。",
+tl4h:"大阪城", tl4p:"2000年代のギャルが行かなかった場所へ。ブリーチヘアとルーズソックスで、16世紀のお城の前に立ちます。",
+tl5h:"その場で写真をスマホに", tl5p:"お気に入りの数枚をその場でスマホに送るので、大阪にいるうちにSNSに投稿できます。地元マップもお渡しします。",
+tl6h:"ギャルのまま、大阪を楽しむ", tl6p:"服もメイクもそのまま、マップを見ながら食べ歩きや穴場めぐりへ。20時までに服を返却してください。メイク落としつき。全部の写真とリール動画はその日の夜に届きます。",
+why_eyebrow:"選ばれる理由", why_h2:"<span class='nb'>この体験が</span><span class='nb'>ほかと違うところ</span>",
+w1h:"写真は2週間後じゃなく、その日の夜に", w1p:"お気に入りの数枚はその場でスマホへ。編集済みの全写真はその日の夜に届きます。",
+w2h:"そのまま投稿できる縦型動画", w2p:"TikTokやインスタ向けの15〜30秒のリール動画が、どのプランにもついています。",
+w3h:"夜までギャルのまま", w3p:"撮影が終わってもギャルの1日は続きます。20時まで、食べて、買って、街を歩けます。",
+w4h:"大阪の2つの顔", w4p:"アメ村と道頓堀のストリート撮影に、大阪城もプラス。1日で両方撮れます。",
+w5h:"地元の人が本当に行く場所", w5p:"有名スポットから、観光客が見つけられない小さなお店まで載せたオリジナルマップ。",
+w6h:"ギャルを生きた人がつくる", w6p:"メイクとスタイリングを担当するのは、平成のギャル文化の中で育った人たち。コスプレ衣装店ではありません。",
+cmp_typical:"よくある変身体験",
+r1l:"写真が届くまで", r1a:"10〜14日後", r1b:"当日",
+r2l:"動画", r2a:"なし", r2b:"縦型リール動画つき",
+r3l:"服を着ていられる時間", r3a:"最大4時間", r3b:"20時まで",
+r4l:"撮影場所", r4a:"ミナミのみ", r4b:"ミナミ＋大阪城",
+r5l:"撮影のあと", r5a:"解散", r5b:"地元のグルメ・観光マップ",
+gal_eyebrow:"Gallery / ギャラリー", gal_h2:"<span class='nb'>大阪の街で</span><span class='nb'>撮った写真</span>",
+cap1:"アメ村", cap2:"道頓堀", cap3:"大阪城", cap4:"みんなで", cap5:"メイク", cap6:"撮影のあと",
+plans_eyebrow:"Plans / 料金", plans_h2:"<span class='nb'>1人でも、</span><span class='nb'>友達とでも</span>", plans_sub:"どのプランも同じ180分のギャル体験です。料金は1人あたり・税込です。",
+per:" /人", tot1:"1名", tot2:"2名で¥140,000", tot3:"3名で¥180,000", tot4:"4名で¥220,000",
+plans_note:"開始時間は10:00・13:00・16:00。1枠1組なので、スタジオもカメラマンも貸し切りです。",
+inc_h:"含まれるもの", inc1:"プロのメイクさんによるギャルメイクとヘア", inc2:"服、ウィッグ、ルーズソックス、小物", inc3:"ミナミと大阪城でのストリート撮影", inc4:"当日に届く編集済み写真と縦型リール動画", inc5:"20時までの衣装レンタルとメイク落としセット", inc6:"地元の観光・グルメマップ",
+exc_h:"含まれないもの", exc1:"移動中の電車代（約500円）", exc2:"飲食代", exc3:"カラーコンタクト（希望の方はご持参ください）", exc4:"ホテルへの送迎",
+faq_eyebrow:"Good to know / よくある質問", faq_h2:"予約の前に",
+k1h:"肌が弱い方へ", k1p:"使い捨ての道具を使い、顔に使うものはすべてお伝えします。アレルギーがあれば予約時に教えてください。",
+k2h:"雨の日は？", k2p:"アーケードの商店街や屋内のスポットで撮影します。ギャル体験は中止になりません。",
+k3h:"サイズについて", k3p:"予約後に身長・服のサイズ・靴のサイズを送ってください。到着までに服を用意しておきます。",
+k4h:"遅れそうなとき", k4p:"WhatsAppで連絡してください。余裕はとっていますが、大幅に遅れた場合は撮影時間が短くなることがあります。",
+q1:"日本語が話せなくても大丈夫？", a1:"大丈夫です。1日すべて英語で対応します。",
+q2:"男性やノンバイナリーの方も参加できる？", a2:"できます。ギャル男もギャル文化の一部です。どなたでも歓迎します。",
+q3:"自分のカメラやスマホを持ってきてもいい？", a3:"もちろんです。カメラマンが撮っている間に、友達がメイキングを撮るのもおすすめです。",
+q4:"服はどこに返せばいい？", a4:"当日お伝えする返却場所に、20時までに返してください。ミナミの駅の近くです。",
+q5:"キャンセルはできる？", a5:"開始時間の48時間前までは無料でキャンセルできます。",
+book_h2:"<span class='nb'>ギャルの1日は、</span><span class='nb'>ここから。</span>", book_p:"予約は3ステップで、こちらから直接どうぞ。先に質問したい方はWhatsAppへ。1日3組までの限定です。", bs1:"日時を選ぶ", bs2:"参加者の情報を入力", bs3:"オンラインで支払い",
+book_klook:"今すぐ予約", book_wa:"WhatsAppで問い合わせ",
+foot1:"HEISEI GAL OSAKA · 大阪・心斎橋", foot2:"平成が大好きな地元の人がつくっています。"
+},
+ko: {
+nav_gyaru:"갸루란?", nav_day:"하루 일정", nav_plans:"요금", nav_faq:"자주 묻는 질문", nav_book:"예약",
+hero_h1:"<span class='sm'>하루 동안</span><span class='gal'>헤이세이 갸루</span><span class='sm'>가 되어 보세요.</span>",
+hero_lead:"2000년대 일본 갸루 메이크업과 옷을 완벽하게 갖추고, 그대로 오사카 거리로. <span class='hl'>진짜 일본 스트리트 문화, 평생 남을 추억.</span>",
+hero_cta1:"갸루 체험 예약하기", hero_cta2:"하루 일정 보기",
+st1:"사진은 당일 전달", st2:"저녁 8시까지 갸루 그대로", st3:"도톤보리 + 오사카성",
+cul_eyebrow:"What's gyaru? / 갸루란?", cul_h2:"헤이세이 시대 가장 화려했던 여자들",
+cul_p1:"갸루(영어 'gal'에서 유래)는 90년대 후반부터 2000년대까지 일본 전역을 휩쓴 스트리트 패션입니다. 헤이세이 시대(1989~2019년)의 문화로, 시부야 거리에서 시작해 갸루 잡지와 시부야 109 매장을 통해 전국으로 퍼졌습니다.",
+cul_p2:"태닝한 피부, 탈색한 머리, 풍성한 속눈썹, 글리터, 그리고 당당한 태도. 갸루는 '일본다운 아름다움'의 규칙을 모두 깼습니다. 친구들과 즐기고, 원하는 모습 그대로 사는 것이 전부였습니다.",
+cul_p3:"오사카에도 고유의 갸루 문화가 있었습니다. 그 중심은 젊은이와 빈티지 옷의 거리, 아메무라(아메리카무라). 당신의 하루도 여기서 시작됩니다.",
+t1:"진한 태닝 피부에 하얀 아이 메이크업과 립, 탈색한 머리. 90년대 후반 가장 대담한 스타일.",
+t2:"2000년대의 하얀 피부 스타일. 큰 눈, 핑크 블러셔, 긴 웨이브 머리.",
+t3:"발목까지 늘어뜨려 신는 긴 흰 양말. 교복 갸루의 상징.",
+t4:"꾸밈 프레임이 있는 스티커 사진기. 갸루 포즈는 모두 여기서 탄생했습니다.",
+t5:"폴더폰, 네일, 거울까지. 모든 것을 큐빅과 스티커로 꾸밉니다.",
+day_eyebrow:"Your gal day / 180분", day_h2:"단순한 촬영이 아닙니다. 갸루로 보내는 하루.",
+day_sub:"가이드가 함께하는 시간은 3시간. 그 후에도 옷을 입은 채로 저녁 8시까지 오사카를 즐길 수 있습니다.",
+tl1h:"체크인하고 스타일 고르기", tl1p:"신사이바시 스튜디오에서 만나요. 강구로와 시로갸루 중 스타일을 고르고, 옷·가발·소품을 정합니다. 큰 사이즈도 준비되어 있습니다.",
+tl2h:"갸루 메이크업과 헤어", tl2p:"속눈썹, 아이라인, 글리터까지 풀세트. 메이크업 아티스트가 일회용 도구로 처음부터 헤이세이 갸루로 완성해 드립니다.",
+tl3h:"미나미 거리로", tl3p:"현지 포토그래퍼와 아메무라, 도톤보리에서 촬영. 어안렌즈 스트리트 사진, 정통 갸루 포즈, 도톤보리 네온을 배경으로.",
+tl4h:"오사카성", tl4p:"2000년대 갸루가 가지 않았던 곳으로. 탈색 머리와 루즈삭스로 16세기 성 앞에 섭니다.",
+tl5h:"바로 휴대폰으로 사진 전송", tl5p:"마음에 드는 사진 몇 장을 그 자리에서 휴대폰으로 보내 드려서, 오사카에 있는 동안 SNS에 올릴 수 있습니다. 현지 지도도 드립니다.",
+tl6h:"갸루 그대로 오사카 즐기기", tl6p:"옷과 메이크업 그대로, 지도를 보며 맛집과 숨은 명소로. 저녁 8시까지 옷을 반납해 주세요. 메이크업 리무버 포함. 전체 사진과 릴스 영상은 그날 밤에 도착합니다.",
+why_eyebrow:"Why us / 선택하는 이유", why_h2:"이 체험이 다른 점",
+w1h:"사진은 2주 후가 아니라 당일 밤에", w1p:"마음에 드는 몇 장은 그 자리에서 휴대폰으로. 보정한 전체 사진은 그날 밤에 도착합니다.",
+w2h:"바로 올릴 수 있는 세로 영상", w2p:"틱톡과 인스타그램용 15~30초 릴스 영상이 모든 플랜에 포함됩니다.",
+w3h:"저녁까지 갸루 그대로", w3p:"촬영이 끝나도 갸루의 하루는 계속됩니다. 저녁 8시까지 먹고, 쇼핑하고, 거리를 걸어 보세요.",
+w4h:"오사카의 두 얼굴", w4p:"아메무라와 도톤보리 스트리트 촬영에 오사카성까지. 하루에 모두 찍을 수 있습니다.",
+w5h:"현지인이 진짜 가는 곳", w5p:"유명 명소부터 관광객이 모르는 작은 가게까지 담은 오리지널 지도.",
+w6h:"갸루로 살았던 사람들이 만듭니다", w6p:"메이크업과 스타일링은 헤이세이 갸루 문화 속에서 자란 사람들이 맡습니다. 코스튬 가게가 아닙니다.",
+cmp_typical:"일반적인 변신 체험",
+r1l:"사진 전달", r1a:"10~14일 후", r1b:"당일",
+r2l:"영상", r2a:"없음", r2b:"세로 릴스 영상 포함",
+r3l:"옷 착용 시간", r3a:"최대 4시간", r3b:"저녁 8시까지",
+r4l:"촬영 장소", r4a:"미나미만", r4b:"미나미 + 오사카성",
+r5l:"촬영 후", r5a:"해산", r5b:"현지 맛집·관광 지도",
+gal_eyebrow:"Gallery / 갤러리", gal_h2:"오사카 거리에서 찍은 사진",
+cap1:"아메무라", cap2:"도톤보리", cap3:"오사카성", cap4:"친구들과", cap5:"메이크업", cap6:"촬영 후",
+plans_eyebrow:"Plans / 요금", plans_h2:"혼자서도, 친구들과도", plans_sub:"모든 플랜은 같은 180분 갸루 체험입니다. 요금은 1인 기준, 세금 포함입니다.",
+per:" /1인", tot1:"1명", tot2:"2명 ¥140,000", tot3:"3명 ¥180,000", tot4:"4명 ¥220,000",
+plans_note:"시작 시간은 10:00, 13:00, 16:00. 한 타임에 한 팀만 받기 때문에 스튜디오와 포토그래퍼를 단독으로 이용합니다.",
+inc_h:"포함 사항", inc1:"전문 메이크업 아티스트의 갸루 메이크업과 헤어", inc2:"옷, 가발, 루즈삭스, 소품", inc3:"미나미와 오사카성 스트리트 촬영", inc4:"당일 전달되는 보정 사진과 세로 릴스 영상", inc5:"저녁 8시까지 의상 대여와 메이크업 리무버 세트", inc6:"현지 관광·맛집 지도",
+exc_h:"불포함 사항", exc1:"이동 중 전철 요금(약 500엔)", exc2:"식음료", exc3:"컬러 렌즈(원하시면 직접 가져오세요)", exc4:"호텔 픽업",
+faq_eyebrow:"Good to know / 자주 묻는 질문", faq_h2:"예약 전에 확인하세요",
+k1h:"피부가 예민하다면", k1p:"일회용 도구를 사용하고, 얼굴에 바르는 제품은 모두 안내해 드립니다. 알레르기가 있다면 예약할 때 알려 주세요.",
+k2h:"비가 오면?", k2p:"아케이드 상점가와 실내 장소에서 촬영합니다. 갸루 체험은 취소되지 않습니다.",
+k3h:"사이즈", k3p:"예약 후 키, 옷 사이즈, 신발 사이즈를 보내 주세요. 도착 전에 옷을 준비해 둡니다.",
+k4h:"늦을 것 같다면", k4p:"왓츠앱으로 연락해 주세요. 여유 시간을 두고 있지만, 많이 늦으면 촬영 시간이 짧아질 수 있습니다.",
+q1:"일본어를 못해도 괜찮나요?", a1:"괜찮습니다. 하루 일정은 모두 영어로 진행됩니다.",
+q2:"남성이나 논바이너리도 참여할 수 있나요?", a2:"네. 갸루오(남자 갸루)도 갸루 문화의 일부입니다. 누구나 환영합니다.",
+q3:"제 카메라나 휴대폰을 가져가도 되나요?", a3:"물론입니다. 포토그래퍼가 촬영하는 동안 친구가 비하인드 영상을 찍어도 좋아요.",
+q4:"옷은 어디에 반납하나요?", a4:"당일 안내하는 반납 장소에 저녁 8시까지 반납해 주세요. 미나미 지역 역 근처입니다.",
+q5:"취소 규정은 어떻게 되나요?", a5:"시작 시간 48시간 전까지 무료로 취소할 수 있습니다.",
+book_h2:"갸루의 하루, 여기서 시작하세요.", book_p:"3단계로 직접 예약하세요. 먼저 궁금한 점이 있다면 왓츠앱으로 문의하세요. 하루 3팀 한정입니다.", bs1:"날짜와 시간 선택", bs2:"참가자 정보 입력", bs3:"온라인 결제",
+book_klook:"지금 예약하기", book_wa:"왓츠앱으로 문의",
+foot1:"HEISEI GAL OSAKA · 일본 오사카 신사이바시", foot2:"헤이세이를 사랑하는 현지인이 만듭니다."
+},
+"zh-Hans": {
+nav_gyaru:"什么是辣妹？", nav_day:"一日行程", nav_plans:"价格", nav_faq:"常见问题", nav_book:"预约",
+hero_h1:"<span class='sm'>当一天</span><span class='gal'>平成辣妹</span>",
+hero_lead:"<span class='nb'>换上正宗的2000年代日本辣妹妆容和服装，</span><span class='nb'>直接走上大阪街头。</span><span class='hl'><span class='nb'>真正的日本街头文化，</span><span class='nb'>一生难忘的回忆。</span></span>",
+hero_cta1:"预约辣妹体验", hero_cta2:"查看一日行程",
+st1:"照片当天交付", st2:"辣妹造型保持到晚上8点", st3:"道顿堀＋大阪城",
+cul_eyebrow:"What's gyaru? / 什么是辣妹", cul_h2:"<span class='nb'>平成时代</span><span class='nb'>最张扬的女孩们</span>",
+cul_p1:"辣妹（ギャル，源自英语“gal”）是90年代末到2000年代风靡全日本的街头时尚，属于平成时代（1989–2019年）的文化。它起源于涩谷街头，通过辣妹杂志和涩谷109的店铺传遍全国。",
+cul_p2:"小麦色的皮肤、漂白的头发、浓密的假睫毛、亮片，还有满满的态度。辣妹打破了所有“日式美丽”的规则。和朋友一起玩、活成自己想要的样子，就是一切。",
+cul_p3:"大阪也有自己的辣妹文化，中心是年轻人和古着聚集的美国村（アメ村）。你的一天也从这里开始。",
+t1:"深色美黑肌肤，配白色眼妆和唇妆、漂白头发。90年代末最大胆的风格。",
+t2:"2000年代的白皙风格。大眼睛、粉色腮红、长卷发。",
+t3:"堆到脚踝的超长白色袜子，制服辣妹的标志。",
+t4:"带装饰边框的大头贴机。所有辣妹姿势都诞生于此。",
+t5:"翻盖手机、指甲、镜子，一切都贴满水钻和贴纸。",
+day_eyebrow:"Your gal day / 180分钟", day_h2:"<span class='nb'>不只是拍照，</span><span class='nb'>而是以辣妹身份度过的一天。</span>",
+day_sub:"有向导陪同的时间为3小时。之后可以继续穿着服装，在大阪玩到晚上8点。",
+tl1h:"签到并选择造型", tl1p:"在心斋桥的工作室集合。选择黑辣妹或白辣妹风格，再挑选服装、假发和配饰。也备有大码服装。",
+tl2h:"辣妹妆容和发型", tl2p:"假睫毛、眼线、亮片，全套到位。化妆师使用一次性工具，从零开始为你打造平成辣妹造型。",
+tl3h:"走上难波街头", tl3p:"与本地摄影师在美国村和道顿堀拍摄。鱼眼镜头街拍、经典辣妹姿势，以道顿堀的霓虹为背景。",
+tl4h:"大阪城", tl4p:"去2000年代辣妹从没去过的地方。漂白头发配堆堆袜，站在16世纪的城堡前。",
+tl5h:"照片当场发到手机", tl5p:"当场把几张精选照片发到你的手机，人还在大阪就能发社交媒体。还会送你一份本地地图。",
+tl6h:"保持辣妹造型，畅游大阪", tl6p:"服装和妆容都不用卸，跟着地图去吃美食、逛小众景点。晚上8点前归还服装即可，附赠卸妆用品。全部照片和短视频当晚送达。",
+why_eyebrow:"Why us / 选择我们的理由", why_h2:"<span class='nb'>这个体验的</span><span class='nb'>不同之处</span>",
+w1h:"照片当晚送达，不用等两周", w1p:"几张精选当场发到手机，修好的全部照片当晚送达。",
+w2h:"可以直接发布的竖版视频", w2p:"每个套餐都包含一段15–30秒、适合TikTok和Instagram的短视频。",
+w3h:"整晚保持辣妹造型", w3p:"拍摄结束了，辣妹的一天还没结束。晚上8点前尽情吃、买、逛。",
+w4h:"大阪的两面", w4p:"美国村和道顿堀街拍，再加上大阪城，一天全部拍到。",
+w5h:"本地人真正会去的地方", w5p:"从知名景点到游客找不到的小店，全收录在我们的原创地图里。",
+w6h:"由亲历辣妹文化的人打造", w6p:"负责妆容和造型的，是在平成辣妹文化中长大的人，不是普通的服装租赁店。",
+cmp_typical:"一般的变装体验",
+r1l:"照片交付", r1a:"10–14天后", r1b:"当天",
+r2l:"视频", r2a:"不含", r2b:"含竖版短视频",
+r3l:"服装穿着时间", r3a:"最多4小时", r3b:"到晚上8点",
+r4l:"拍摄地点", r4a:"仅难波一带", r4b:"难波一带＋大阪城",
+r5l:"拍摄结束后", r5a:"解散", r5b:"本地美食与观光地图",
+gal_eyebrow:"Gallery / 作品集", gal_h2:"<span class='nb'>在大阪街头</span><span class='nb'>拍摄</span>",
+cap1:"美国村", cap2:"道顿堀", cap3:"大阪城", cap4:"闺蜜合照", cap5:"妆容", cap6:"拍摄之后",
+plans_eyebrow:"Plans / 价格", plans_h2:"<span class='nb'>一个人来，</span><span class='nb'>或和朋友一起</span>", plans_sub:"所有套餐都是相同的180分钟辣妹体验。价格为每人价格，含税。",
+per:" /人", tot1:"1人", tot2:"2人共¥140,000", tot3:"3人共¥180,000", tot4:"4人共¥220,000",
+plans_note:"开始时间为10:00、13:00、16:00。每个时段只接待一组，工作室和摄影师都由你们独享。",
+inc_h:"费用包含", inc1:"专业化妆师打造辣妹妆容和发型", inc2:"服装、假发、堆堆袜和配饰", inc3:"难波一带和大阪城街拍", inc4:"当天交付的精修照片和竖版短视频", inc5:"服装租借至晚上8点及卸妆套装", inc6:"本地观光与美食地图",
+exc_h:"费用不含", exc1:"途中电车费（约500日元）", exc2:"餐饮", exc3:"彩色隐形眼镜（如需要请自备）", exc4:"酒店接送",
+faq_eyebrow:"Good to know / 常见问题", faq_h2:"预约前须知",
+k1h:"皮肤敏感？", k1p:"我们使用一次性工具，并会告诉你脸上用的每样产品。如有过敏请在预约时告知。",
+k2h:"下雨怎么办？", k2p:"拍摄会转到有顶棚的商店街和室内地点，辣妹体验照常进行。",
+k3h:"尺码", k3p:"预约后请发送身高、衣服尺码和鞋码，我们会在你到达前准备好服装。",
+k4h:"可能迟到？", k4p:"请通过WhatsApp联系我们。我们预留了缓冲时间，但严重迟到可能会缩短拍摄时间。",
+q1:"不会说日语可以吗？", a1:"可以。全程使用英语。",
+q2:"男生或非二元性别的人可以参加吗？", a2:"可以。辣妹男（ギャル男）也是辣妹文化的一部分，欢迎所有人。",
+q3:"可以带自己的相机或手机吗？", a3:"当然可以。摄影师拍摄时，朋友可以拍幕后花絮。",
+q4:"服装在哪里归还？", a4:"请在晚上8点前归还到当天告知的地点，位于难波一带的车站附近。",
+q5:"取消政策是什么？", a5:"开始时间前48小时可免费取消。",
+book_h2:"<span class='nb'>你的辣妹一天，</span><span class='nb'>从这里开始。</span>", book_p:"三步直接预约。想先咨询请通过WhatsApp联系。每天限3组。", bs1:"选择日期和时间", bs2:"填写参加者信息", bs3:"在线付款",
+book_klook:"立即预约", book_wa:"通过WhatsApp咨询",
+foot1:"HEISEI GAL OSAKA · 日本大阪心斋桥", foot2:"由热爱平成时代的本地人打造。"
+},
+"zh-Hant": {
+nav_gyaru:"什麼是辣妹？", nav_day:"一日行程", nav_plans:"價格", nav_faq:"常見問題", nav_book:"預約",
+hero_h1:"<span class='sm'>當一天</span><span class='gal'>平成辣妹</span>",
+hero_lead:"<span class='nb'>換上道地的2000年代日本辣妹妝容和服裝，</span><span class='nb'>直接走上大阪街頭。</span><span class='hl'><span class='nb'>真正的日本街頭文化，</span><span class='nb'>一輩子的回憶。</span></span>",
+hero_cta1:"預約辣妹體驗", hero_cta2:"看一日行程",
+st1:"照片當天交付", st2:"辣妹造型維持到晚上8點", st3:"道頓堀＋大阪城",
+cul_eyebrow:"What's gyaru? / 什麼是辣妹", cul_h2:"<span class='nb'>平成時代</span><span class='nb'>最張揚的女孩們</span>",
+cul_p1:"辣妹（ギャル，源自英文「gal」）是90年代末到2000年代風靡全日本的街頭時尚，屬於平成時代（1989–2019年）的文化。它從澀谷街頭開始，透過辣妹雜誌和澀谷109的店鋪紅遍全國。",
+cul_p2:"小麥色肌膚、漂白的頭髮、濃密的假睫毛、亮片，還有滿滿的態度。辣妹打破了所有「日式美感」的規則。和朋友一起玩、活成自己想要的樣子，就是一切。",
+cul_p3:"大阪也有自己的辣妹文化，中心是年輕人和古著聚集的美國村（アメ村）。你的一天也從這裡開始。",
+t1:"深色日曬肌，搭配白色眼妝和唇妝、漂白頭髮。90年代末最大膽的風格。",
+t2:"2000年代的白皙風格。大眼睛、粉嫩腮紅、長捲髮。",
+t3:"堆到腳踝的超長白襪，制服辣妹的招牌。",
+t4:"有裝飾邊框的大頭貼機。所有辣妹姿勢都是從這裡來的。",
+t5:"摺疊手機、指甲、鏡子，全部貼滿水鑽和貼紙。",
+day_eyebrow:"Your gal day / 180分鐘", day_h2:"<span class='nb'>不只是拍照，</span><span class='nb'>而是當一整天的辣妹。</span>",
+day_sub:"有嚮導陪同的時間是3小時。之後可以繼續穿著服裝，在大阪玩到晚上8點。",
+tl1h:"報到並選擇造型", tl1p:"在心齋橋的工作室集合。選擇黑辣妹或白辣妹風格，再挑服裝、假髮和配件。也有大尺碼服裝。",
+tl2h:"辣妹妝容和髮型", tl2p:"假睫毛、眼線、亮片，全套到位。化妝師使用拋棄式工具，從零開始幫你打造平成辣妹造型。",
+tl3h:"走上難波街頭", tl3p:"和在地攝影師在美國村和道頓堀拍攝。魚眼鏡頭街拍、經典辣妹姿勢，背景是道頓堀的霓虹燈。",
+tl4h:"大阪城", tl4p:"去2000年代辣妹從沒去過的地方。漂白頭髮配泡泡襪，站在16世紀的城堡前。",
+tl5h:"照片當場傳到手機", tl5p:"當場把幾張精選照片傳到你的手機，人還在大阪就能發社群。還會送你一份在地地圖。",
+tl6h:"維持辣妹造型，暢遊大阪", tl6p:"服裝和妝都不用卸，跟著地圖去吃美食、逛私房景點。晚上8點前歸還服裝即可，附卸妝用品。全部照片和短影音當晚送達。",
+why_eyebrow:"Why us / 選擇我們的理由", why_h2:"<span class='nb'>這個體驗的</span><span class='nb'>不同之處</span>",
+w1h:"照片當晚就到，不用等兩週", w1p:"幾張精選當場傳到手機，修好的全部照片當晚送達。",
+w2h:"可以直接發的直式影片", w2p:"每個方案都附一支15–30秒、適合TikTok和Instagram的短影音。",
+w3h:"整晚維持辣妹造型", w3p:"拍攝結束了，辣妹的一天還沒結束。晚上8點前盡情吃、買、逛。",
+w4h:"大阪的兩種面貌", w4p:"美國村和道頓堀街拍，再加上大阪城，一天全部拍到。",
+w5h:"在地人真正會去的地方", w5p:"從知名景點到觀光客找不到的小店，全收錄在我們的原創地圖。",
+w6h:"由親身經歷辣妹文化的人打造", w6p:"負責妝容和造型的，是在平成辣妹文化中長大的人，不是一般的服裝出租店。",
+cmp_typical:"一般的變裝體驗",
+r1l:"照片交付", r1a:"10–14天後", r1b:"當天",
+r2l:"影片", r2a:"不含", r2b:"附直式短影音",
+r3l:"服裝穿著時間", r3a:"最多4小時", r3b:"到晚上8點",
+r4l:"拍攝地點", r4a:"只有難波一帶", r4b:"難波一帶＋大阪城",
+r5l:"拍攝之後", r5a:"解散", r5b:"在地美食與觀光地圖",
+gal_eyebrow:"Gallery / 作品集", gal_h2:"<span class='nb'>在大阪街頭</span><span class='nb'>拍攝</span>",
+cap1:"美國村", cap2:"道頓堀", cap3:"大阪城", cap4:"姊妹合照", cap5:"妝容", cap6:"拍攝之後",
+plans_eyebrow:"Plans / 價格", plans_h2:"<span class='nb'>一個人來，</span><span class='nb'>或和朋友一起</span>", plans_sub:"所有方案都是同樣的180分鐘辣妹體驗。價格為每人價格，含稅。",
+per:" /人", tot1:"1人", tot2:"2人共¥140,000", tot3:"3人共¥180,000", tot4:"4人共¥220,000",
+plans_note:"開始時間為10:00、13:00、16:00。每個時段只接一組，工作室和攝影師都由你們包場。",
+inc_h:"費用包含", inc1:"專業化妝師打造辣妹妝容和髮型", inc2:"服裝、假髮、泡泡襪和配件", inc3:"難波一帶和大阪城街拍", inc4:"當天交付的精修照片和直式短影音", inc5:"服裝租借到晚上8點及卸妝組", inc6:"在地觀光與美食地圖",
+exc_h:"費用不含", exc1:"途中電車費（約500日圓）", exc2:"餐飲", exc3:"彩色隱形眼鏡（需要的話請自備）", exc4:"飯店接送",
+faq_eyebrow:"Good to know / 常見問題", faq_h2:"預約前須知",
+k1h:"皮膚敏感？", k1p:"我們使用拋棄式工具，並會說明用在你臉上的每樣產品。有過敏請在預約時告訴我們。",
+k2h:"下雨怎麼辦？", k2p:"拍攝會改到有遮雨棚的商店街和室內地點，辣妹體驗照常進行。",
+k3h:"尺寸", k3p:"預約後請傳身高、衣服尺寸和鞋子尺寸給我們，我們會在你到達前準備好服裝。",
+k4h:"可能遲到？", k4p:"請用WhatsApp聯絡我們。我們有預留緩衝時間，但嚴重遲到可能會縮短拍攝時間。",
+q1:"不會說日文可以嗎？", a1:"可以。全程使用英文。",
+q2:"男生或非二元性別的人可以參加嗎？", a2:"可以。辣妹男（ギャル男）也是辣妹文化的一部分，歡迎所有人。",
+q3:"可以帶自己的相機或手機嗎？", a3:"當然可以。攝影師拍攝時，朋友可以拍幕後花絮。",
+q4:"服裝要在哪裡歸還？", a4:"請在晚上8點前歸還到當天告知的地點，在難波一帶的車站附近。",
+q5:"取消政策是什麼？", a5:"開始時間前48小時可免費取消。",
+book_h2:"<span class='nb'>你的辣妹一天，</span><span class='nb'>從這裡開始。</span>", book_p:"三步驟直接預約。想先詢問請用WhatsApp聯絡。每天限3組。", bs1:"選擇日期和時間", bs2:"填寫參加者資料", bs3:"線上付款",
+book_klook:"立即預約", book_wa:"用WhatsApp詢問",
+foot1:"HEISEI GAL OSAKA · 日本大阪心齋橋", foot2:"由熱愛平成時代的在地人打造。"
+},
+fr: {
+nav_gyaru:"C'est quoi, gyaru ?", nav_day:"Ta journée", nav_plans:"Tarifs", nav_faq:"FAQ", nav_book:"Réserver",
+hero_h1:"<span class='sm'>Deviens une</span><span class='gal'>Heisei Gal</span><span class='sm'>le temps d'une journée.</span>",
+hero_lead:"Adopte le look gyaru japonais des années 2000 de la tête aux pieds, puis pars explorer Osaka. <span class='hl'>La vraie culture de rue japonaise, un souvenir pour la vie.</span>",
+hero_cta1:"Réserver ma journée gal", hero_cta2:"Voir le programme",
+st1:"Photos LE JOUR MÊME", st2:"Le look jusqu'à 20 h", st3:"Dotonbori + château d'Osaka",
+cul_eyebrow:"What's gyaru? / C'est quoi, gyaru ?", cul_h2:"Les filles les plus flamboyantes de l'ère Heisei",
+cul_p1:"Gyaru (de l'anglais « gal ») est une mode de rue qui a envahi le Japon à la fin des années 90 et dans les années 2000, en pleine ère Heisei (1989–2019). Née dans les rues de Shibuya, elle s'est répandue dans tout le pays grâce aux magazines gyaru et aux boutiques du Shibuya 109.",
+cul_p2:"La gyaru a brisé toutes les règles de la beauté japonaise « convenable » : peau bronzée, cheveux décolorés, cils immenses, paillettes, et l'attitude qui va avec. L'essentiel, c'était de s'amuser entre amies et de ressembler exactement à ce qu'on voulait.",
+cul_p3:"Osaka avait aussi sa propre scène, autour d'Amemura (America-mura), le quartier des jeunes et de la fripe. C'est là que commence ta journée.",
+t1:"Bronzage intense, maquillage blanc sur les yeux et les lèvres, cheveux décolorés. Le look le plus audacieux de la fin des années 90.",
+t2:"Le style à peau claire des années 2000 : grands yeux, joues roses, longs cheveux bouclés.",
+t3:"Des chaussettes blanches extra-longues tirebouchonnées jusqu'aux chevilles. La signature de la gyaru en uniforme.",
+t4:"Les cabines de photos-autocollants aux cadres décorés. Toutes les poses gyaru viennent d'ici.",
+t5:"Strass et stickers partout : téléphones à clapet, ongles, miroirs.",
+day_eyebrow:"Your gal day / 180 min", day_h2:"Pas juste un shooting. Une journée entière en gyaru.",
+day_sub:"La partie guidée dure 3 heures. Ensuite, tu gardes la tenue et Osaka est à toi jusqu'à 20 h.",
+tl1h:"Accueil et choix du look", tl1p:"Rendez-vous à notre studio de Shinsaibashi. Choisis ganguro ou shiro-gal, puis ta tenue, ta perruque et tes accessoires. Des tailles pour toutes les morphologies, grandes tailles comprises.",
+tl2h:"Maquillage et coiffure gyaru", tl2p:"Cils, eye-liner, paillettes, la totale. Un pro du maquillage crée le look Heisei de A à Z avec des outils à usage unique.",
+tl3h:"Dans les rues de Minami", tl3p:"Shooting à Amemura et Dotonbori avec un photographe local. Photos fisheye, poses gyaru cultes et les néons de Dotonbori en fond.",
+tl4h:"Le château d'Osaka", tl4p:"Emmène le look gal là où il n'est jamais allé dans les années 2000 : cheveux décolorés et loose socks devant un château du XVIe siècle.",
+tl5h:"Premières photos sur ton téléphone", tl5p:"On t'envoie quelques favorites sur place pour que tu puisses les poster pendant que tu es encore à Osaka. Tu reçois aussi notre carte locale.",
+tl6h:"Reste gal. Pars explorer.", tl6p:"Garde la tenue et le maquillage, suis notre carte vers les bonnes adresses et les coins cachés, et rends la tenue avant 20 h. Démaquillant inclus. Toutes les photos et ta vidéo arrivent le soir même.",
+why_eyebrow:"Why us / Pourquoi nous", why_h2:"Ce qui rend cette journée différente",
+w1h:"Tes photos ce soir, pas dans deux semaines", w1p:"Quelques favorites sur ton téléphone sur place. La série complète retouchée arrive le soir même.",
+w2h:"Une vidéo verticale prête à poster", w2p:"Un reel de 15 à 30 secondes pour TikTok et Instagram, inclus dans chaque réservation.",
+w3h:"Le look toute la soirée", w3p:"Le shooting se termine, pas ta journée gal. Mange, fais du shopping et balade-toi en gyaru jusqu'à 20 h.",
+w4h:"Les deux visages d'Osaka", w4p:"Photos de rue à Amemura et Dotonbori, plus le château d'Osaka, en une seule journée.",
+w5h:"Là où vont vraiment les locaux", w5p:"Notre propre carte des visites et des bonnes adresses, des incontournables aux petits endroits que les touristes ne trouvent jamais.",
+w6h:"Par des gens qui l'ont vécu", w6p:"Ton maquillage et ton stylisme sont faits par des personnes qui ont grandi dans la scène gal de l'ère Heisei, pas par une boutique de déguisements.",
+cmp_typical:"Un relooking classique",
+r1l:"Livraison des photos", r1a:"10 à 14 jours après", r1b:"Le jour même",
+r2l:"Vidéo", r2a:"Non incluse", r2b:"Reel vertical inclus",
+r3l:"Port de la tenue", r3a:"Jusqu'à 4 heures", r3b:"Jusqu'à 20 h",
+r4l:"Lieux", r4a:"Minami uniquement", r4b:"Minami + château d'Osaka",
+r5l:"Après le shooting", r5a:"Au revoir", r5b:"Carte locale des restos et visites",
+gal_eyebrow:"Gallery / Galerie", gal_h2:"Photographiées dans les rues d'Osaka",
+cap1:"Amemura", cap2:"Dotonbori", cap3:"Château d'Osaka", cap4:"Entre copines", cap5:"Le maquillage", cap6:"Après le shooting",
+plans_eyebrow:"Plans / Tarifs", plans_h2:"Viens seule ou avec ta bande", plans_sub:"Toutes les formules offrent la même journée gal de 180 minutes. Prix par personne, taxes comprises.",
+per:" /pers.", tot1:"1 personne", tot2:"¥140,000 pour 2", tot3:"¥180,000 pour 3", tot4:"¥220,000 pour 4",
+plans_note:"Horaires de départ : 10 h, 13 h et 16 h. Un seul groupe par créneau, le studio et le photographe sont rien que pour vous.",
+inc_h:"Inclus", inc1:"Maquillage et coiffure gyaru complets par un professionnel", inc2:"Tenue, perruque, loose socks et accessoires", inc3:"Shooting de rue à Minami et au château d'Osaka", inc4:"Photos retouchées le jour même et un reel vertical", inc5:"Location de la tenue jusqu'à 20 h et kit démaquillant", inc6:"Notre carte locale des visites et bonnes adresses",
+exc_h:"Non inclus", exc1:"Billets de train pendant la visite (environ ¥500)", exc2:"Repas et boissons", exc3:"Lentilles de couleur (apporte les tiennes si tu veux)", exc4:"Prise en charge à l'hôtel",
+faq_eyebrow:"Good to know / FAQ", faq_h2:"Avant de réserver",
+k1h:"Peau sensible ?", k1p:"Nous utilisons des applicateurs à usage unique et te disons tout ce qu'on met sur ton visage. Signale-nous tes allergies à la réservation.",
+k2h:"Jour de pluie ?", k2p:"Le shooting se déplace dans des galeries couvertes et des lieux en intérieur. Ta journée gal a bien lieu.",
+k3h:"Ta taille", k3p:"Envoie-nous ta taille en cm, ta taille de vêtements et ta pointure après la réservation pour que ta tenue soit prête à ton arrivée.",
+k4h:"En retard ?", k4p:"Écris-nous sur WhatsApp. Nous prévoyons une marge, mais un gros retard peut raccourcir le shooting.",
+q1:"Faut-il parler japonais ?", a1:"Non. Toute la journée se déroule en anglais.",
+q2:"Les garçons et les personnes non binaires peuvent-ils participer ?", a2:"Oui. Les gyaru-o (la version masculine) font aussi partie de la culture. Tout le monde est bienvenu.",
+q3:"Puis-je apporter mon appareil photo ou mon téléphone ?", a3:"Bien sûr. Tes amis peuvent filmer les coulisses pendant que notre photographe shoote.",
+q4:"Où rendre la tenue ?", a4:"Au point de retour qu'on t'indique le jour même, avant 20 h. Il se trouve à Minami, près de la gare.",
+q5:"Quelle est la politique d'annulation ?", a5:"Annulation gratuite jusqu'à 48 heures avant l'heure de début.",
+book_h2:"Ta journée gal commence ici.", book_p:"Réserve directement en trois étapes. Une question avant ? Écris-nous sur WhatsApp. Seulement trois groupes par jour.", bs1:"Choisis une date et un horaire", bs2:"Parle-nous de ton groupe", bs3:"Paie en ligne en toute sécurité",
+book_klook:"Réserver maintenant", book_wa:"Nous écrire sur WhatsApp",
+foot1:"HEISEI GAL OSAKA · Shinsaibashi, Osaka, Japon", foot2:"Créé par des locaux fans de l'ère Heisei."
+},
+de: {
+nav_gyaru:"Was ist Gyaru?", nav_day:"Dein Tag", nav_plans:"Preise", nav_faq:"FAQ", nav_book:"Buchen",
+hero_h1:"<span class='sm'>Werde für einen Tag zur</span><span class='gal'>Heisei Gal</span>",
+hero_lead:"Hol dir den kompletten japanischen Gyaru-Look der 2000er und zieh damit einen Tag durch Osaka. <span class='hl'>Echte japanische Straßenkultur, eine Erinnerung fürs Leben.</span>",
+hero_cta1:"Gal-Tag buchen", hero_cta2:"Ablauf ansehen",
+st1:"Fotos AM SELBEN TAG", st2:"Look bis 20 Uhr", st3:"Dotonbori + Burg Osaka",
+cul_eyebrow:"What's gyaru? / Was ist Gyaru?", cul_h2:"Die lautesten Mädchen der Heisei-Zeit",
+cul_p1:"Gyaru (vom englischen „gal“) war eine Streetstyle-Mode, die Japan Ende der 90er und in den 2000ern eroberte, mitten in der Heisei-Zeit (1989–2019). Sie begann auf den Straßen von Shibuya und verbreitete sich über Gyaru-Magazine und die Läden im Shibuya 109 im ganzen Land.",
+cul_p2:"Gyaru brach jede Regel „anständiger“ japanischer Schönheit: gebräunte Haut, gebleichte Haare, riesige Wimpern, Glitzer und die passende Attitüde dazu. Es ging darum, mit Freundinnen Spaß zu haben und genau so auszusehen, wie man wollte.",
+cul_p3:"Auch Osaka hatte seine eigene Szene, rund um Amemura (America-mura), das Viertel für Jugend und Vintage-Mode. Genau dort beginnt dein Tag.",
+t1:"Tiefe Bräune, weißes Augen- und Lippen-Make-up, gebleichte Haare. Der mutigste Look der späten 90er.",
+t2:"Der helle Stil der 2000er: große Augen, rosa Wangen, lange Locken.",
+t3:"Extralange weiße Socken, bis zu den Knöcheln gerafft. Das Markenzeichen der Schuluniform-Gyaru.",
+t4:"Fotosticker-Automaten mit verzierten Rahmen. Jede Gyaru-Pose stammt von hier.",
+t5:"Strass und Sticker auf allem: Klapphandys, Nägel, Spiegel.",
+day_eyebrow:"Your gal day / 180 Min.", day_h2:"Nicht nur ein Fotoshooting. Ein ganzer Tag als Gyaru.",
+day_sub:"Der geführte Teil dauert 3 Stunden. Danach bleibt das Outfit an und Osaka gehört dir bis 20 Uhr.",
+tl1h:"Check-in und Look wählen", tl1p:"Treffpunkt ist unser Studio in Shinsaibashi. Wähle Ganguro oder Shiro-Gal, dann Outfit, Perücke und Accessoires. Größen für jeden Körper, auch große Größen.",
+tl2h:"Gyaru-Make-up und Haare", tl2p:"Wimpern, Eyeliner, Glitzer, das volle Programm. Ein Make-up-Profi baut den Heisei-Look mit Einweg-Werkzeugen von Grund auf.",
+tl3h:"Ab in die Straßen von Minami", tl3p:"Shooting in Amemura und Dotonbori mit einem lokalen Fotografen. Fisheye-Streetshots, klassische Gyaru-Posen und die Neonlichter von Dotonbori im Hintergrund.",
+tl4h:"Burg Osaka", tl4p:"Bring den Gal-Look an einen Ort, an dem er in den 2000ern nie war: gebleichte Haare und Loose Socks vor einer Burg aus dem 16. Jahrhundert.",
+tl5h:"Erste Fotos aufs Handy", tl5p:"Ein paar Favoriten schicken wir dir sofort aufs Handy, damit du noch in Osaka posten kannst. Dazu bekommst du unsere lokale Karte.",
+tl6h:"Bleib Gal. Zieh los.", tl6p:"Behalte Outfit und Make-up an, folge unserer Karte zu Food-Spots und versteckten Ecken und gib das Outfit bis 20 Uhr zurück. Make-up-Entferner inklusive. Alle Fotos und dein Reel kommen am selben Abend.",
+why_eyebrow:"Why us / Warum wir", why_h2:"Was diesen Tag besonders macht",
+w1h:"Fotos heute Abend, nicht in zwei Wochen", w1p:"Ein paar Favoriten sofort aufs Handy. Das komplette bearbeitete Set kommt am selben Abend.",
+w2h:"Ein Hochformat-Video zum Posten", w2p:"Ein 15–30-Sekunden-Reel für TikTok und Instagram, bei jeder Buchung inklusive.",
+w3h:"Den Look den ganzen Abend", w3p:"Das Shooting endet, dein Gal-Tag nicht. Essen, shoppen und bummeln im vollen Gyaru-Look bis 20 Uhr.",
+w4h:"Zwei Seiten von Osaka", w4p:"Streetshots in Amemura und Dotonbori plus Burg Osaka an einem Tag.",
+w5h:"Wo Einheimische wirklich hingehen", w5p:"Unsere eigene Karte für Sightseeing und Essen, von berühmten Orten bis zu kleinen Läden, die Touristen nie finden.",
+w6h:"Von Leuten, die es gelebt haben", w6p:"Make-up und Styling kommen von Menschen, die in der Gal-Szene der Heisei-Zeit aufgewachsen sind, nicht aus einem Kostümverleih.",
+cmp_typical:"Ein typisches Makeover",
+r1l:"Fotolieferung", r1a:"10–14 Tage später", r1b:"Am selben Tag",
+r2l:"Video", r2a:"Nicht enthalten", r2b:"Hochformat-Reel inklusive",
+r3l:"Outfit tragen", r3a:"Bis zu 4 Stunden", r3b:"Bis 20 Uhr",
+r4l:"Orte", r4a:"Nur Minami", r4b:"Minami + Burg Osaka",
+r5l:"Nach dem Shooting", r5a:"Tschüss", r5b:"Lokale Food- und Sightseeing-Karte",
+gal_eyebrow:"Gallery / Galerie", gal_h2:"Fotografiert auf den Straßen von Osaka",
+cap1:"Amemura", cap2:"Dotonbori", cap3:"Burg Osaka", cap4:"Squad-Foto", cap5:"Das Make-up", cap6:"Nach dem Shooting",
+plans_eyebrow:"Plans / Preise", plans_h2:"Komm allein oder mit deiner Crew", plans_sub:"Jeder Plan ist derselbe 180-minütige Gal-Tag. Preise pro Person, inkl. Steuern.",
+per:" /Person", tot1:"1 Person", tot2:"¥140,000 für 2", tot3:"¥180,000 für 3", tot4:"¥220,000 für 4",
+plans_note:"Startzeiten: 10:00, 13:00 und 16:00 Uhr. Eine Gruppe pro Termin, Studio und Fotograf gehören nur euch.",
+inc_h:"Inklusive", inc1:"Komplettes Gyaru-Make-up und Haare vom Profi", inc2:"Outfit, Perücke, Loose Socks und Accessoires", inc3:"Street-Shooting in Minami und an der Burg Osaka", inc4:"Bearbeitete Fotos am selben Tag und ein Hochformat-Reel", inc5:"Outfit-Verleih bis 20 Uhr und Make-up-Entferner-Set", inc6:"Unsere lokale Sightseeing- und Food-Karte",
+exc_h:"Nicht inklusive", exc1:"Bahnfahrten während der Tour (ca. ¥500)", exc2:"Essen und Getränke", exc3:"Farbige Kontaktlinsen (bring gern deine eigenen mit)", exc4:"Hotelabholung",
+faq_eyebrow:"Good to know / FAQ", faq_h2:"Bevor du buchst",
+k1h:"Empfindliche Haut?", k1p:"Wir verwenden Einweg-Applikatoren und sagen dir, was auf dein Gesicht kommt. Teile uns Allergien bei der Buchung mit.",
+k2h:"Regentag?", k2p:"Das Shooting zieht in überdachte Einkaufsstraßen und Innenräume um. Dein Gal-Tag findet trotzdem statt.",
+k3h:"Deine Größe", k3p:"Schick uns nach der Buchung Körpergröße, Kleidergröße und Schuhgröße, damit dein Outfit bei deiner Ankunft bereitliegt.",
+k4h:"Spät dran?", k4p:"Schreib uns auf WhatsApp. Wir planen Puffer ein, aber bei starker Verspätung kann das Shooting kürzer werden.",
+q1:"Muss ich Japanisch sprechen?", a1:"Nein. Der ganze Tag läuft auf Englisch.",
+q2:"Können auch Männer oder nicht-binäre Gäste mitmachen?", a2:"Ja. Gyaru-o (die männliche Version) gehört genauso zur Kultur. Alle sind willkommen.",
+q3:"Darf ich meine eigene Kamera oder mein Handy mitbringen?", a3:"Klar. Deine Freunde können Behind-the-Scenes filmen, während unser Fotograf shootet.",
+q4:"Wo gebe ich das Outfit zurück?", a4:"Bis 20 Uhr an der Rückgabestelle, die wir dir am Tag nennen. Sie liegt in Minami, nahe am Bahnhof.",
+q5:"Wie sind die Stornobedingungen?", a5:"Kostenlose Stornierung bis 48 Stunden vor Beginn.",
+book_h2:"Dein Gal-Tag beginnt hier.", book_p:"Buche direkt bei uns in drei Schritten. Vorher Fragen? Schreib uns auf WhatsApp. Nur drei Gruppen pro Tag.", bs1:"Datum und Uhrzeit wählen", bs2:"Infos zu deiner Gruppe angeben", bs3:"Sicher online bezahlen",
+book_klook:"Jetzt buchen", book_wa:"Auf WhatsApp fragen",
+foot1:"HEISEI GAL OSAKA · Shinsaibashi, Osaka, Japan", foot2:"Gemacht von Locals, die die Heisei-Zeit lieben."
+}
+};
+/* Swiss Standard German: same text, with "ss" instead of "ß" */
+I18N["de-CH"] = Object.fromEntries(Object.entries(I18N.de).map(([k, v]) => [k, v.replace(/ß/g, "ss")]));
+
+(function () {
+  const els = document.querySelectorAll("[data-i18n]");
+  const en = {};
+  els.forEach(el => { en[el.dataset.i18n] = el.innerHTML; });
+  const sel = document.getElementById("lang");
+
+  function apply(lang) {
+    const dict = lang === "en" ? en : (I18N[lang] || en);
+    els.forEach(el => { const k = el.dataset.i18n; el.innerHTML = dict[k] != null ? dict[k] : en[k]; });
+    document.documentElement.lang = lang;
+    sel.value = lang;
+    document.querySelectorAll('a[href^="booking.html"]').forEach(a => {
+      a.setAttribute("href", lang === "en" ? "booking.html" : "booking.html#" + lang);
+    });
+  }
+
+  sel.addEventListener("change", () => apply(sel.value));
+  apply("en");
+})();
+</script>

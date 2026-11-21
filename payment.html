@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Gal Day Payment</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Dela+Gothic+One&family=Manrope:wght@400;600;800&family=VT323&display=swap">
+<style>
+:root{
+  --ink:#16080f;--paper:#ffe6f2;--paper-2:#fff6fa;--pink:#ff2e93;--pink-deep:#c2006b;--gold:#ffd54a;--muted:#6e4a5e;--line:#f0a9cb;
+  --f-display:"Dela Gothic One","Black Han Sans","PingFang SC","PingFang TC","Microsoft YaHei","Hiragino Sans",Impact,sans-serif;
+  --f-body:"Manrope","Helvetica Neue",Arial,"Hiragino Sans","Yu Gothic","Apple SD Gothic Neo","Malgun Gothic","PingFang SC","PingFang TC","Microsoft YaHei",sans-serif;
+  --f-lcd:"VT323","Courier New",monospace;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.6}
+:lang(ko){word-break:keep-all}
+p,li,label,legend{text-wrap:pretty}
+:lang(ja) h1,:lang(ja) h2{word-break:auto-phrase}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.wrap{max-width:760px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.top{background:var(--ink);color:#fff}
+.top .wrap{display:flex;justify-content:space-between;align-items:center;gap:12px;padding-block:12px;max-width:1120px;flex-wrap:wrap}
+.logo{font-family:var(--f-display);text-decoration:none;font-size:1.15rem;white-space:nowrap}
+.logo b{color:var(--pink);font-weight:400}
+.top-right{display:flex;align-items:center;gap:14px}
+.back{font-weight:600;font-size:.95rem;text-decoration:none;opacity:.85}
+@media (max-width:520px){.back{display:none}}
+.lang{appearance:none;-webkit-appearance:none;background:transparent;color:#fff;border:2px solid #fff;border-radius:999px;padding:.4em 1.9em .4em .9em;font:600 .85rem var(--f-body);cursor:pointer;
+  background-image:linear-gradient(45deg,transparent 50%,#fff 50%),linear-gradient(135deg,#fff 50%,transparent 50%);background-position:calc(100% - 14px) 52%,calc(100% - 9px) 52%;background-size:5px 5px;background-repeat:no-repeat}
+.lang option{color:var(--ink);background:#fff}
+h1,h2{font-family:var(--f-display);font-weight:400;line-height:1.15;margin:0;text-wrap:balance}
+h1{font-size:clamp(2.1rem,7vw,3.4rem)}
+h2{font-size:1.5rem}
+.head{padding-block:44px 24px;display:grid;gap:18px}
+.stepper{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:8px}
+.stepper li{font-family:var(--f-lcd);font-size:1.25rem;padding:4px 14px;border-radius:999px;border:2px solid var(--ink);background:#fff}
+.stepper li.on{background:var(--pink);color:#fff}
+.muted{color:var(--muted);margin:0}
+.summary{background:var(--pink);color:#fff;border:3px solid var(--ink);border-radius:18px;padding:clamp(20px,4vw,30px);display:grid;gap:10px;box-shadow:8px 8px 0 var(--ink);margin-bottom:28px}
+.summary .who{font-family:var(--f-lcd);font-size:1.5rem;letter-spacing:.05em}
+.summary .amount{font-family:var(--f-display);font-size:clamp(2.4rem,8vw,3.4rem);line-height:1;font-variant-numeric:tabular-nums}
+.summary .per{font-weight:600}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.5em;font-family:var(--f-display);font-size:1.1rem;text-decoration:none;padding:.9em 1.6em;border-radius:999px;border:3px solid var(--ink);background:var(--gold);color:var(--ink);box-shadow:4px 4px 0 var(--ink);margin-top:8px;justify-self:start}
+.btn:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--ink)}
+.card{background:#fff;border:3px solid var(--ink);border-radius:18px;padding:clamp(18px,4vw,26px);display:grid;gap:12px;margin-bottom:22px}
+.card ul{margin:0;padding-left:1.2em;display:grid;gap:6px}
+.other{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+@media (max-width:560px){.other{grid-template-columns:1fr 1fr}}
+.other a{display:grid;gap:2px;text-align:center;text-decoration:none;padding:12px;border:2px solid var(--ink);border-radius:12px;background:#fff}
+.other a b{font-family:var(--f-lcd);font-size:1.3rem;font-weight:400}
+.other a em{font-style:normal;font-size:.9rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.other a[aria-current="true"]{background:var(--ink);color:#fff}
+.other a[aria-current="true"] em{color:var(--gold)}
+footer{background:var(--ink);color:#d9c3cf;font-size:.9rem;margin-top:40px}
+footer .wrap{padding-block:24px}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <a class="logo" href="index.html">HEISEI <b>GAL</b> OSAKA</a>
+    <div class="top-right">
+      <a class="back" id="back" href="booking.html" data-i18n="back">← Back to your details</a>
+      <label for="lang" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Language</label>
+      <select id="lang" class="lang">
+        <option value="en">English</option>
+        <option value="ja">日本語</option>
+        <option value="ko">한국어</option>
+        <option value="zh-Hans">简体中文</option>
+        <option value="zh-Hant">繁體中文</option>
+        <option value="fr">Français</option>
+        <option value="de">Deutsch</option>
+        <option value="de-CH">Deutsch (Schweiz)</option>
+      </select>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="head">
+    <ol class="stepper" aria-label="Booking steps">
+      <li class="on" data-i18n="s1">1 Date</li>
+      <li class="on" data-i18n="s2">2 Your details</li>
+      <li class="on" data-i18n="s3">3 Payment</li>
+    </ol>
+    <h1 data-i18n="h1">Last step: payment</h1>
+    <p class="muted" data-i18n="intro">Pay online to confirm your slot. We'll message you on WhatsApp within 24 hours with the studio address.</p>
+  </div>
+
+  <section class="summary" aria-live="polite">
+    <span class="who" id="who">SOLO · 1 person</span>
+    <span class="amount" id="amount">¥90,000</span>
+    <span class="per" id="per">Tax included</span>
+    <a class="btn" id="pay" href="#" target="_blank" rel="noopener">Pay ¥90,000 securely →</a>
+  </section>
+
+  <section class="card">
+    <h2 data-i18n="wrong_h">Wrong plan?</h2>
+    <p class="muted" data-i18n="wrong_p">Choose the plan that matches your group size.</p>
+    <nav class="other" aria-label="Plans">
+      <a href="#solo" data-plan="solo"><b>SOLO</b><em>¥90,000</em></a>
+      <a href="#duo" data-plan="duo"><b>DUO</b><em>¥140,000</em></a>
+      <a href="#trio" data-plan="trio"><b>TRIO</b><em>¥180,000</em></a>
+      <a href="#squad" data-plan="squad"><b>SQUAD</b><em>¥220,000</em></a>
+    </nav>
+  </section>
+
+  <section class="card">
+    <h2 data-i18n="know_h">Good to know</h2>
+    <ul>
+      <li data-i18n="k1">Card payment through a secure checkout. Prices are in Japanese yen; your card company converts the amount.</li>
+      <li data-i18n="k2">Your slot is held once payment is complete. If the slot you picked is already taken, we refund you in full.</li>
+      <li data-i18n="k3">Free cancellation up to 48 hours before the start time. No refund within 48 hours or for no-shows.</li>
+      <li data-i18n="k4">Questions? Message us on WhatsApp: <b>+81 XX-XXXX-XXXX</b></li>
+    </ul>
+  </section>
+</main>
+
+<footer><div class="wrap">HEISEI GAL OSAKA · Shinsaibashi, Osaka, Japan</div></footer>
+
+<script>
+/* ===== 設定（ここだけ書き換える） ===== */
+// プランごとの決済リンク（Stripeの「Payment Links」などで作ったURLを貼る）
+const PAYMENT_LINKS = {
+  solo:  "https://buy.stripe.com/XXXXXXXX_solo",
+  duo:   "https://buy.stripe.com/XXXXXXXX_duo",
+  trio:  "https://buy.stripe.com/XXXXXXXX_trio",
+  squad: "https://buy.stripe.com/XXXXXXXX_squad"
+};
+/* ===================================== */
+
+const EN_DYN = { solo:"SOLO · 1 person", duo:"DUO · 2 people", trio:"TRIO · 3 people", squad:"SQUAD · 4 people", tax:"Tax included", per:"{p} per person · tax included", pay:"Pay {a} securely →" };
+
+const I18N = {
+ja:{back:"← 情報入力に戻る",s1:"1 日時",s2:"2 情報入力",s3:"3 お支払い",h1:"最後に、お支払い",
+intro:"オンラインでお支払いいただくと予約が確定します。24時間以内に、スタジオの住所をWhatsAppでお送りします。",
+solo:"SOLO · 1名",duo:"DUO · 2名",trio:"TRIO · 3名",squad:"SQUAD · 4名",tax:"税込",per:"1人あたり{p}・税込",pay:"{a}を支払う →",
+wrong_h:"プランが違う場合",wrong_p:"人数に合ったプランを選んでください。",know_h:"お支払いについて",
+k1:"カード決済の安全な画面でお支払いいただきます。料金は日本円で、カード会社が自動で換算します。",
+k2:"お支払いが完了した時点で枠を確保します。選んだ枠がすでに埋まっていた場合は全額返金します。",
+k3:"開始時間の48時間前までは無料でキャンセルできます。48時間を切ってからのキャンセルや当日の不参加は返金できません。",
+k4:"質問はWhatsAppへ：<b>+81 XX-XXXX-XXXX</b>"},
+ko:{back:"← 정보 입력으로 돌아가기",s1:"1 날짜",s2:"2 정보 입력",s3:"3 결제",h1:"마지막 단계: 결제",
+intro:"온라인으로 결제하면 예약이 확정됩니다. 24시간 이내에 스튜디오 주소를 왓츠앱으로 보내 드립니다.",
+solo:"SOLO · 1명",duo:"DUO · 2명",trio:"TRIO · 3명",squad:"SQUAD · 4명",tax:"세금 포함",per:"1인 {p} · 세금 포함",pay:"{a} 안전하게 결제하기 →",
+wrong_h:"플랜이 다른가요?",wrong_p:"인원에 맞는 플랜을 선택해 주세요.",know_h:"알아 두세요",
+k1:"안전한 결제 화면에서 카드로 결제합니다. 요금은 일본 엔화이며, 카드사에서 자동으로 환산합니다.",
+k2:"결제가 완료되면 예약 시간이 확보됩니다. 선택한 시간이 이미 마감된 경우 전액 환불해 드립니다.",
+k3:"시작 48시간 전까지 무료로 취소할 수 있습니다. 48시간 이내 취소나 노쇼는 환불되지 않습니다.",
+k4:"문의는 왓츠앱으로: <b>+81 XX-XXXX-XXXX</b>"},
+"zh-Hans":{back:"← 返回填写信息",s1:"1 日期",s2:"2 填写信息",s3:"3 付款",h1:"最后一步：付款",
+intro:"在线付款后即确认预约。我们会在24小时内通过WhatsApp发送工作室地址。",
+solo:"SOLO · 1人",duo:"DUO · 2人",trio:"TRIO · 3人",squad:"SQUAD · 4人",tax:"含税",per:"每人{p} · 含税",pay:"安全支付{a} →",
+wrong_h:"选错套餐了？",wrong_p:"请选择与人数相符的套餐。",know_h:"付款须知",
+k1:"通过安全的结账页面以银行卡付款。价格以日元计，由发卡机构自动换算。",
+k2:"付款完成后即为你保留时段。如果所选时段已满，我们将全额退款。",
+k3:"开始时间前48小时可免费取消。48小时内取消或未到场恕不退款。",
+k4:"有问题请通过WhatsApp联系：<b>+81 XX-XXXX-XXXX</b>"},
+"zh-Hant":{back:"← 返回填寫資料",s1:"1 日期",s2:"2 填寫資料",s3:"3 付款",h1:"最後一步：付款",
+intro:"線上付款後即確認預約。我們會在24小時內用WhatsApp傳送工作室地址。",
+solo:"SOLO · 1人",duo:"DUO · 2人",trio:"TRIO · 3人",squad:"SQUAD · 4人",tax:"含稅",per:"每人{p} · 含稅",pay:"安全支付{a} →",
+wrong_h:"選錯方案了？",wrong_p:"請選擇與人數相符的方案。",know_h:"付款須知",
+k1:"透過安全的結帳頁面以信用卡付款。價格以日圓計算，由發卡銀行自動換算。",
+k2:"付款完成後即為你保留時段。如果所選時段已滿，我們會全額退款。",
+k3:"開始時間前48小時可免費取消。48小時內取消或未到場恕不退款。",
+k4:"有問題請用WhatsApp聯絡：<b>+81 XX-XXXX-XXXX</b>"},
+fr:{back:"← Retour à tes infos",s1:"1 Date",s2:"2 Tes infos",s3:"3 Paiement",h1:"Dernière étape : le paiement",
+intro:"Paie en ligne pour confirmer ton créneau. On t'écrit sur WhatsApp sous 24 heures avec l'adresse du studio.",
+solo:"SOLO · 1 personne",duo:"DUO · 2 personnes",trio:"TRIO · 3 personnes",squad:"SQUAD · 4 personnes",tax:"Taxes comprises",per:"{p} par personne · taxes comprises",pay:"Payer {a} en toute sécurité →",
+wrong_h:"Mauvaise formule ?",wrong_p:"Choisis la formule qui correspond à la taille de ton groupe.",know_h:"Bon à savoir",
+k1:"Paiement par carte via une page sécurisée. Les prix sont en yens ; ta banque fait la conversion.",
+k2:"Ton créneau est bloqué dès que le paiement est effectué. Si le créneau choisi est déjà pris, on te rembourse intégralement.",
+k3:"Annulation gratuite jusqu'à 48 heures avant le début. Aucun remboursement dans les 48 heures ni en cas d'absence.",
+k4:"Des questions ? Écris-nous sur WhatsApp : <b>+81 XX-XXXX-XXXX</b>"},
+de:{back:"← Zurück zu deinen Angaben",s1:"1 Datum",s2:"2 Deine Angaben",s3:"3 Zahlung",h1:"Letzter Schritt: Zahlung",
+intro:"Bezahle online, um deinen Termin zu bestätigen. Innerhalb von 24 Stunden schicken wir dir die Studioadresse per WhatsApp.",
+solo:"SOLO · 1 Person",duo:"DUO · 2 Personen",trio:"TRIO · 3 Personen",squad:"SQUAD · 4 Personen",tax:"Inkl. Steuern",per:"{p} pro Person · inkl. Steuern",pay:"{a} sicher bezahlen →",
+wrong_h:"Falscher Plan?",wrong_p:"Wähle den Plan, der zu deiner Gruppengröße passt.",know_h:"Gut zu wissen",
+k1:"Kartenzahlung über einen sicheren Checkout. Die Preise sind in Yen; deine Bank rechnet den Betrag um.",
+k2:"Dein Termin ist reserviert, sobald die Zahlung abgeschlossen ist. Ist der gewählte Termin schon vergeben, erstatten wir den vollen Betrag.",
+k3:"Kostenlose Stornierung bis 48 Stunden vor Beginn. Keine Erstattung innerhalb von 48 Stunden oder bei Nichterscheinen.",
+k4:"Fragen? Schreib uns auf WhatsApp: <b>+81 XX-XXXX-XXXX</b>"}
+};
+I18N["de-CH"] = Object.fromEntries(Object.entries(I18N.de).map(([k, v]) => [k, v.replace(/ß/g, "ss")]));
+
+const LANGS = ["en","ja","ko","zh-Hans","zh-Hant","fr","de","de-CH"];
+const PLANS = { solo: { total: 90000, per: 0 }, duo: { total: 140000, per: 70000 }, trio: { total: 180000, per: 60000 }, squad: { total: 220000, per: 55000 } };
+const yen = n => "¥" + n.toLocaleString("en-US");
+
+const textEls = document.querySelectorAll("[data-i18n]");
+const EN = { ...EN_DYN };
+textEls.forEach(el => { EN[el.dataset.i18n] = el.innerHTML; });
+
+let plan = "solo", lang = "en";
+const T = k => (lang !== "en" && I18N[lang] && I18N[lang][k] != null) ? I18N[lang][k] : EN[k];
+
+function readHash() {
+  const [p, l] = location.hash.slice(1).split(".");
+  plan = PLANS[p] ? p : "solo";
+  lang = LANGS.includes(l) ? l : "en";
+}
+
+function render() {
+  textEls.forEach(el => { el.innerHTML = T(el.dataset.i18n); });
+  document.documentElement.lang = lang;
+  document.getElementById("lang").value = lang;
+  const p = PLANS[plan];
+  document.getElementById("who").textContent = T(plan);
+  document.getElementById("amount").textContent = yen(p.total);
+  document.getElementById("per").textContent = p.per ? T("per").replace("{p}", yen(p.per)) : T("tax");
+  const pay = document.getElementById("pay");
+  pay.textContent = T("pay").replace("{a}", yen(p.total));
+  pay.href = PAYMENT_LINKS[plan];
+  const suffix = lang === "en" ? "" : "." + lang;
+  document.querySelectorAll(".other a").forEach(a => {
+    a.href = "#" + a.dataset.plan + suffix;
+    a.setAttribute("aria-current", a.dataset.plan === plan ? "true" : "false");
+  });
+  document.getElementById("back").href = "booking.html" + (lang === "en" ? "" : "#" + lang);
+}
+
+window.addEventListener("hashchange", () => { readHash(); render(); });
+document.getElementById("lang").addEventListener("change", e => {
+  location.hash = plan + (e.target.value === "en" ? "" : "." + e.target.value);
+});
+readHash();
+render();
+</script>
+</body>
+</html>
