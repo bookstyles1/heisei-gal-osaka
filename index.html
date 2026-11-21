@@ -306,6 +306,18 @@ footer .wrap{padding-block:28px;display:flex;justify-content:space-between;gap:1
 .sparkles i:nth-child(4){font-size:6px}.sparkles i:nth-child(5){font-size:9px}.sparkles i:nth-child(6){font-size:7px}
 .sparkles i:nth-child(7){font-size:10px}.sparkles i:nth-child(8){font-size:8px}.sparkles i:nth-child(9){font-size:7px}
 @media (prefers-reduced-motion:reduce){.hero h1 .gal{animation:none}}
+
+/* glitter v2: sparse, irregular flecks */
+.hero h1 .gal{
+  background:
+    radial-gradient(circle at 15% 22%,#fff 0 1.4px,transparent 2px) 0 0/23px 23px,
+    radial-gradient(circle at 68% 38%,#fff 0 .9px,transparent 1.5px) 0 0/19px 19px,
+    radial-gradient(circle at 36% 74%,#ffe6f4 0 1.2px,transparent 1.8px) 0 0/17px 17px,
+    radial-gradient(circle at 86% 88%,#fff 0 .8px,transparent 1.3px) 0 0/13px 13px,
+    linear-gradient(110deg,#ff2e93 0%,#ff4fa6 30%,#ffc2e2 47%,#ffffff 50%,#ffc2e2 53%,#ff4fa6 70%,#ff2e93 100%) 0 0/260% 100%;
+  -webkit-background-clip:text;background-clip:text;animation:glitter2 3.6s linear infinite}
+@keyframes glitter2{to{background-position:23px 23px,-19px 19px,17px -17px,-13px 13px,-260% 0}}
+@media (prefers-reduced-motion:reduce){.hero h1 .gal{animation:none}}
 </style>
 
 <nav class="nav" aria-label="Main">
