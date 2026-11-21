@@ -172,6 +172,12 @@ section{padding-block:clamp(64px,9vw,110px)}
 .plan .price{font-family:var(--f-display);font-size:2rem;line-height:1;font-variant-numeric:tabular-nums}
 .plan .price small{font-family:var(--f-body);font-size:.85rem;font-weight:600}
 .plan .total{font-size:.9rem;opacity:.8}
+.fx{display:block;font-size:.82rem;font-weight:600;opacity:.8;font-variant-numeric:tabular-nums;font-family:var(--f-body)}
+.fx:empty{display:none}
+.fx-row{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center;font-size:.8rem;color:var(--muted);margin:10px 0 0}
+.fx-pick label{display:inline-flex;align-items:center;gap:6px;font-weight:600;font-size:.8rem}
+.fx-pick select{width:auto;padding:.2em .5em;font-size:.8rem;border:2px solid var(--ink);border-radius:8px;background:#fff;color:var(--ink)}
+.fx-pick[hidden]{display:none}
 .plan-note{margin-top:22px;color:var(--muted);max-width:70ch}
 @media (max-width:900px){.plans-grid{grid-template-columns:1fr 1fr}}
 @media (max-width:480px){.plans-grid{grid-template-columns:1fr}}
@@ -363,11 +369,12 @@ footer .wrap{padding-block:28px;display:flex;justify-content:space-between;gap:1
       <p class="sub" data-i18n="plans_sub">Every plan is the same 180-minute gal day. Prices are per person, tax included.</p>
     </div>
     <div class="plans-grid">
-      <div class="plan hot"><span class="who">SOLO</span><span class="price">¥90,000</span><span class="total" data-i18n="tot1">1 person</span></div>
-      <div class="plan"><span class="who">DUO</span><span class="price">¥70,000<small data-i18n="per"> /person</small></span><span class="total" data-i18n="tot2">¥140,000 for 2</span></div>
-      <div class="plan"><span class="who">TRIO</span><span class="price">¥60,000<small data-i18n="per"> /person</small></span><span class="total" data-i18n="tot3">¥180,000 for 3</span></div>
-      <div class="plan"><span class="who">SQUAD</span><span class="price">¥55,000<small data-i18n="per"> /person</small></span><span class="total" data-i18n="tot4">¥220,000 for 4</span></div>
+      <div class="plan hot"><span class="who">SOLO</span><span class="price">¥90,000</span><span class="fx" data-yen="90000"></span><span class="total" data-i18n="tot1">1 person</span></div>
+      <div class="plan"><span class="who">DUO</span><span class="price">¥70,000<small data-i18n="per"> /person</small></span><span class="fx" data-yen="70000"></span><span class="total" data-i18n="tot2">¥140,000 for 2</span></div>
+      <div class="plan"><span class="who">TRIO</span><span class="price">¥60,000<small data-i18n="per"> /person</small></span><span class="fx" data-yen="60000"></span><span class="total" data-i18n="tot3">¥180,000 for 3</span></div>
+      <div class="plan"><span class="who">SQUAD</span><span class="price">¥55,000<small data-i18n="per"> /person</small></span><span class="fx" data-yen="55000"></span><span class="total" data-i18n="tot4">¥220,000 for 4</span></div>
     </div>
+    <p class="fx-row"><span class="fx-pick" hidden></span><span class="fx-note"></span></p>
     <p class="plan-note" data-i18n="plans_note">Start times: 10:00, 13:00 and 16:00. One group per slot, so the studio and your photographer are only yours.</p>
     <div class="inc">
       <div>
@@ -442,6 +449,7 @@ footer .wrap{padding-block:28px;display:flex;justify-content:space-between;gap:1
     <span data-i18n="foot2">Made by locals who love the Heisei era.</span>
   </div>
 </footer>
+<script src="fx.js"></script>
 
 <script>
 const I18N = {

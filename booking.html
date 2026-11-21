@@ -68,6 +68,12 @@ legend{font-weight:600;font-size:.95rem;margin-bottom:6px;padding:0}
 .plans span i{font-style:normal;font-family:var(--f-display);font-size:1.05rem;font-variant-numeric:tabular-nums}
 .plans span small{font-size:.75rem;color:var(--muted);font-variant-numeric:tabular-nums}
 .plans input:checked+span small{color:#fff}
+.fx{display:block;font-size:.82rem;font-weight:600;opacity:.8;font-variant-numeric:tabular-nums;font-family:var(--f-body)}
+.fx:empty{display:none}
+.fx-row{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center;font-size:.8rem;color:var(--muted);margin:10px 0 0}
+.fx-pick label{display:inline-flex;align-items:center;gap:6px;font-weight:600;font-size:.8rem}
+.fx-pick select{width:auto;padding:.2em .5em;font-size:.8rem;border:2px solid var(--ink);border-radius:8px;background:#fff;color:var(--ink)}
+.fx-pick[hidden]{display:none}
 .opt-box{border:2px dashed var(--line);border-radius:12px;padding:10px 14px}
 .opt-box summary{cursor:pointer;font-weight:600;font-size:.95rem}
 .opt-box[open] summary{margin-bottom:12px}
@@ -215,11 +221,12 @@ footer .wrap{padding-block:24px}
     <fieldset>
       <legend data-i18n="legend_plan">Plan</legend>
       <div class="plans">
-        <label><input type="radio" name="plan" value="solo" id="plan-solo" checked><span><b>SOLO</b><em data-i18n="p1">1 person</em><i>¥90,000</i></span></label>
-        <label><input type="radio" name="plan" value="duo" id="plan-duo"><span><b>DUO</b><em data-i18n="p2">2 people</em><i>¥140,000</i><small>¥70,000 × 2</small></span></label>
-        <label><input type="radio" name="plan" value="trio" id="plan-trio"><span><b>TRIO</b><em data-i18n="p3">3 people</em><i>¥180,000</i><small>¥60,000 × 3</small></span></label>
-        <label><input type="radio" name="plan" value="squad" id="plan-squad"><span><b>SQUAD</b><em data-i18n="p4">4 people</em><i>¥220,000</i><small>¥55,000 × 4</small></span></label>
+        <label><input type="radio" name="plan" value="solo" id="plan-solo" checked><span><b>SOLO</b><em data-i18n="p1">1 person</em><i>¥90,000</i><span class="fx" data-yen="90000"></span></span></label>
+        <label><input type="radio" name="plan" value="duo" id="plan-duo"><span><b>DUO</b><em data-i18n="p2">2 people</em><i>¥140,000</i><span class="fx" data-yen="140000"></span><small>¥70,000 × 2</small></span></label>
+        <label><input type="radio" name="plan" value="trio" id="plan-trio"><span><b>TRIO</b><em data-i18n="p3">3 people</em><i>¥180,000</i><span class="fx" data-yen="180000"></span><small>¥60,000 × 3</small></span></label>
+        <label><input type="radio" name="plan" value="squad" id="plan-squad"><span><b>SQUAD</b><em data-i18n="p4">4 people</em><i>¥220,000</i><span class="fx" data-yen="220000"></span><small>¥55,000 × 4</small></span></label>
       </div>
+      <p class="fx-row"><span class="fx-pick" hidden></span><span class="fx-note"></span></p>
     </fieldset>
 
     <div class="grid">
@@ -651,5 +658,6 @@ form.addEventListener("submit", async (e) => {
   location.href = "payment.html#" + data.get("plan") + "." + lang + "." + deadline + "." + holdId;
 });
 </script>
+<script src="fx.js"></script>
 </body>
 </html>

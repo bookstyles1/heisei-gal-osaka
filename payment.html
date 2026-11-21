@@ -59,6 +59,15 @@ h2{font-size:1.5rem}
 .hold b{font-family:var(--f-lcd);font-size:1.5rem;font-weight:400;color:var(--gold);letter-spacing:.05em}
 .hold.over{background:var(--pink-deep)}
 .btn.off,.btn.nr-off{opacity:.45;pointer-events:none}
+.fx{display:block;font-size:.82rem;font-weight:600;opacity:.8;font-variant-numeric:tabular-nums;font-family:var(--f-body)}
+.fx:empty{display:none}
+.fx-row{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center;font-size:.8rem;color:var(--muted);margin:10px 0 0}
+.fx-pick label{display:inline-flex;align-items:center;gap:6px;font-weight:600;font-size:.8rem}
+.fx-pick select{width:auto;padding:.2em .5em;font-size:.8rem;border:2px solid var(--ink);border-radius:8px;background:#fff;color:var(--ink)}
+.fx-pick[hidden]{display:none}
+.summary .fx{opacity:.95;font-size:1rem}
+.summary .fx-row{color:#fff}
+.summary .fx-pick select{border-color:#fff}
 .nr{background:#fff;color:var(--ink);border:3px solid var(--ink);border-radius:14px;padding:14px 16px;display:grid;gap:8px}
 .nr h3{margin:0;font-family:var(--f-display);font-weight:400;font-size:1.15rem;color:var(--pink-deep)}
 .nr p{margin:0;font-size:.95rem}
@@ -104,7 +113,9 @@ footer .wrap{padding-block:24px}
   <section class="summary" aria-live="polite">
     <span class="who" id="who">SOLO · 1 person</span>
     <span class="amount" id="amount">¥90,000</span>
+    <span class="fx" id="fx-amount" data-yen="90000"></span>
     <span class="per" id="per">Tax included</span>
+    <p class="fx-row"><span class="fx-pick" hidden></span><span class="fx-note"></span></p>
     <div class="nr">
       <h3 data-i18n="nr_title">No refunds</h3>
       <p data-i18n="nr_body">Once payment is complete, we can't refund you for any reason, including cancellation, no-show, late arrival, weather or illness.</p>
@@ -228,6 +239,8 @@ function render() {
   const p = PLANS[plan];
   document.getElementById("who").textContent = T(plan);
   document.getElementById("amount").textContent = yen(p.total);
+  document.getElementById("fx-amount").dataset.yen = p.total;
+  if (window.HGOfx) window.HGOfx.render();
   document.getElementById("per").textContent = p.per ? T("per").replace("{p}", yen(p.per)) : T("tax");
   const pay = document.getElementById("pay");
   pay.textContent = T("pay").replace("{a}", yen(p.total));
@@ -281,5 +294,6 @@ document.getElementById("lang").addEventListener("change", e => {
 readHash();
 render();
 </script>
+<script src="fx.js"></script>
 </body>
 </html>
