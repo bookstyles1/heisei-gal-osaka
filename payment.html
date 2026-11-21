@@ -55,6 +55,10 @@ h2{font-size:1.5rem}
 .other a em{font-style:normal;font-size:.9rem;color:var(--muted);font-variant-numeric:tabular-nums}
 .other a[aria-current="true"]{background:var(--ink);color:#fff}
 .other a[aria-current="true"] em{color:var(--gold)}
+.hold{position:sticky;top:env(safe-area-inset-top,0px);z-index:8;background:var(--ink);color:#fff;text-align:center;padding:10px 16px;font-weight:600}
+.hold b{font-family:var(--f-lcd);font-size:1.5rem;font-weight:400;color:var(--gold);letter-spacing:.05em}
+.hold.over{background:var(--pink-deep)}
+.btn.off{opacity:.45;pointer-events:none}
 footer{background:var(--ink);color:#d9c3cf;font-size:.9rem;margin-top:40px}
 footer .wrap{padding-block:24px}
 </style>
@@ -80,15 +84,16 @@ footer .wrap{padding-block:24px}
   </div>
 </header>
 
+<div class="hold" id="hold" hidden role="status"></div>
 <main class="wrap">
   <div class="head">
     <ol class="stepper" aria-label="Booking steps">
-      <li class="on" data-i18n="s1">1 Your details</li>
-      <li class="on" data-i18n="s2">2 Date</li>
+      <li class="on" data-i18n="s1">1 Date</li>
+      <li class="on" data-i18n="s2">2 Your details</li>
       <li class="on" data-i18n="s3">3 Payment</li>
     </ol>
     <h1 data-i18n="h1">Last step: payment</h1>
-    <p class="muted" data-i18n="intro">Pay online to confirm your slot. We'll message you on WhatsApp within 24 hours with the studio address.</p>
+    <p class="muted" data-i18n="intro">Pay within 10 minutes of picking your slot to confirm your booking. We'll message you on WhatsApp within 24 hours with the studio address.</p>
   </div>
 
   <section class="summary" aria-live="polite">
@@ -113,7 +118,7 @@ footer .wrap{padding-block:24px}
     <h2 data-i18n="know_h">Good to know</h2>
     <ul>
       <li data-i18n="k1">Card payment through a secure checkout. Prices are in Japanese yen; your card company converts the amount.</li>
-      <li data-i18n="k2">Your booking is confirmed once payment is complete. Bookings left unpaid for 24 hours may be cancelled.</li>
+      <li data-i18n="k2">Your booking is confirmed only once payment is complete. If payment isn't completed within 10 minutes of picking your slot, the booking is not confirmed and the slot is released.</li>
       <li data-i18n="k3">Free cancellation up to 48 hours before the start time. No refund within 48 hours or for no-shows.</li>
       <li data-i18n="k4">Questions? Message us on WhatsApp: <b>+81 XX-XXXX-XXXX</b></li>
     </ul>
@@ -133,55 +138,55 @@ const PAYMENT_LINKS = {
 };
 /* ===================================== */
 
-const EN_DYN = { solo:"SOLO · 1 person", duo:"DUO · 2 people", trio:"TRIO · 3 people", squad:"SQUAD · 4 people", tax:"Tax included", per:"{p} per person · tax included", pay:"Pay {a} securely →" };
+const EN_DYN = { hold:"Slot held. Pay within <b>{t}</b> to confirm.", expired:"Time's up. Your booking is not confirmed. Please pick a slot again or message us on WhatsApp.", solo:"SOLO · 1 person", duo:"DUO · 2 people", trio:"TRIO · 3 people", squad:"SQUAD · 4 people", tax:"Tax included", per:"{p} per person · tax included", pay:"Pay {a} securely →" };
 
 const I18N = {
-ja:{back:"← 予約ページに戻る",s1:"1 情報入力",s2:"2 日時",s3:"3 お支払い",h1:"最後に、お支払い",
-intro:"オンラインでお支払いいただくと予約が確定します。24時間以内に、スタジオの住所をWhatsAppでお送りします。",
+ja:{expired:"時間切れです。予約は確定していません。もう一度日時を選ぶか、WhatsAppでご連絡ください。",hold:"枠を確保中。<b>{t}</b> 以内のお支払いで予約確定です。",back:"← 予約ページに戻る",s1:"1 日時",s2:"2 情報入力",s3:"3 お支払い",h1:"最後に、お支払い",
+intro:"日時を選んでから10分以内のお支払いで予約確定です。24時間以内に、スタジオの住所をWhatsAppでお送りします。",
 solo:"SOLO · 1名",duo:"DUO · 2名",trio:"TRIO · 3名",squad:"SQUAD · 4名",tax:"税込",per:"1人あたり{p}・税込",pay:"{a}を支払う →",
 wrong_h:"プランが違う場合",wrong_p:"人数に合ったプランを選んでください。",know_h:"お支払いについて",
 k1:"カード決済の安全な画面でお支払いいただきます。料金は日本円で、カード会社が自動で換算します。",
-k2:"お支払いが完了した時点で予約確定です。24時間以内にお支払いがない場合、予約を取り消すことがあります。",
+k2:"お支払いが完了して初めて予約確定です。日時を選んでから10分以内にお支払いが完了しない場合、予約は確定せず、枠は取り消されます。",
 k3:"開始時間の48時間前までは無料でキャンセルできます。48時間を切ってからのキャンセルや当日の不参加は返金できません。",
 k4:"質問はWhatsAppへ：<b>+81 XX-XXXX-XXXX</b>"},
-ko:{back:"← 예약 페이지로 돌아가기",s1:"1 정보 입력",s2:"2 날짜",s3:"3 결제",h1:"마지막 단계: 결제",
-intro:"온라인으로 결제하면 예약이 확정됩니다. 24시간 이내에 스튜디오 주소를 왓츠앱으로 보내 드립니다.",
+ko:{expired:"시간이 초과되었습니다. 예약이 확정되지 않았습니다. 다시 날짜를 고르거나 왓츠앱으로 연락해 주세요.",hold:"시간 확보 중. <b>{t}</b> 안에 결제하면 예약이 확정됩니다.",back:"← 예약 페이지로 돌아가기",s1:"1 날짜",s2:"2 정보 입력",s3:"3 결제",h1:"마지막 단계: 결제",
+intro:"날짜를 고른 후 10분 이내에 결제하면 예약이 확정됩니다. 24시간 이내에 스튜디오 주소를 왓츠앱으로 보내 드립니다.",
 solo:"SOLO · 1명",duo:"DUO · 2명",trio:"TRIO · 3명",squad:"SQUAD · 4명",tax:"세금 포함",per:"1인 {p} · 세금 포함",pay:"{a} 안전하게 결제하기 →",
 wrong_h:"플랜이 다른가요?",wrong_p:"인원에 맞는 플랜을 선택해 주세요.",know_h:"알아 두세요",
 k1:"안전한 결제 화면에서 카드로 결제합니다. 요금은 일본 엔화이며, 카드사에서 자동으로 환산합니다.",
-k2:"결제가 완료되면 예약이 확정됩니다. 24시간 동안 결제가 없으면 예약이 취소될 수 있습니다.",
+k2:"결제가 완료되어야 예약이 확정됩니다. 날짜를 고른 후 10분 이내에 결제가 완료되지 않으면 예약은 확정되지 않으며, 해당 시간은 취소됩니다.",
 k3:"시작 48시간 전까지 무료로 취소할 수 있습니다. 48시간 이내 취소나 노쇼는 환불되지 않습니다.",
 k4:"문의는 왓츠앱으로: <b>+81 XX-XXXX-XXXX</b>"},
-"zh-Hans":{back:"← 返回预约页面",s1:"1 填写信息",s2:"2 日期",s3:"3 付款",h1:"最后一步：付款",
-intro:"在线付款后即确认预约。我们会在24小时内通过WhatsApp发送工作室地址。",
+"zh-Hans":{expired:"已超时，预约未确认。请重新选择时间，或通过WhatsApp联系我们。",hold:"时段保留中。请在 <b>{t}</b> 内付款以确认预约。",back:"← 返回预约页面",s1:"1 日期",s2:"2 填写信息",s3:"3 付款",h1:"最后一步：付款",
+intro:"选择时间后10分钟内付款即确认预约。我们会在24小时内通过WhatsApp发送工作室地址。",
 solo:"SOLO · 1人",duo:"DUO · 2人",trio:"TRIO · 3人",squad:"SQUAD · 4人",tax:"含税",per:"每人{p} · 含税",pay:"安全支付{a} →",
 wrong_h:"选错套餐了？",wrong_p:"请选择与人数相符的套餐。",know_h:"付款须知",
 k1:"通过安全的结账页面以银行卡付款。价格以日元计，由发卡机构自动换算。",
-k2:"付款完成后预约即确认。24小时内未付款的预约可能会被取消。",
+k2:"只有付款完成后预约才会确认。如果选择时间后10分钟内未完成付款，预约将不会确认，时段也会被释放。",
 k3:"开始时间前48小时可免费取消。48小时内取消或未到场恕不退款。",
 k4:"有问题请通过WhatsApp联系：<b>+81 XX-XXXX-XXXX</b>"},
-"zh-Hant":{back:"← 返回預約頁面",s1:"1 填寫資料",s2:"2 日期",s3:"3 付款",h1:"最後一步：付款",
-intro:"線上付款後即確認預約。我們會在24小時內用WhatsApp傳送工作室地址。",
+"zh-Hant":{expired:"已超過時間，預約未成立。請重新選擇時間，或用WhatsApp聯絡我們。",hold:"時段保留中。請在 <b>{t}</b> 內付款以確認預約。",back:"← 返回預約頁面",s1:"1 日期",s2:"2 填寫資料",s3:"3 付款",h1:"最後一步：付款",
+intro:"選擇時間後10分鐘內付款即確認預約。我們會在24小時內用WhatsApp傳送工作室地址。",
 solo:"SOLO · 1人",duo:"DUO · 2人",trio:"TRIO · 3人",squad:"SQUAD · 4人",tax:"含稅",per:"每人{p} · 含稅",pay:"安全支付{a} →",
 wrong_h:"選錯方案了？",wrong_p:"請選擇與人數相符的方案。",know_h:"付款須知",
 k1:"透過安全的結帳頁面以信用卡付款。價格以日圓計算，由發卡銀行自動換算。",
-k2:"付款完成後預約即確認。24小時內未付款的預約可能會被取消。",
+k2:"付款完成後預約才會成立。如果選擇時間後10分鐘內沒有完成付款，預約不會成立，時段也會被釋出。",
 k3:"開始時間前48小時可免費取消。48小時內取消或未到場恕不退款。",
 k4:"有問題請用WhatsApp聯絡：<b>+81 XX-XXXX-XXXX</b>"},
-fr:{back:"← Retour à la réservation",s1:"1 Tes infos",s2:"2 Date",s3:"3 Paiement",h1:"Dernière étape : le paiement",
-intro:"Paie en ligne pour confirmer ton créneau. On t'écrit sur WhatsApp sous 24 heures avec l'adresse du studio.",
+fr:{expired:"Temps écoulé. Ta réservation n'est pas confirmée. Choisis un nouveau créneau ou écris-nous sur WhatsApp.",hold:"Créneau bloqué. Paie dans <b>{t}</b> pour confirmer.",back:"← Retour à la réservation",s1:"1 Date",s2:"2 Tes infos",s3:"3 Paiement",h1:"Dernière étape : le paiement",
+intro:"Paie dans les 10 minutes après avoir choisi ton créneau pour confirmer ta réservation. On t'écrit sur WhatsApp sous 24 heures avec l'adresse du studio.",
 solo:"SOLO · 1 personne",duo:"DUO · 2 personnes",trio:"TRIO · 3 personnes",squad:"SQUAD · 4 personnes",tax:"Taxes comprises",per:"{p} par personne · taxes comprises",pay:"Payer {a} en toute sécurité →",
 wrong_h:"Mauvaise formule ?",wrong_p:"Choisis la formule qui correspond à la taille de ton groupe.",know_h:"Bon à savoir",
 k1:"Paiement par carte via une page sécurisée. Les prix sont en yens ; ta banque fait la conversion.",
-k2:"Ta réservation est confirmée une fois le paiement effectué. Une réservation non payée sous 24 heures peut être annulée.",
+k2:"Ta réservation n'est confirmée qu'une fois le paiement effectué. Si le paiement n'est pas effectué dans les 10 minutes après le choix du créneau, la réservation n'est pas confirmée et le créneau est libéré.",
 k3:"Annulation gratuite jusqu'à 48 heures avant le début. Aucun remboursement dans les 48 heures ni en cas d'absence.",
 k4:"Des questions ? Écris-nous sur WhatsApp : <b>+81 XX-XXXX-XXXX</b>"},
-de:{back:"← Zurück zur Buchung",s1:"1 Deine Angaben",s2:"2 Datum",s3:"3 Zahlung",h1:"Letzter Schritt: Zahlung",
-intro:"Bezahle online, um deinen Termin zu bestätigen. Innerhalb von 24 Stunden schicken wir dir die Studioadresse per WhatsApp.",
+de:{expired:"Die Zeit ist abgelaufen. Deine Buchung ist nicht bestätigt. Wähle bitte erneut einen Termin oder schreib uns auf WhatsApp.",hold:"Termin reserviert. Bezahle innerhalb von <b>{t}</b>, um zu bestätigen.",back:"← Zurück zur Buchung",s1:"1 Datum",s2:"2 Deine Angaben",s3:"3 Zahlung",h1:"Letzter Schritt: Zahlung",
+intro:"Bezahle innerhalb von 10 Minuten nach der Terminwahl, um deine Buchung zu bestätigen. Innerhalb von 24 Stunden schicken wir dir die Studioadresse per WhatsApp.",
 solo:"SOLO · 1 Person",duo:"DUO · 2 Personen",trio:"TRIO · 3 Personen",squad:"SQUAD · 4 Personen",tax:"Inkl. Steuern",per:"{p} pro Person · inkl. Steuern",pay:"{a} sicher bezahlen →",
 wrong_h:"Falscher Plan?",wrong_p:"Wähle den Plan, der zu deiner Gruppengröße passt.",know_h:"Gut zu wissen",
 k1:"Kartenzahlung über einen sicheren Checkout. Die Preise sind in Yen; deine Bank rechnet den Betrag um.",
-k2:"Deine Buchung ist bestätigt, sobald die Zahlung abgeschlossen ist. Unbezahlte Buchungen können nach 24 Stunden storniert werden.",
+k2:"Deine Buchung ist erst nach abgeschlossener Zahlung bestätigt. Ist die Zahlung nicht innerhalb von 10 Minuten nach der Terminwahl abgeschlossen, ist die Buchung nicht bestätigt und der Termin wird freigegeben.",
 k3:"Kostenlose Stornierung bis 48 Stunden vor Beginn. Keine Erstattung innerhalb von 48 Stunden oder bei Nichterscheinen.",
 k4:"Fragen? Schreib uns auf WhatsApp: <b>+81 XX-XXXX-XXXX</b>"}
 };
@@ -195,13 +200,14 @@ const textEls = document.querySelectorAll("[data-i18n]");
 const EN = { ...EN_DYN };
 textEls.forEach(el => { EN[el.dataset.i18n] = el.innerHTML; });
 
-let plan = "solo", lang = "en";
+let plan = "solo", lang = "en", deadline = 0, timer = null;
 const T = k => (lang !== "en" && I18N[lang] && I18N[lang][k] != null) ? I18N[lang][k] : EN[k];
 
 function readHash() {
-  const [p, l] = location.hash.slice(1).split(".");
+  const [p, l, d] = location.hash.slice(1).split(".");
   plan = PLANS[p] ? p : "solo";
   lang = LANGS.includes(l) ? l : "en";
+  deadline = Number(d) || 0;
 }
 
 function render() {
@@ -215,17 +221,39 @@ function render() {
   const pay = document.getElementById("pay");
   pay.textContent = T("pay").replace("{a}", yen(p.total));
   pay.href = PAYMENT_LINKS[plan];
-  const suffix = lang === "en" ? "" : "." + lang;
+  const suffix = "." + lang + (deadline ? "." + deadline : "");
   document.querySelectorAll(".other a").forEach(a => {
     a.href = "#" + a.dataset.plan + suffix;
     a.setAttribute("aria-current", a.dataset.plan === plan ? "true" : "false");
   });
   document.getElementById("back").href = "booking.html" + (lang === "en" ? "" : "#" + lang);
+  startTimer();
 }
+function fmt(ms) {
+  const t = Math.max(0, Math.ceil(ms / 1000));
+  return String(Math.floor(t / 60)).padStart(2, "0") + ":" + String(t % 60).padStart(2, "0");
+}
+function tick() {
+  const bar = document.getElementById("hold");
+  if (!deadline) { bar.hidden = true; return; }
+  const left = deadline - Date.now();
+  bar.hidden = false;
+  const pay = document.getElementById("pay");
+  if (left <= 0) {
+    bar.classList.add("over");
+    bar.innerHTML = T("expired");
+    pay.classList.add("off");
+    pay.setAttribute("aria-disabled", "true");
+    clearInterval(timer);
+    return;
+  }
+  bar.innerHTML = T("hold").replace("{t}", fmt(left));
+}
+function startTimer() { clearInterval(timer); tick(); timer = setInterval(tick, 1000); }
 
 window.addEventListener("hashchange", () => { readHash(); render(); });
 document.getElementById("lang").addEventListener("change", e => {
-  location.hash = plan + (e.target.value === "en" ? "" : "." + e.target.value);
+  location.hash = plan + "." + e.target.value + (deadline ? "." + deadline : "");
 });
 readHash();
 render();

@@ -81,9 +81,16 @@ legend{font-weight:600;font-size:.95rem;margin-bottom:6px;padding:0}
 #timerex_calendar{min-height:560px}
 #timerex_calendar>div{min-width:0!important}
 #timerex_calendar iframe{width:100%!important;border:0!important;display:block}
+#form-body[hidden]{display:none!important}
 .locked-msg{border:2px dashed var(--line);border-radius:14px;padding:28px;text-align:center;background:var(--paper-2);font-weight:600}
 .fallback{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;font-size:.92rem;color:var(--muted)}
 .booked{background:var(--gold);border:3px solid var(--ink);border-radius:14px;padding:16px;font-family:var(--f-display);text-align:center}
+.rule{display:flex;gap:12px;align-items:flex-start;background:var(--gold);border:3px solid var(--ink);border-radius:14px;padding:14px 16px;font-size:.98rem;box-shadow:4px 4px 0 var(--ink)}
+.rule::before{content:"10:00";flex:none;font-family:var(--f-lcd);font-size:1.6rem;line-height:1;background:var(--ink);color:var(--gold);border-radius:8px;padding:4px 8px}
+.hold{position:sticky;top:env(safe-area-inset-top,0px);z-index:8;background:var(--ink);color:#fff;text-align:center;padding:10px 16px;font-weight:600}
+.hold b{font-family:var(--f-lcd);font-size:1.5rem;font-weight:400;color:var(--gold);letter-spacing:.05em}
+.hold.over{background:var(--pink-deep)}
+.btn[disabled]{opacity:.45;cursor:not-allowed;transform:none;box-shadow:4px 4px 0 var(--ink)}
 footer{background:var(--ink);color:#d9c3cf;font-size:.9rem;margin-top:40px}
 footer .wrap{padding-block:24px}
 </style>
@@ -109,22 +116,38 @@ footer .wrap{padding-block:24px}
   </div>
 </header>
 
+<div class="hold" id="hold" hidden role="status"></div>
 <main class="wrap">
   <div class="head">
     <ol class="stepper" aria-label="Booking steps">
-      <li class="on" id="step1" data-i18n="s1">1 Your details</li>
-      <li id="step2" data-i18n="s2">2 Date</li>
+      <li class="on" id="step1" data-i18n="s1">1 Date</li>
+      <li id="step2" data-i18n="s2">2 Your details</li>
       <li id="step3" data-i18n="s3">3 Payment</li>
     </ol>
     <h1 data-i18n="h1">Book your gal day</h1>
-    <p class="muted" data-i18n="intro">Tell us about your group, pick a slot, then pay online. Your booking is confirmed once payment is complete.</p>
+    <p class="muted" data-i18n="intro">Pick a slot, tell us about your group, then pay online within 10 minutes.</p>
+    <p class="rule" data-i18n="rule10"><span><b>Pay within 10 minutes.</b> After you pick a slot, you have 10 minutes to enter your details and pay. If payment isn't completed in time, your booking is not confirmed and the slot is released.</span></p>
   </div>
 
-  <!-- STEP 1: details form -->
-  <form class="card" id="details" novalidate>
+  <!-- STEP 1: TimeRex calendar -->
+  <section class="card" id="date">
     <span class="num">STEP 1</span>
-    <h2 data-i18n="st2h">Tell us about your group</h2>
+    <h2 data-i18n="st1h">Pick your date and time</h2>
+    <p class="muted" data-i18n="st1p">Pick an open slot in Japan time. You'll get an email from TimeRex, but your booking is only confirmed after payment.</p>
+    <div class="cal-frame"><div id="timerex_calendar"></div></div>
+    <div class="booked" id="booked" hidden data-i18n="booked">Slot held! Fill in your details below and pay within 10 minutes.</div>
+    <div class="fallback">
+      <span data-i18n="cal_p">Calendar not showing? Open it in a new tab.</span>
+      <a class="btn small" id="timerex-link" href="#" target="_blank" rel="noopener" data-i18n="cal_btn">Open the calendar</a>
+    </div>
+  </section>
 
+  <!-- STEP 2: details form, opens after a slot is picked -->
+  <form class="card locked" id="details" novalidate>
+    <span class="num">STEP 2</span>
+    <h2 data-i18n="st2h">Tell us about your group</h2>
+    <div class="locked-msg" id="locked" data-i18n="locked">Pick a slot above first. Then fill in your details here.</div>
+    <div id="form-body" hidden style="display:grid;gap:16px">
     <fieldset>
       <legend data-i18n="legend_plan">Plan</legend>
       <div class="plans">
@@ -152,29 +175,15 @@ footer .wrap{padding-block:24px}
     <label><span><span data-i18n="l_allergy">Skin sensitivity or allergies</span> <small data-i18n="l_allergy_s">tell us anything we should know before makeup</small></span><textarea name="allergies" id="f-allergies" data-i18n-ph="ph_allergy" placeholder="e.g. sensitive to fragrance, none"></textarea></label>
     <label><span><span data-i18n="l_notes">Anything else?</span> <small data-i18n="l_notes_s">outfit requests, special occasion, questions</small></span><textarea name="notes" id="f-notes"></textarea></label>
 
+    
     <label class="check"><input type="checkbox" name="agree" id="f-agree" required><span data-i18n="agree">I agree to the cancellation policy (free cancellation up to 48 hours before the start time) and understand that makeup is applied to my skin.</span></label>
 
     <div class="submit">
       <p class="err" id="err" role="alert" hidden data-i18n="err">Please fill in the highlighted fields.</p>
-      <button class="btn" type="submit" data-i18n="submit">Continue to pick a date →</button>
+      <button class="btn" type="submit" id="to-pay" data-i18n="submit">Continue to payment →</button>
+    </div>
     </div>
   </form>
-
-  <!-- STEP 2: TimeRex calendar, opens after step 1 -->
-  <section class="card locked" id="date">
-    <span class="num">STEP 2</span>
-    <h2 data-i18n="st1h">Pick your date and time</h2>
-    <p class="muted" data-i18n="st1p">Pick an open slot in Japan time. You'll get a confirmation email from TimeRex right away.</p>
-    <div class="locked-msg" id="locked" data-i18n="locked">Fill in your details above first. The calendar opens here.</div>
-    <div id="cal-area" hidden>
-      <div class="cal-frame"><div id="timerex_calendar"></div></div>
-      <div class="booked" id="booked" hidden data-i18n="booked">Booked! Taking you to payment…</div>
-      <div class="fallback" style="margin-top:14px">
-        <span data-i18n="cal_p">Calendar not showing? Open it in a new tab.</span>
-        <a class="btn small" id="timerex-link" href="#" target="_blank" rel="noopener" data-i18n="cal_btn">Open the calendar</a>
-      </div>
-    </div>
-  </section>
 </main>
 
 <footer><div class="wrap">HEISEI GAL OSAKA · Shinsaibashi, Osaka, Japan</div></footer>
@@ -185,77 +194,82 @@ footer .wrap{padding-block:24px}
 const TIMEREX_URL = "https://timerex.net/s/koshiro.styles1d_6a50/6d4b48ad";
 // TimeRexのプレミアムプランなら効く設定（無料プランでは無視される）
 const TIMEREX_COLOR = "#ff2e93";
+// 入力内容の送り先（Google Apps ScriptのWebアプリURLなど）。空のままだと入力内容はどこにも保存されない
+const FORM_ENDPOINT = "";
+// 日程を押さえてから支払いまでの制限時間（分）
+const HOLD_MINUTES = 10;
 /* ===================================== */
 
+const EN_EXTRA = { hold:"Slot held. Pay within <b>{t}</b> to confirm.", expired:"Time's up. Your booking is not confirmed. Please pick a slot again or message us on WhatsApp." };
 const EN_GUEST = { guest:"GUEST", g_name:"Name", g_height:"Height (cm)", g_size:"Clothing size", g_shoe:"Shoe size", g_shoe_s:"with unit, e.g. EU 38 / US 7", g_style:"Style", sty0:"Not sure yet", sty1:"Ganguro (tanned)", sty2:"Shiro-gal (fair)", choose:"Choose" };
 
 const I18N = {
-ja:{back:"← サイトに戻る",s1:"1 情報入力",s2:"2 日時",s3:"3 お支払い",h1:"ギャル体験を予約する",
-intro:"参加者の情報を入力して、日時を選び、オンラインでお支払いください。お支払いが完了した時点で予約確定です。",
-st1h:"日時を選ぶ",st1p:"空いている枠を選んでください（日本時間）。予約するとTimeRexから確認メールがすぐに届きます。",
-locked:"先に上の情報を入力してください。入力すると、ここにカレンダーが表示されます。",
-cal_p:"カレンダーが表示されない場合は、新しいタブで開いてください。",cal_btn:"カレンダーを開く",booked:"予約できました。お支払いページへ移動します…",
+ja:{expired:"時間切れです。予約は確定していません。もう一度日時を選ぶか、WhatsAppでご連絡ください。",hold:"枠を確保中。<b>{t}</b> 以内のお支払いで予約確定です。",rule10:"<span><b>10分以内にお支払いください。</b>日時を選んでから10分以内に、情報の入力とお支払いを完了してください。時間内にお支払いが完了しない場合、予約は確定せず、枠は取り消されます。</span>",back:"← サイトに戻る",s1:"1 日時",s2:"2 情報入力",s3:"3 お支払い",h1:"ギャル体験を予約する",
+intro:"日時を選び、参加者の情報を入力して、10分以内にオンラインでお支払いください。",
+st1h:"日時を選ぶ",st1p:"空いている枠を選んでください（日本時間）。TimeRexからメールが届きますが、予約が確定するのはお支払いの完了後です。",
+locked:"先に上のカレンダーで日時を選んでください。そのあと、ここで情報を入力します。",
+cal_p:"カレンダーが表示されない場合は、新しいタブで開いてください。",cal_btn:"カレンダーを開く",booked:"枠を確保しました。10分以内に、下の情報入力とお支払いを完了してください。",
 st2h:"参加者の情報",legend_plan:"プラン",p1:"1名",p2:"2名",p3:"3名",p4:"4名",
 choose:"選択してください",l_name:"お名前（フルネーム）",l_email:"メールアドレス",l_wa:"WhatsAppの番号",l_wa_s:"国番号から",l_country:"国",l_social:"InstagramまたはTikTok",l_social_s:"任意。投稿でタグ付けします",l_hotel:"宿泊先",opt:"任意",ph_hotel:"ホテル名やエリア",
 legend_guest:"参加者ごとの情報",legend_guest_s:"到着までに服を用意しておくためです",
 guest:"参加者",g_name:"お名前",g_height:"身長（cm）",g_size:"服のサイズ",g_shoe:"靴のサイズ",g_shoe_s:"単位も。例：24cm / EU 38",g_style:"スタイル",sty0:"まだ決めていない",sty1:"ガングロ（日焼け肌）",sty2:"白ギャル（色白）",
 l_allergy:"肌の弱さ・アレルギー",l_allergy_s:"メイクの前に知っておくべきことがあれば",ph_allergy:"例：香料に敏感、特になし",l_notes:"そのほか",l_notes_s:"服のリクエスト、記念日、質問など",
-agree:"キャンセル規定（開始時間の48時間前までは無料）に同意し、肌にメイクをすることを理解しました。",err:"赤枠の項目を入力してください。",submit:"日時を選ぶ →"},
-ko:{back:"← 사이트로 돌아가기",s1:"1 정보 입력",s2:"2 날짜",s3:"3 결제",h1:"갸루 체험 예약하기",
-intro:"참가자 정보를 입력하고 날짜를 고른 뒤 온라인으로 결제해 주세요. 결제가 완료되면 예약이 확정됩니다.",
-st1h:"날짜와 시간 선택",st1p:"비어 있는 시간을 골라 주세요(일본 시간). 예약하면 TimeRex에서 확인 메일이 바로 발송됩니다.",
-locked:"먼저 위의 정보를 입력해 주세요. 입력하면 여기에 캘린더가 표시됩니다.",
-cal_p:"캘린더가 보이지 않으면 새 탭에서 열어 주세요.",cal_btn:"캘린더 열기",booked:"예약되었습니다! 결제 페이지로 이동합니다…",
+agree:"キャンセル規定（開始時間の48時間前までは無料）に同意し、肌にメイクをすることを理解しました。",err:"赤枠の項目を入力してください。",submit:"お支払いへ進む →"},
+ko:{expired:"시간이 초과되었습니다. 예약이 확정되지 않았습니다. 다시 날짜를 고르거나 왓츠앱으로 연락해 주세요.",hold:"시간 확보 중. <b>{t}</b> 안에 결제하면 예약이 확정됩니다.",rule10:"<span><b>10분 이내에 결제해 주세요.</b> 날짜를 고른 후 10분 이내에 정보 입력과 결제를 마쳐야 합니다. 시간 안에 결제가 완료되지 않으면 예약은 확정되지 않으며, 해당 시간은 취소됩니다.</span>",back:"← 사이트로 돌아가기",s1:"1 날짜",s2:"2 정보 입력",s3:"3 결제",h1:"갸루 체험 예약하기",
+intro:"날짜를 고르고 참가자 정보를 입력한 뒤, 10분 이내에 온라인으로 결제해 주세요.",
+st1h:"날짜와 시간 선택",st1p:"비어 있는 시간을 골라 주세요(일본 시간). TimeRex에서 메일이 오지만, 예약은 결제 완료 후에 확정됩니다.",
+locked:"먼저 위의 캘린더에서 날짜를 골라 주세요. 그다음 여기에서 정보를 입력합니다.",
+cal_p:"캘린더가 보이지 않으면 새 탭에서 열어 주세요.",cal_btn:"캘린더 열기",booked:"시간을 확보했습니다! 10분 이내에 아래 정보 입력과 결제를 마쳐 주세요.",
 st2h:"참가자 정보",legend_plan:"플랜",p1:"1명",p2:"2명",p3:"3명",p4:"4명",
 choose:"선택",l_name:"이름(전체)",l_email:"이메일",l_wa:"왓츠앱 번호",l_wa_s:"국가 번호 포함",l_country:"국가",l_social:"인스타그램 또는 틱톡",l_social_s:"선택 사항, 게시물에 태그해 드려요",l_hotel:"숙소",opt:"선택 사항",ph_hotel:"호텔 이름 또는 지역",
 legend_guest:"참가자별 정보",legend_guest_s:"도착 전에 옷을 준비해 두기 위해서입니다",
 guest:"참가자",g_name:"이름",g_height:"키(cm)",g_size:"옷 사이즈",g_shoe:"신발 사이즈",g_shoe_s:"단위 포함, 예: 240mm / EU 38",g_style:"스타일",sty0:"아직 모르겠어요",sty1:"강구로(태닝 피부)",sty2:"시로갸루(하얀 피부)",
 l_allergy:"피부 민감도 또는 알레르기",l_allergy_s:"메이크업 전에 알아야 할 점이 있다면",ph_allergy:"예: 향료에 민감함, 없음",l_notes:"기타",l_notes_s:"의상 요청, 기념일, 질문 등",
-agree:"취소 규정(시작 48시간 전까지 무료 취소)에 동의하며, 피부에 메이크업을 한다는 점을 이해했습니다.",err:"표시된 항목을 입력해 주세요.",submit:"날짜 선택하기 →"},
-"zh-Hans":{back:"← 返回网站",s1:"1 填写信息",s2:"2 日期",s3:"3 付款",h1:"预约辣妹体验",
-intro:"填写参加者信息，选择时间，然后在线付款。付款完成后预约即确认。",
-st1h:"选择日期和时间",st1p:"请选择空闲时段（日本时间）。预约后TimeRex会立即发送确认邮件。",
-locked:"请先填写上面的信息，填写后日历会显示在这里。",
-cal_p:"日历没有显示？请在新标签页中打开。",cal_btn:"打开日历",booked:"预约成功！正在前往付款页面…",
+agree:"취소 규정(시작 48시간 전까지 무료 취소)에 동의하며, 피부에 메이크업을 한다는 점을 이해했습니다.",err:"표시된 항목을 입력해 주세요.",submit:"결제로 진행 →"},
+"zh-Hans":{expired:"已超时，预约未确认。请重新选择时间，或通过WhatsApp联系我们。",hold:"时段保留中。请在 <b>{t}</b> 内付款以确认预约。",rule10:"<span><b>请在10分钟内付款。</b>选择时间后，请在10分钟内填写信息并完成付款。如果未能按时完成付款，预约将不会确认，时段也会被释放。</span>",back:"← 返回网站",s1:"1 日期",s2:"2 填写信息",s3:"3 付款",h1:"预约辣妹体验",
+intro:"选择时间，填写参加者信息，然后在10分钟内在线付款。",
+st1h:"选择日期和时间",st1p:"请选择空闲时段（日本时间）。TimeRex会发送邮件，但只有付款完成后预约才会确认。",
+locked:"请先在上面的日历中选择时间，然后在这里填写信息。",
+cal_p:"日历没有显示？请在新标签页中打开。",cal_btn:"打开日历",booked:"已为你保留时段！请在10分钟内填写下面的信息并完成付款。",
 st2h:"参加者信息",legend_plan:"套餐",p1:"1人",p2:"2人",p3:"3人",p4:"4人",
 choose:"请选择",l_name:"姓名（全名）",l_email:"电子邮箱",l_wa:"WhatsApp号码",l_wa_s:"请包含国家代码",l_country:"国家/地区",l_social:"Instagram或TikTok",l_social_s:"选填，方便我们发布时标记你",l_hotel:"住宿地点",opt:"选填",ph_hotel:"酒店名称或区域",
 legend_guest:"每位参加者的信息",legend_guest_s:"以便在你到达前准备好服装",
 guest:"参加者",g_name:"姓名",g_height:"身高（cm）",g_size:"衣服尺码",g_shoe:"鞋码",g_shoe_s:"请注明单位，例如：EU 38 / 240mm",g_style:"风格",sty0:"还没决定",sty1:"黑辣妹（美黑肌）",sty2:"白辣妹（白皙肌）",
 l_allergy:"皮肤敏感或过敏",l_allergy_s:"化妆前需要我们知道的事项",ph_allergy:"例如：对香料敏感、无",l_notes:"其他",l_notes_s:"服装要求、纪念日、问题等",
-agree:"我同意取消政策（开始时间前48小时可免费取消），并了解会在我的皮肤上化妆。",err:"请填写标出的项目。",submit:"选择日期 →"},
-"zh-Hant":{back:"← 返回網站",s1:"1 填寫資料",s2:"2 日期",s3:"3 付款",h1:"預約辣妹體驗",
-intro:"填寫參加者資料、選擇時間，再線上付款。付款完成後預約即確認。",
-st1h:"選擇日期和時間",st1p:"請選擇空檔（日本時間）。預約後TimeRex會立即寄出確認信。",
-locked:"請先填寫上面的資料，填寫後日曆會顯示在這裡。",
-cal_p:"日曆沒有顯示？請在新分頁中開啟。",cal_btn:"打開日曆",booked:"預約成功！正在前往付款頁面…",
+agree:"我同意取消政策（开始时间前48小时可免费取消），并了解会在我的皮肤上化妆。",err:"请填写标出的项目。",submit:"前往付款 →"},
+"zh-Hant":{expired:"已超過時間，預約未成立。請重新選擇時間，或用WhatsApp聯絡我們。",hold:"時段保留中。請在 <b>{t}</b> 內付款以確認預約。",rule10:"<span><b>請在10分鐘內付款。</b>選擇時間後，請在10分鐘內填寫資料並完成付款。如果沒有在時間內完成付款，預約不會成立，時段也會被釋出。</span>",back:"← 返回網站",s1:"1 日期",s2:"2 填寫資料",s3:"3 付款",h1:"預約辣妹體驗",
+intro:"選擇時間、填寫參加者資料，再於10分鐘內線上付款。",
+st1h:"選擇日期和時間",st1p:"請選擇空檔（日本時間）。TimeRex會寄信給你，但付款完成後預約才會成立。",
+locked:"請先在上面的日曆選擇時間，再到這裡填寫資料。",
+cal_p:"日曆沒有顯示？請在新分頁中開啟。",cal_btn:"打開日曆",booked:"已為你保留時段！請在10分鐘內填寫下面的資料並完成付款。",
 st2h:"參加者資料",legend_plan:"方案",p1:"1人",p2:"2人",p3:"3人",p4:"4人",
 choose:"請選擇",l_name:"姓名（全名）",l_email:"電子郵件",l_wa:"WhatsApp號碼",l_wa_s:"請包含國碼",l_country:"國家/地區",l_social:"Instagram或TikTok",l_social_s:"選填，方便我們發文時標註你",l_hotel:"住宿地點",opt:"選填",ph_hotel:"飯店名稱或區域",
 legend_guest:"每位參加者的資料",legend_guest_s:"方便在你到達前準備好服裝",
 guest:"參加者",g_name:"姓名",g_height:"身高（cm）",g_size:"衣服尺寸",g_shoe:"鞋子尺寸",g_shoe_s:"請註明單位，例如：EU 38 / 24cm",g_style:"風格",sty0:"還沒決定",sty1:"黑辣妹（日曬肌）",sty2:"白辣妹（白皙肌）",
 l_allergy:"皮膚敏感或過敏",l_allergy_s:"化妝前需要我們知道的事",ph_allergy:"例如：對香料敏感、無",l_notes:"其他",l_notes_s:"服裝需求、紀念日、問題等",
-agree:"我同意取消政策（開始時間前48小時可免費取消），並了解會在我的皮膚上化妝。",err:"請填寫標示的項目。",submit:"選擇日期 →"},
-fr:{back:"← Retour au site",s1:"1 Tes infos",s2:"2 Date",s3:"3 Paiement",h1:"Réserve ta journée gal",
-intro:"Parle-nous de ton groupe, choisis un créneau, puis paie en ligne. Ta réservation est confirmée une fois le paiement effectué.",
-st1h:"Choisis ta date et ton horaire",st1p:"Choisis un créneau libre (heure du Japon). TimeRex t'envoie un e-mail de confirmation tout de suite.",
-locked:"Remplis d'abord tes infos ci-dessus. Le calendrier s'affichera ici.",
-cal_p:"Le calendrier ne s'affiche pas ? Ouvre-le dans un nouvel onglet.",cal_btn:"Ouvrir le calendrier",booked:"C'est réservé ! Direction le paiement…",
+agree:"我同意取消政策（開始時間前48小時可免費取消），並了解會在我的皮膚上化妝。",err:"請填寫標示的項目。",submit:"前往付款 →"},
+fr:{expired:"Temps écoulé. Ta réservation n'est pas confirmée. Choisis un nouveau créneau ou écris-nous sur WhatsApp.",hold:"Créneau bloqué. Paie dans <b>{t}</b> pour confirmer.",rule10:"<span><b>Paie dans les 10 minutes.</b> Après avoir choisi un créneau, tu as 10 minutes pour remplir tes infos et payer. Si le paiement n'est pas effectué à temps, ta réservation n'est pas confirmée et le créneau est libéré.</span>",back:"← Retour au site",s1:"1 Date",s2:"2 Tes infos",s3:"3 Paiement",h1:"Réserve ta journée gal",
+intro:"Choisis un créneau, parle-nous de ton groupe, puis paie en ligne dans les 10 minutes.",
+st1h:"Choisis ta date et ton horaire",st1p:"Choisis un créneau libre (heure du Japon). TimeRex t'envoie un e-mail, mais ta réservation n'est confirmée qu'après le paiement.",
+locked:"Choisis d'abord un créneau ci-dessus. Ensuite, remplis tes infos ici.",
+cal_p:"Le calendrier ne s'affiche pas ? Ouvre-le dans un nouvel onglet.",cal_btn:"Ouvrir le calendrier",booked:"Créneau bloqué ! Remplis tes infos ci-dessous et paie dans les 10 minutes.",
 st2h:"Parle-nous de ton groupe",legend_plan:"Formule",p1:"1 personne",p2:"2 personnes",p3:"3 personnes",p4:"4 personnes",
 choose:"Choisir",l_name:"Nom complet",l_email:"E-mail",l_wa:"Numéro WhatsApp",l_wa_s:"avec l'indicatif du pays",l_country:"Pays",l_social:"Instagram ou TikTok",l_social_s:"facultatif, pour qu'on puisse t'identifier",l_hotel:"Où loges-tu ?",opt:"facultatif",ph_hotel:"Nom de l'hôtel ou quartier",
 legend_guest:"Chaque participant",legend_guest_s:"pour que les tenues soient prêtes à votre arrivée",
 guest:"PARTICIPANT",g_name:"Nom",g_height:"Taille (cm)",g_size:"Taille de vêtements",g_shoe:"Pointure",g_shoe_s:"avec l'unité, ex. EU 38 / US 7",g_style:"Style",sty0:"Je ne sais pas encore",sty1:"Ganguro (bronzée)",sty2:"Shiro-gal (teint clair)",
 l_allergy:"Peau sensible ou allergies",l_allergy_s:"tout ce qu'on doit savoir avant le maquillage",ph_allergy:"ex. sensible aux parfums, aucune",l_notes:"Autre chose ?",l_notes_s:"demandes de tenue, occasion spéciale, questions",
-agree:"J'accepte la politique d'annulation (gratuite jusqu'à 48 heures avant le début) et je comprends que du maquillage sera appliqué sur ma peau.",err:"Merci de remplir les champs signalés.",submit:"Choisir une date →"},
-de:{back:"← Zurück zur Website",s1:"1 Deine Angaben",s2:"2 Datum",s3:"3 Zahlung",h1:"Buche deinen Gal-Tag",
-intro:"Erzähl uns von deiner Gruppe, wähle einen Termin und bezahle online. Deine Buchung ist bestätigt, sobald die Zahlung abgeschlossen ist.",
-st1h:"Datum und Uhrzeit wählen",st1p:"Wähle einen freien Termin (japanische Zeit). TimeRex schickt dir sofort eine Bestätigungs-E-Mail.",
-locked:"Fülle zuerst oben deine Angaben aus. Danach erscheint hier der Kalender.",
-cal_p:"Kalender wird nicht angezeigt? Öffne ihn in einem neuen Tab.",cal_btn:"Kalender öffnen",booked:"Gebucht! Weiter zur Zahlung…",
+agree:"J'accepte la politique d'annulation (gratuite jusqu'à 48 heures avant le début) et je comprends que du maquillage sera appliqué sur ma peau.",err:"Merci de remplir les champs signalés.",submit:"Continuer vers le paiement →"},
+de:{expired:"Die Zeit ist abgelaufen. Deine Buchung ist nicht bestätigt. Wähle bitte erneut einen Termin oder schreib uns auf WhatsApp.",hold:"Termin reserviert. Bezahle innerhalb von <b>{t}</b>, um zu bestätigen.",rule10:"<span><b>Innerhalb von 10 Minuten bezahlen.</b> Nach der Terminwahl hast du 10 Minuten, um deine Angaben einzutragen und zu bezahlen. Ist die Zahlung nicht rechtzeitig abgeschlossen, ist deine Buchung nicht bestätigt und der Termin wird wieder freigegeben.</span>",back:"← Zurück zur Website",s1:"1 Datum",s2:"2 Deine Angaben",s3:"3 Zahlung",h1:"Buche deinen Gal-Tag",
+intro:"Wähle einen Termin, erzähl uns von deiner Gruppe und bezahle innerhalb von 10 Minuten online.",
+st1h:"Datum und Uhrzeit wählen",st1p:"Wähle einen freien Termin (japanische Zeit). Du bekommst eine E-Mail von TimeRex, bestätigt ist die Buchung aber erst nach der Zahlung.",
+locked:"Wähle zuerst oben einen Termin. Danach trägst du hier deine Angaben ein.",
+cal_p:"Kalender wird nicht angezeigt? Öffne ihn in einem neuen Tab.",cal_btn:"Kalender öffnen",booked:"Termin reserviert! Trag unten deine Angaben ein und bezahle innerhalb von 10 Minuten.",
 st2h:"Erzähl uns von deiner Gruppe",legend_plan:"Plan",p1:"1 Person",p2:"2 Personen",p3:"3 Personen",p4:"4 Personen",
 choose:"Auswählen",l_name:"Vollständiger Name",l_email:"E-Mail",l_wa:"WhatsApp-Nummer",l_wa_s:"mit Ländervorwahl",l_country:"Land",l_social:"Instagram oder TikTok",l_social_s:"optional, damit wir dich markieren können",l_hotel:"Wo übernachtest du?",opt:"optional",ph_hotel:"Hotelname oder Gegend",
 legend_guest:"Jeder Gast",legend_guest_s:"damit die Outfits bei eurer Ankunft bereitliegen",
 guest:"GAST",g_name:"Name",g_height:"Körpergröße (cm)",g_size:"Kleidergröße",g_shoe:"Schuhgröße",g_shoe_s:"mit Einheit, z. B. EU 38 / US 7",g_style:"Stil",sty0:"Noch unsicher",sty1:"Ganguro (gebräunt)",sty2:"Shiro-Gal (hell)",
 l_allergy:"Empfindliche Haut oder Allergien",l_allergy_s:"alles, was wir vor dem Make-up wissen sollten",ph_allergy:"z. B. empfindlich gegen Duftstoffe, keine",l_notes:"Sonst noch etwas?",l_notes_s:"Outfit-Wünsche, besonderer Anlass, Fragen",
-agree:"Ich akzeptiere die Stornobedingungen (kostenlos bis 48 Stunden vor Beginn) und verstehe, dass Make-up auf meine Haut aufgetragen wird.",err:"Bitte fülle die markierten Felder aus.",submit:"Weiter zur Terminwahl →"}
+agree:"Ich akzeptiere die Stornobedingungen (kostenlos bis 48 Stunden vor Beginn) und verstehe, dass Make-up auf meine Haut aufgetragen wird.",err:"Bitte fülle die markierten Felder aus.",submit:"Weiter zur Zahlung →"}
 };
 I18N["de-CH"] = Object.fromEntries(Object.entries(I18N.de).map(([k, v]) => [k, v.replace(/ß/g, "ss")]));
 
@@ -266,7 +280,7 @@ document.getElementById("timerex-link").href = TIMEREX_URL;
 
 const textEls = document.querySelectorAll("[data-i18n]");
 const phEls = document.querySelectorAll("[data-i18n-ph]");
-const EN = { ...EN_GUEST };
+const EN = { ...EN_GUEST, ...EN_EXTRA };
 textEls.forEach(el => { EN[el.dataset.i18n] = el.innerHTML; });
 phEls.forEach(el => { EN[el.dataset.i18nPh] = el.placeholder; });
 const T = k => (lang !== "en" && I18N[lang] && I18N[lang][k] != null) ? I18N[lang][k] : EN[k];
@@ -321,67 +335,77 @@ document.getElementById("lang").addEventListener("change", e => {
 });
 applyLang(lang);
 
-/* Everything the guest typed, as one block of text for the TimeRex booking comment */
-function summary(data) {
-  const plan = data.get("plan");
-  const lines = [
-    `Plan: ${plan.toUpperCase()} (${COUNT[plan]})`,
-    `WhatsApp: ${data.get("whatsapp")}`,
-    `Country: ${data.get("country")}`,
-    `Language: ${lang}`
-  ];
-  if (data.get("social")) lines.push(`SNS: ${data.get("social")}`);
-  if (data.get("hotel")) lines.push(`Hotel: ${data.get("hotel")}`);
-  for (let i = 1; i <= COUNT[plan]; i++) {
-    const who = i === 1 ? data.get("name") : data.get(`g${i}_name`);
-    lines.push(`Guest ${i} ${who}: ${data.get(`g${i}_height`)}cm / ${data.get(`g${i}_size`)} / shoe ${data.get(`g${i}_shoe`)} / ${data.get(`g${i}_style`)}`);
-  }
-  lines.push(`Skin/allergies: ${data.get("allergies") || "-"}`);
-  if (data.get("notes")) lines.push(`Notes: ${data.get("notes")}`);
-  return lines.join("\n");
-}
+/* ---------- STEP 1: calendar loads right away ---------- */
+let deadline = 0, timer = null;
+try { const d = Number(sessionStorage.getItem("hgo-deadline")); if (d > Date.now()) deadline = d; } catch (e) {}
 
-let timerexLoaded = false;
-function openCalendar(data) {
-  const plan = data.get("plan");
-  document.getElementById("date").classList.remove("locked");
-  document.getElementById("locked").hidden = true;
-  document.getElementById("cal-area").hidden = false;
-  document.getElementById("step1").className = "done";
-  document.getElementById("step2").className = "on";
-
+function loadCalendar() {
   const box = document.getElementById("timerex_calendar");
   box.innerHTML = "";
   box.setAttribute("data-url", TIMEREX_URL);
   const opts = {
-    guest_name: data.get("name"),
-    guest_email: data.get("email"),
-    guest_comment: summary(data),
     locale: lang === "ja" ? "ja" : "en",
     primary_color: TIMEREX_COLOR,
     disable_logo: "true",
-    url_params: { plan: plan, lang: lang },
-    onBookingComplete: function () {
-      document.getElementById("booked").hidden = false;
-      setTimeout(() => { location.href = "payment.html#" + plan + (lang === "en" ? "" : "." + lang); }, 1800);
-    }
+    url_params: { lang: lang },
+    onBookingComplete: slotHeld
   };
   const start = () => { try { window.TimerexCalendar(opts); } catch (e) {} };
-  if (timerexLoaded && window.TimerexCalendar) { start(); }
-  else {
-    const s = document.createElement("script");
-    s.id = "timerex_embed";
-    s.src = "https://asset.timerex.net/js/embed.js";
-    s.onload = () => { timerexLoaded = true; start(); };
-    document.body.appendChild(s);
-  }
-  document.getElementById("date").scrollIntoView({ behavior: "smooth", block: "start" });
+  if (window.TimerexCalendar) { start(); return; }
+  const s = document.createElement("script");
+  s.id = "timerex_embed";
+  s.src = "https://asset.timerex.net/js/embed.js";
+  s.onload = start;
+  document.body.appendChild(s);
 }
 
+/* ---------- after a slot is picked: 10-minute hold ---------- */
+function slotHeld() {
+  deadline = Date.now() + HOLD_MINUTES * 60 * 1000;
+  try { sessionStorage.setItem("hgo-deadline", String(deadline)); } catch (e) {}
+  openDetails();
+}
+function openDetails() {
+  document.getElementById("booked").hidden = false;
+  document.getElementById("step1").className = "done";
+  document.getElementById("step2").className = "on";
+  const f = document.getElementById("details");
+  f.classList.remove("locked");
+  document.getElementById("locked").hidden = true;
+  document.getElementById("form-body").hidden = false;
+  startTimer();
+  f.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+function fmt(ms) {
+  const t = Math.max(0, Math.ceil(ms / 1000));
+  return String(Math.floor(t / 60)).padStart(2, "0") + ":" + String(t % 60).padStart(2, "0");
+}
+function tick() {
+  const bar = document.getElementById("hold");
+  const left = deadline - Date.now();
+  bar.hidden = false;
+  if (left <= 0) {
+    bar.classList.add("over");
+    bar.innerHTML = T("expired");
+    document.getElementById("to-pay").disabled = true;
+    clearInterval(timer);
+    try { sessionStorage.removeItem("hgo-deadline"); } catch (e) {}
+    return;
+  }
+  bar.innerHTML = T("hold").replace("{t}", fmt(left));
+}
+function startTimer() { clearInterval(timer); tick(); timer = setInterval(tick, 1000); }
+
+loadCalendar();
+if (deadline) openDetails();
+document.getElementById("lang").addEventListener("change", () => { loadCalendar(); if (deadline) tick(); });
+
+/* ---------- STEP 2 → payment ---------- */
 const form = document.getElementById("details");
 const err = document.getElementById("err");
-form.addEventListener("submit", (e) => {
+form.addEventListener("submit", async (e) => {
   e.preventDefault();
+  if (!deadline || deadline <= Date.now()) return;
   let ok = true;
   form.querySelectorAll("[required]").forEach(el => {
     const bad = el.type === "checkbox" ? !el.checked : (!el.checkValidity() || !String(el.value).trim());
@@ -390,7 +414,13 @@ form.addEventListener("submit", (e) => {
   });
   err.hidden = ok;
   if (!ok) { form.querySelector(".bad")?.focus(); return; }
-  openCalendar(new FormData(form));
+  const data = new FormData(form);
+  data.append("language", lang);
+  data.append("hold_deadline", new Date(deadline).toISOString());
+  if (FORM_ENDPOINT) {
+    try { await fetch(FORM_ENDPOINT, { method: "POST", mode: "no-cors", body: data }); } catch (_) {}
+  }
+  location.href = "payment.html#" + data.get("plan") + "." + lang + "." + deadline;
 });
 </script>
 </body>
