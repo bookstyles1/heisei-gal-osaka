@@ -247,6 +247,9 @@ function tick() {
     clearInterval(timer);
     return;
   }
+  bar.classList.remove("over");
+  pay.classList.remove("off");
+  pay.removeAttribute("aria-disabled");
   bar.innerHTML = T("hold").replace("{t}", fmt(left));
 }
 function startTimer() { clearInterval(timer); tick(); timer = setInterval(tick, 1000); }
