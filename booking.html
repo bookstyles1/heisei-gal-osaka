@@ -77,7 +77,9 @@ legend{font-weight:600;font-size:.95rem;margin-bottom:6px;padding:0}
 /* calendar frame: a purikura-style frame around the TimeRex widget */
 .cal-frame{position:relative;border:3px solid var(--ink);border-radius:16px;background:#fff;padding:10px;box-shadow:6px 6px 0 var(--pink);overflow:hidden}
 .cal-frame::before{content:"♥ PICK YOUR DAY ♥";display:block;text-align:center;font-family:var(--f-lcd);font-size:1.2rem;letter-spacing:.1em;color:#fff;background:var(--pink);margin:-10px -10px 10px;padding:6px}
+.card>*{min-width:0}
 #timerex_calendar{min-height:560px}
+#timerex_calendar>div{min-width:0!important}
 #timerex_calendar iframe{width:100%!important;border:0!important;display:block}
 .locked-msg{border:2px dashed var(--line);border-radius:14px;padding:28px;text-align:center;background:var(--paper-2);font-weight:600}
 .fallback{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;font-size:.92rem;color:var(--muted)}
